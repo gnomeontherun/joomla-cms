@@ -44,14 +44,16 @@ JHtml::_('behavior.modal');
 <script type="text/javascript">
 	// Hide/show all rows which are not assigned.
 	window.addEvent('domready', function(){
-	//	$$('.adminlist tr.no').hide();
 		document.id('showmods').addEvent('click', function(e) {
-		//	e.preventDefault();
 			if ($$('.adminlist tr.no').getStyle('display')[0] == 'none') {
 				$$('.adminlist tr.no').show();
 			} else {
 				$$('.adminlist tr.no').hide();
 			}
+		});
+		// Set the client_id if the menutype changes
+		$('jform_menutype').addEvent('click', function() {
+			// @TODO	
 		});
 	});
 </script>
@@ -146,6 +148,7 @@ JHtml::_('behavior.modal');
 
 	<input type="hidden" name="task" value="" />
 	<?php echo $this->form->getInput('component_id'); ?>
+	<?php echo $this->form->getInput('client_id'); ?>
 	<?php echo JHtml::_('form.token'); ?>
 	<input type="hidden" id="fieldtype" name="fieldtype" value="" />
 </div>

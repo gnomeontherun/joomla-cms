@@ -47,11 +47,18 @@ abstract class JHtmlMenu
 		{
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true);
-			$query->select('menutype AS value, title AS text');
+			$query->select('menutype AS value, title AS text, client_id');
 			$query->from($db->quoteName('#__menu_types'));
 			$query->order('title');
 			$db->setQuery($query);
-			self::$menus = $db->loadObjectList();
+			$menus = $db->loadObjectList();
+			
+			foreach ($menus as $key => $menu)
+			{
+				$menus[$key]->text = $menus[$key]->text . ' (' . JText::_((($menu->client_id) ? 'JADMINISTRATOR' : 'JSITE' )) . ')';
+			}
+			
+			self::$menus = $menus;
 		}
 
 		return self::$menus;

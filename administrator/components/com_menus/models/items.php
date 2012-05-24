@@ -207,7 +207,6 @@ class MenusModelItems extends JModelList
 
 		// Exclude the root category.
 		$query->where('a.id > 1');
-		$query->where('a.client_id = 0');
 
 		// Filter on the published state.
 		$published = $this->getState('filter.published');
@@ -269,7 +268,6 @@ class MenusModelItems extends JModelList
 		// Add the list ordering clause.
 		$query->order($db->escape($this->getState('list.ordering', 'a.lft')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 
-		//echo nl2br(str_replace('#__','jos_',(string)$query)).'<hr/>';
 		return $query;
 	}
 }

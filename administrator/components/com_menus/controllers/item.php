@@ -226,6 +226,14 @@ class MenusControllerItem extends JControllerForm
 
 			return false;
 		}
+		
+		// Update the client_id based on the menutype
+		$type = JTable::getInstance('MenuType', 'JTable');
+		if ($type->load(array('menutype' => $data['menutype'])))
+		{
+			$data['client_id'] = (int) $type->client_id;
+		}
+		print_r($data);
 
 		// Attempt to save the data.
 		if (!$model->save($data))

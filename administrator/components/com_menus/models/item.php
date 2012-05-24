@@ -620,7 +620,7 @@ class MenusModelItem extends JModelAdmin
 		}
 
 		// Prime required properties.
-
+		
 		if ($type = $this->getState('item.type')) {
 			$table->type = $type;
 		}
@@ -728,6 +728,13 @@ class MenusModelItem extends JModelAdmin
 			}
 		}
 		$result->menuordering = $pk;
+		
+		// Update the client_id based on the menutype
+		$type = JTable::getInstance('MenuType', 'JTable');
+		if ($type->load(array('menutype' => $this->getState('item.menutype'))))
+		{
+			$result->client_id = (int) $type->client_id;
+		}
 
 		return $result;
 	}
@@ -755,7 +762,7 @@ class MenusModelItem extends JModelAdmin
 		$query->select('ag.title AS access_title');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
 		$query->where('a.published >= 0');
-		$query->where('a.client_id = 0');
+		//$query->where('a.client_id = 0');
 		$query->order('a.position, a.ordering');
 
 		$db->setQuery($query);
@@ -1006,7 +1013,7 @@ class MenusModelItem extends JModelAdmin
 				$form->load($addform, false);
 			}
 		}
-
+		
 		// Trigger the default form events.
 		parent::preprocessForm($form, $data, $group);
 	}

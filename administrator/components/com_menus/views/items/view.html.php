@@ -47,6 +47,10 @@ class MenusViewItems extends JView
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as $item) {
 			$this->ordering[$item->parent_id][] = $item->id;
+			$client = JSITE;
+			if ($item->client_id == 1) {
+				$client = JADMINISTRATOR;
+			}
 
 			// item type text
 			switch ($item->type) {
@@ -77,7 +81,7 @@ class MenusViewItems extends JView
 						parse_str($item->link, $vars);
 						if (isset($vars['view'])) {
 							// Attempt to load the view xml file.
-							$file = JPATH_SITE.'/components/'.$item->componentname.'/views/'.$vars['view'].'/metadata.xml';
+							$file = $client.'/components/'.$item->componentname.'/views/'.$vars['view'].'/metadata.xml';
 							if (JFile::exists($file) && $xml = simplexml_load_file($file)) {
 								// Look for the first view node off of the root node.
 								if ($view = $xml->xpath('view[1]')) {
@@ -90,18 +94,18 @@ class MenusViewItems extends JView
 										{
 											// Use template folder for layout file
 											$temp = explode(':', $vars['layout']);
-											$file = JPATH_SITE.'/templates/'.$temp[0].'/html/'.$item->componentname.'/'.$vars['view'].'/'.$temp[1].'.xml';
+											$file = $client.'/templates/'.$temp[0].'/html/'.$item->componentname.'/'.$vars['view'].'/'.$temp[1].'.xml';
 											// Load template language file
-											$lang->load('tpl_'.$temp[0].'.sys', JPATH_SITE, null, false, false)
-											||	$lang->load('tpl_'.$temp[0].'.sys', JPATH_SITE.'/templates/'.$temp[0], null, false, false)
-											||	$lang->load('tpl_'.$temp[0].'.sys', JPATH_SITE, $lang->getDefault(), false, false)
-											||	$lang->load('tpl_'.$temp[0].'.sys', JPATH_SITE.'/templates/'.$temp[0], $lang->getDefault(), false, false);
+											$lang->load('tpl_'.$temp[0].'.sys', $client, null, false, false)
+											||	$lang->load('tpl_'.$temp[0].'.sys', $client.'/templates/'.$temp[0], null, false, false)
+											||	$lang->load('tpl_'.$temp[0].'.sys', $client, $lang->getDefault(), false, false)
+											||	$lang->load('tpl_'.$temp[0].'.sys', $client.'/templates/'.$temp[0], $lang->getDefault(), false, false);
 
 										}
 										else
 										{
 											// Get XML file from component folder for standard layouts
-											$file = JPATH_SITE.'/components/'.$item->componentname.'/views/'.$vars['view'].'/tmpl/'.$vars['layout'].'.xml';
+											$file = $client.'/components/'.$item->componentname.'/views/'.$vars['view'].'/tmpl/'.$vars['layout'].'.xml';
 										}
 										if (JFile::exists($file) && $xml = simplexml_load_file($file)) {
 											// Look for the first view node off of the root node.

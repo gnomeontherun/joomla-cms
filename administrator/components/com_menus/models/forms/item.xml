@@ -211,6 +211,13 @@
 			name="rgt"
 			type="hidden"
 			filter="unset"/>
+			
+		<field
+			name="client_id"
+			type="hidden"
+			default="0"
+			filter="unset"/>
+			
 	</fieldset>
 
 	<fields name="params">

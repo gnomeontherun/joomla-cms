@@ -31,10 +31,10 @@ class MenusModelMenutypes extends JModel
 	 * @return	array	Array of reverse lookup of the base link URL to Title
 	 * @since	1.6
 	 */
-	public function getReverseLookup()
+	public function getReverseLookup($client_id = 0)
 	{
 		if (empty($this->rlu)) {
-			$this->getTypeOptions();
+			$this->getTypeOptions($client_id);
 		}
 		return $this->rlu;
 	}
@@ -45,13 +45,14 @@ class MenusModelMenutypes extends JModel
 	 * @return	array	Array of groups with menu item types.
 	 * @since	1.6
 	 */
-	public function getTypeOptions()
+	public function getTypeOptions($client_id = 0)
 	{
 		jimport('joomla.filesystem.file');
 
 		// Initialise variables.
 		$lang = JFactory::getLanguage();
 		$list = array();
+		$client_id = JRequest::getInt('client_id', $client_id);
 
 		// Get the list of components.
 		$db = JFactory::getDBO();
@@ -66,7 +67,7 @@ class MenusModelMenutypes extends JModel
 
 		foreach ($components as $component)
 		{
-			if ($options = $this->getTypeOptionsByComponent($component->option)) {
+			if ($options = $this->getTypeOptionsByComponent($component->option, $client_id)) {
 				$list[$component->name] = $options;
 
 				// Create the reverse lookup for link-to-name.
@@ -89,19 +90,23 @@ class MenusModelMenutypes extends JModel
 		return $list;
 	}
 
-	protected function getTypeOptionsByComponent($component)
+	protected function getTypeOptionsByComponent($component, $client_id = 0)
 	{
 		// Initialise variables.
 		$options = array();
 
-		$mainXML = JPATH_SITE.'/components/'.$component.'/metadata.xml';
+		if ($client_id) {
+			$mainXML = JPATH_ADMINISTRATOR.'/components/'.$component.'/metadata.xml';
+		} else {
+			$mainXML = JPATH_SITE.'/components/'.$component.'/metadata.xml';
+		}
 
 		if (is_file($mainXML)) {
-			$options = $this->getTypeOptionsFromXML($mainXML, $component);
+			$options = $this->getTypeOptionsFromXML($mainXML, $component, $client_id);
 		}
 
 		if (empty($options)) {
-			$options = $this->getTypeOptionsFromMVC($component);
+			$options = $this->getTypeOptionsFromMVC($component, $client_id);
 		}
 
 		return $options;
@@ -179,13 +184,17 @@ class MenusModelMenutypes extends JModel
 		return $options;
 	}
 
-	protected function getTypeOptionsFromMVC($component)
+	protected function getTypeOptionsFromMVC($component, $client_id = 0)
 	{
 		// Initialise variables.
 		$options = array();
 
 		// Get the views for this component.
-		$path = JPATH_SITE.'/components/'.$component.'/views';
+		if ($client_id) {
+			$path = JPATH_ADMINISTRATOR.'/components/'.$component.'/views';
+		} else {
+			$path = JPATH_SITE.'/components/'.$component.'/views';
+		}
 
 		if (JFolder::exists($path)) {
 			$views = JFolder::folders($path);
@@ -246,7 +255,7 @@ class MenusModelMenutypes extends JModel
 								}
 							}
 							else {
-								$options = array_merge($options, (array) $this->getTypeOptionsFromLayouts($component, $view));
+								$options = array_merge($options, (array) $this->getTypeOptionsFromLayouts($component, $view, $client_id));
 							}
 						}
 						unset($xml);
@@ -254,7 +263,7 @@ class MenusModelMenutypes extends JModel
 
 				}
 				else {
-					$options = array_merge($options, (array) $this->getTypeOptionsFromLayouts($component, $view));
+					$options = array_merge($options, (array) $this->getTypeOptionsFromLayouts($component, $view, $client_id));
 				}
 			}
 		}
@@ -262,7 +271,7 @@ class MenusModelMenutypes extends JModel
 		return $options;
 	}
 
-	protected function getTypeOptionsFromLayouts($component, $view)
+	protected function getTypeOptionsFromLayouts($component, $view, $client_id = 0)
 	{
 		// Initialise variables.
 		$options = array();
@@ -272,7 +281,11 @@ class MenusModelMenutypes extends JModel
 		$lang = JFactory::getLanguage();
 
 		// Get the layouts from the view folder.
-		$path = JPATH_SITE.'/components/'.$component.'/views/'.$view.'/tmpl';
+		if ($client_id) {
+			$path = JPATH_ADMINISTRATOR.'/components/'.$component.'/views/'.$view.'/tmpl';
+		} else {
+			$path = JPATH_SITE.'/components/'.$component.'/views/'.$view.'/tmpl';
+		}
 		if (JFolder::exists($path)) {
 			$layouts = array_merge($layouts, JFolder::files($path, '.xml$', false, true));
 		}
@@ -293,7 +306,11 @@ class MenusModelMenutypes extends JModel
 
 		// get the template layouts
 		// TODO: This should only search one template -- the current template for this item (default of specified)
-		$folders = JFolder::folders(JPATH_SITE . '/templates', '', false, true);
+		if ($client_id) {
+			$folders = JFolder::folders(JPATH_ADMINISTRATOR . '/templates', '', false, true);
+		} else {
+			$folders = JFolder::folders(JPATH_SITE . '/templates', '', false, true);
+		}
 		// Array to hold association between template file names and templates
 		$templateName = array();
 		foreach($folders as $folder)
