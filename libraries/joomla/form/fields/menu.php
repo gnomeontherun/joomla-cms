@@ -41,8 +41,9 @@ class JFormFieldMenu extends JFormFieldList
 	 */
 	protected function getOptions()
 	{
+		$client_id = $this->element['client_id'] ? $this->element['client_id'] : false ;
 		// Merge any additional options in the XML definition.
-		$options = array_merge(parent::getOptions(), JHtml::_('menu.menus'));
+		$options = array_merge(parent::getOptions(), JHtml::_('menu.menus', array('client_id' => $client_id)));
 
 		return $options;
 	}

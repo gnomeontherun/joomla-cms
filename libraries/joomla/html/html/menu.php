@@ -41,7 +41,7 @@ abstract class JHtmlMenu
 	 *
 	 * @since   11.1
 	 */
-	public static function menus()
+	public static function menus($config = array())
 	{
 		if (empty(self::$menus))
 		{
@@ -50,6 +50,9 @@ abstract class JHtmlMenu
 			$query->select('menutype AS value, title AS text, client_id');
 			$query->from($db->quoteName('#__menu_types'));
 			$query->order('title');
+			if (isset($config['client_id']) && is_int($config['client_id'])) {
+				$query->where('client_id = '.$config['client_id']);
+			}
 			$db->setQuery($query);
 			$menus = $db->loadObjectList();
 			

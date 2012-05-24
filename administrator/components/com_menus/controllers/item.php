@@ -358,4 +358,33 @@ class MenusControllerItem extends JControllerForm
 		$this->type = $type;
 		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId), false));
 	}
+	
+	/**
+	 * Sets the menutype of the menu item currently being edited.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	function setMenutype()
+	{
+		// Initialise variables.
+		$app = JFactory::getApplication();
+
+		// Get the posted values from the request.
+		$data = JRequest::getVar('jform', array(), 'post', 'array');
+		$recordId = JRequest::getInt('id');
+		
+		// Update the client_id based on the menutype
+		$type = JTable::getInstance('MenuType', 'JTable');
+		if ($type->load(array('menutype' => $data['menutype'])))
+		{
+			$data['client_id'] = (int) $type->client_id;
+		}
+
+		//Save the data in the session.
+		$app->setUserState('com_menus.edit.item.data', $data);
+
+		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId), false));
+	}
 }

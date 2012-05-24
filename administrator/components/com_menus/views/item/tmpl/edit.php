@@ -52,8 +52,8 @@ JHtml::_('behavior.modal');
 			}
 		});
 		// Set the client_id if the menutype changes
-		$('jform_menutype').addEvent('click', function() {
-			// @TODO	
+		$('jform_menutype').addEvent('change', function() {
+			Joomla.submitform('item.setMenutype')
 		});
 	});
 </script>

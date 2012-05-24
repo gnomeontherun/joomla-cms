@@ -40,6 +40,18 @@
 			class="inputbox"
 			size="30"
 			maxlength="255" />
+			
+		<field
+			id="client_id"
+			name="client_id"
+			type="list"
+			label="*Application"
+			description="*Description"
+			class="inputbox"
+			default="0">
+			<option value="0">JSITE</option>
+			<option value="1">JADMINISTRATOR</option>
+		</field>
 
 	</fieldset>
 </form>

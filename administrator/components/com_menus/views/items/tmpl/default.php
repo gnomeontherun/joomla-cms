@@ -117,8 +117,8 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 		<?php // Grid layout ?>
 		<tbody>
 		<?php
-		if (count($this->items)) :
 		$originalOrders = array();
+		if (count($this->items)) :
 		foreach ($this->items as $i => $item) :
 			if ($item->client_id) : include('default_adminitem.php'); //	$this->loadTemplate('adminitem');
 			else : include('default_item.php');

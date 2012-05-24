@@ -31,7 +31,8 @@
 					name="menutype"
 					type="menu"
 					label="MOD_MENU_FIELD_MENUTYPE_LABEL"
-					description="MOD_MENU_FIELD_MENUTYPE_DESC" />
+					description="MOD_MENU_FIELD_MENUTYPE_DESC" 
+					client_id="0" />
 				<field
 					name="startLevel"
 					type="list"

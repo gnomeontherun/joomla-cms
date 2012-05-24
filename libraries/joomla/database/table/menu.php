@@ -162,7 +162,7 @@ class JTableMenu extends JTableNested
 		if ($this->home == '1')
 		{
 			$table = JTable::getInstance('Menu', 'JTable');
-			if ($table->load(array('home' => '1', 'language' => $this->language)))
+			if ($table->load(array('home' => '1', 'language' => $this->language, 'client_id' => $this->client_id)))
 			{
 				if ($table->checked_out && $table->checked_out != $this->checked_out)
 				{
@@ -175,7 +175,7 @@ class JTableMenu extends JTableNested
 				$table->store();
 			}
 			// Verify that the home page for this menu is unique.
-			if ($table->load(array('home' => '1', 'menutype' => $this->menutype)) && ($table->id != $this->id || $this->id == 0))
+			if ($table->load(array('home' => '1', 'menutype' => $this->menutype, 'client_id' => $this->client_id)) && ($table->id != $this->id || $this->id == 0))
 			{
 				$this->setError(JText::_('JLIB_DATABASE_ERROR_MENU_HOME_NOT_UNIQUE_IN_MENU'));
 				return false;

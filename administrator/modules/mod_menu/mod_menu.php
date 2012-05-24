@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 require_once dirname(__FILE__).'/helper.php';
 
 $disabled	= JRequest::getInt('hidemainmenu') ? true : false;
-$list		= modMenuHelper::getList($disabled);
+$list		= modMenuHelper::getList($params, $disabled);
 $menu		= JMenu::getInstance('administrator');
 $active		= $menu->getActive();
 $active_id 	= isset($active) ? $active->id : $menu->getDefault()->id;

@@ -22,7 +22,7 @@ class modMenuHelper
 	 * @return	array
 	 * @since	1.5
 	 */
-	static function getList($disabled = false)
+	static function getList($params, $disabled = false)
 	{
 		$user = JFactory::getUser();
 		$levels = $user->getAuthorisedViewLevels();
@@ -48,7 +48,7 @@ class modMenuHelper
 			$end		= ($disabled) ? false : true;
 			$showAll	= ($disabled) ? false : true;
 			$maxdepth	= false;
-			$items 		= $menu->getItems('menutype', 'admin');
+			$items 		= $menu->getItems('menutype', $params->get('menutype', 'admin'));
 
 			$lastitem	= 0;
 
@@ -139,6 +139,7 @@ class modMenuHelper
 				}
 			}
 		}
+		
 		return $items;
 	}
 }
