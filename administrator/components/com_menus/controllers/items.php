@@ -89,7 +89,7 @@ class MenusControllerItems extends JControllerAdmin
 		// Check for request forgeries
 		JSession::checkToken('request') or die(JText::_('JINVALID_TOKEN'));
 
-		// Get items to publish from the request.
+		// Get items to set from the request.
 		$cid	= JRequest::getVar('cid', array(), '', 'array');
 		$data	= array('setDefault' => 1, 'unsetDefault' => 0);
 		$task 	= $this->getTask();
@@ -104,7 +104,7 @@ class MenusControllerItems extends JControllerAdmin
 			// Make sure the item ids are integers
 			JArrayHelper::toInteger($cid);
 
-			// Publish the items.
+			// Set the items.
 			if (!$model->setHome($cid, $value)) {
 				JError::raiseWarning(500, $model->getError());
 			} else {
