@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
+	<fieldset addfieldpath="/administrator/components/com_menus/models/fields">
 		<field
 			name="id"
 			type="text"
@@ -13,7 +13,7 @@
 
 		<field
 			name="title"
-			type="text"
+			type="menutitle"
 			label="COM_MENUS_ITEM_FIELD_TITLE_LABEL"
 			description="COM_MENUS_ITEM_FIELD_TITLE_DESC"
 			class="inputbox"

@@ -270,4 +270,17 @@ class MenusModelItems extends JModelList
 
 		return $query;
 	}
+	
+	public function getMenu()
+	{
+		$db = $this->getDBO();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')
+				->from('#__menu_types')
+				->where('menutype = '.$db->quote($db->escape($this->getState('filter.menutype'))));
+		
+		$db->setQuery($query);
+		return $db->loadObject();
+	}
 }

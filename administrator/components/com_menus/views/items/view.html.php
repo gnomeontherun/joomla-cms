@@ -35,6 +35,8 @@ class MenusViewItems extends JView
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
+		$this->menu			= $this->get('Menu');
+		$lang->load('menu', JPATH_ADMINISTRATOR);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

@@ -117,11 +117,13 @@ JHtml::_('behavior.modal');
 					<?php echo $this->form->getInput('home'); ?></li>
 				<?php endif; ?>
 
+				<?php if ($this->form->getValue('client_id') == 0) : ?>
 				<li><?php echo $this->form->getLabel('language'); ?>
 				<?php echo $this->form->getInput('language'); ?></li>
-
+				
 				<li><?php echo $this->form->getLabel('template_style_id'); ?>
 				<?php echo $this->form->getInput('template_style_id'); ?></li>
+				<?php endif; ?>
 
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
@@ -132,12 +134,14 @@ JHtml::_('behavior.modal');
 
 <div class="width-40 fltrt">
 	<?php echo JHtml::_('sliders.start', 'menu-sliders-'.$this->item->id); ?>
-	<?php //Load  parameters.
+	<?php 
+		echo $this->loadTemplate('translations');
+		//Load  parameters.
 		echo $this->loadTemplate('options'); ?>
 
 		<div class="clr"></div>
 
-		<?php if (!empty($this->modules)) : ?>
+		<?php if (!empty($this->modules) && $this->form->getValue('client_id') == 0) : ?>
 			<?php echo JHtml::_('sliders.panel', JText::_('COM_MENUS_ITEM_MODULE_ASSIGNMENT'), 'module-options'); ?>
 			<fieldset>
 				<?php echo $this->loadTemplate('modules'); ?>
@@ -146,6 +150,9 @@ JHtml::_('behavior.modal');
 
 	<?php echo JHtml::_('sliders.end'); ?>
 
+	<?php if ($this->form->getValue('client_id') == 1) : ?>
+	<input type="hidden" name="jform[language]" value="*" />
+	<?php endif; ?>
 	<input type="hidden" name="task" value="" />
 	<?php echo $this->form->getInput('component_id'); ?>
 	<?php echo $this->form->getInput('client_id'); ?>

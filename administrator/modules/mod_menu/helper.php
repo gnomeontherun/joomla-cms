@@ -30,6 +30,7 @@ class modMenuHelper
 		$key = 'menu_items'.implode(',', $levels);
 		$cache = JFactory::getCache('mod_menu', '');
 		$lang = JFactory::getLanguage();
+		$lang->load('menu', JPATH_ADMINISTRATOR);
 		$items = $cache->get($key);
 		if (!$items)
 		{

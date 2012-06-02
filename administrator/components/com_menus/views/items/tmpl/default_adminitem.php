@@ -86,15 +86,6 @@ $canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
 	</td>
 	<?php endif;?>
 	<td class="center">
-		<?php if ($item->language==''):?>
-			<?php echo JText::_('JDEFAULT'); ?>
-		<?php elseif ($item->language=='*'):?>
-			<?php echo JText::alt('JALL', 'language'); ?>
-		<?php else:?>
-			<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-		<?php endif;?>
-	</td>
-	<td class="center">
 		<span title="<?php echo sprintf('%d-%d', $item->lft, $item->rgt);?>">
 			<?php echo (int) $item->id; ?></span>
 	</td>

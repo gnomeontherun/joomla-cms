@@ -56,12 +56,13 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 				<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'));?>
 			</select>
-
-
+			
+			<?php if ($this->menu->client_id == 0) : ?>
 			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
 			</select>
+			<?php endif; ?>
 
 		</div>
 	</fieldset>
@@ -99,9 +100,11 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 					<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
 				</th>
 				<?php endif;?>
+				<?php if ($this->menu->client_id == 0) : ?>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
 				</th>
+				<?php endif; ?>
 				<th width="1%" class="nowrap">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 				</th>

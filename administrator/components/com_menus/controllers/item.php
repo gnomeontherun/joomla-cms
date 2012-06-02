@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controllerform');
+require_once(JPATH_COMPONENT_ADMINISTRATOR.'/helpers/language.php');
 
 /**
  * The Menu Item Controller
@@ -233,7 +234,6 @@ class MenusControllerItem extends JControllerForm
 		{
 			$data['client_id'] = (int) $type->client_id;
 		}
-		print_r($data);
 
 		// Attempt to save the data.
 		if (!$model->save($data))
@@ -246,6 +246,38 @@ class MenusControllerItem extends JControllerForm
 			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId), false));
 
 			return false;
+		}
+		
+		// Saved, update the menu language strings
+		$titles = JRequest::getVar('titles', array(), 'post', 'array');
+		$langstring = 'MOD_MENU_ITEM_'.$data['id'];
+		foreach ($titles as $tag => $title)
+		{
+			$filename = JPATH_ADMINISTRATOR.'/language/'.$tag.'/'.$tag.'.menu.ini';
+			$strings = MenusLanguageHelper::parseFile($filename);
+			if (isset($strings[$langstring]))
+			{
+				// If yes, simply override it
+				$strings[$langstring] = $title;
+			}
+			else
+			{
+				// If it is a new override simply prepend it
+				$strings = array($langstring => $title) + $strings;
+			}
+
+			foreach ($strings as $key => $string) {
+				$strings[$key] = str_replace('"', '"_QQ_"', $string);
+			}
+
+			// Write override.ini file with the strings
+			$registry = new JRegistry();
+			$registry->loadObject($strings);
+
+			if (!JFile::write($filename, $registry->toString('INI')))
+			{
+				return false;
+			}
 		}
 
 		// Save succeeded, check-in the row.
@@ -270,6 +302,7 @@ class MenusControllerItem extends JControllerForm
 				$app->setUserState('com_menus.edit.item.data', null);
 				$app->setUserState('com_menus.edit.item.type', null);
 				$app->setUserState('com_menus.edit.item.link', null);
+				$app->setuserState('com_menus.edit.item.titles.languages', null);
 
 				// Redirect back to the edit screen.
 				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId), false));
@@ -282,6 +315,7 @@ class MenusControllerItem extends JControllerForm
 				$app->setUserState('com_menus.edit.item.type', null);
 				$app->setUserState('com_menus.edit.item.link', null);
 				$app->setUserState('com_menus.edit.item.menutype', $model->getState('item.menutype'));
+				$app->setuserState('com_menus.edit.item.titles.languages', null);
 
 				// Redirect back to the edit screen.
 				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend(), false));
@@ -293,6 +327,7 @@ class MenusControllerItem extends JControllerForm
 				$app->setUserState('com_menus.edit.item.data', null);
 				$app->setUserState('com_menus.edit.item.type', null);
 				$app->setUserState('com_menus.edit.item.link', null);
+				$app->setuserState('com_menus.edit.item.titles.languages', null);
 
 				// Redirect to the list screen.
 				$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
