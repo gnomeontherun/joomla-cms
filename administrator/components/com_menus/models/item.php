@@ -655,10 +655,27 @@ class MenusModelItem extends JModelAdmin
 
 			case 'url':
 				$table->component_id = 0;
-
 				parse_str(parse_url($table->link, PHP_URL_QUERY));
 				break;
 
+			case 'logout':
+				$component = JComponentHelper::getComponent('com_login');
+				$table->component_id = $component->id;
+				$table->link = 'index.php?option=com_login&task=logout';
+				break;
+			
+			case 'menus':
+				$component = JComponentHelper::getComponent('com_menus');
+				$table->component_id = $component->id;
+				$table->link = '';
+				break;
+			
+			case 'componentlist':
+				$component = JComponentHelper::getComponent('com_menus');
+				$table->component_id = $component->id;
+				$table->link = '';
+				break;
+			
 			case 'component':
 			default:
 				// Enforce a valid type.

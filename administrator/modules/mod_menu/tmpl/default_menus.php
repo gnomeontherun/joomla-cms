@@ -20,7 +20,7 @@ $linktype = JText::_($item->title);
 for ($i = 0; $i < count($menus); $i++) : 
     $link = JRoute::_('index.php?option=com_menus&view=items&menutype='.$menus[$i]->menutype);
     if ($i > 0) : ?><li class="node"><?php endif; ?>
-    <a <?php echo $linkclass; ?> href="<?php echo $link; ?>" title="<?php echo $menus[$i]->title; ?>"><?php echo $menus[$i]->title; ?></a>
+    <a <?php echo $linkclass; ?> href="<?php echo $link; ?>" title="<?php echo $menus[$i]->title; ?>"><?php echo $menus[$i]->title; ?> (<?php echo JText::_(($menus[$i]->client_id) ? 'JADMINISTRATOR' : 'JSITE'); ?>)</a>
     <ul>
         <li>
             <a class="icon-16-newarticle" title="<?php echo JText::_('MOD_MENU_MENU_MANAGER_NEW_MENU') ?>" href="<?php echo JRoute::_('index.php?option=com_menus&view=item&menutype='.$menus[$i]->menutype.'&layout=edit') ?>"><?php echo JText::_('MOD_MENU_MENU_MANAGER_NEW_MENU') ?></a>

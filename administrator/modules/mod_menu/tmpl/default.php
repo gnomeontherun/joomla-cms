@@ -44,6 +44,8 @@ foreach ($list as $i => &$item) :
             case 'url':
             case 'component':
             case 'menus':
+			case 'logout':
+			case 'componentlist':
             case 'placeholder' : 
                 require JModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
                 break;

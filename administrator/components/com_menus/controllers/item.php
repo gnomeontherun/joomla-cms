@@ -158,6 +158,7 @@ class MenusControllerItem extends JControllerForm
 
 		// Populate the row id from the session.
 		$data['id'] = $recordId;
+		$data['title'] = 'MOD_MENU_ITEM_'.$data['id'];
 
 		// The save2copy task needs to be handled slightly differently.
 		if ($task == 'save2copy')
@@ -248,22 +249,38 @@ class MenusControllerItem extends JControllerForm
 			return false;
 		}
 		
+		// if a new item, then need to get the ID for the language string
+		if ($data['id'])
+		{
+			// Update menu title string with ID
+			$data['title'] = 'MOD_MENU_ITEM_' . $model->getState($this->context . '.id');
+			$data['id'] = $model->getState($this->context . '.id');
+			// Resave item with updated title
+			if (!$model->save($data))
+			{
+				$this->setMessage('NO!');
+				
+				return false;
+			}
+		}
+		
 		// Saved, update the menu language strings
 		$titles = JRequest::getVar('titles', array(), 'post', 'array');
-		$langstring = 'MOD_MENU_ITEM_'.$data['id'];
+		
+		// Loop through the languages
 		foreach ($titles as $tag => $title)
 		{
 			$filename = JPATH_ADMINISTRATOR.'/language/'.$tag.'/'.$tag.'.menu.ini';
 			$strings = MenusLanguageHelper::parseFile($filename);
-			if (isset($strings[$langstring]))
+			if (isset($strings[$data['title']]))
 			{
 				// If yes, simply override it
-				$strings[$langstring] = $title;
+				$strings[$data['title']] = $title;
 			}
 			else
 			{
 				// If it is a new override simply prepend it
-				$strings = array($langstring => $title) + $strings;
+				$strings = array($data['title'] => $title) + $strings;
 			}
 
 			foreach ($strings as $key => $string) {
@@ -349,7 +366,6 @@ class MenusControllerItem extends JControllerForm
 
 		// Get the posted values from the request.
 		$data = JRequest::getVar('jform', array(), 'post', 'array');
-		$recordId = JRequest::getInt('id');
 
 		// Get the type.
 		$type = $data['type'];
@@ -358,7 +374,7 @@ class MenusControllerItem extends JControllerForm
 		$title = isset($type->title) ? $type->title : null;
 		$recordId = isset($type->id) ? $type->id : 0;
 
-		if ($title != 'alias' && $title != 'separator' && $title != 'url')
+		if ($title != 'alias' && $title != 'separator' && $title != 'url' && $title != 'menus' && $title != 'logout' && $title != 'componentlist')
 		{
 			$title = 'component';
 		}
@@ -378,6 +394,24 @@ class MenusControllerItem extends JControllerForm
 		elseif ($title == 'alias')
 		{
 			$app->setUserState('com_menus.edit.item.link', 'index.php?Itemid=');
+		}
+		elseif ($title == 'logout')
+		{
+			$app->setUserState('com_menus.edit.item.link', 'index.php?option=com_login&task=logout');
+			$component = JComponentHelper::getComponent('com_login');
+			$data['component_id'] = $component->id;
+		}
+		elseif ($title == 'menus')
+		{
+			$app->setUserState('com_menus.edit.item.link', '');
+			$component = JComponentHelper::getComponent('com_menus');
+			$data['component_id'] = $component->id;
+		}
+		elseif ($title == 'componentlist')
+		{
+			$app->setUserState('com_menus.edit.item.link', '');
+			$component = JComponentHelper::getComponent('com_menus');
+			$data['component_id'] = $component->id;
 		}
 
 		unset($data['request']);

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="*Add Category">
+	<layout title="*Logout">
 		<message>
-			<![CDATA[*Add Category]]>
+			<![CDATA[*Logout]]>
 		</message>
 	</layout>
+
 </metadata>

@@ -7,7 +7,7 @@ class JFormFieldMenutitle extends JFormFieldText
 {
 	public function getInput() {
 		// Return normal if frontend item
-		if ($this->form->getField('client_id', 0) != 1) return parent::getInput();
+		if ($this->form->getField('client_id')->value != 1) return parent::getInput();
 		
 		$html = '<input type="hidden" name="'.$this->name.'" value="'.$this->value.'" />';
 		
@@ -25,7 +25,14 @@ class JFormFieldMenutitle extends JFormFieldText
 			}
 			// Locate strings from active language files
 			$file = MenusLanguageHelper::parseFile(JPATH_ADMINISTRATOR.'/language/'.$tag.'/'.$tag.'.menu.ini');
-			$languages[$i]['title'] = $file[$this->value];
+			if (isset($file[$this->value]))
+			{
+				$languages[$i]['title'] = $file[$this->value];
+			}
+			else
+			{
+				$languages[$i]['title'] = '';
+			}
 		}
 		
 		// Store in user session
@@ -37,7 +44,7 @@ class JFormFieldMenutitle extends JFormFieldText
 		$class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
 
 		$html .= '<input type="text" name="titles['.$language->getTag().']" value="'.JText::_($this->value).'" ' . $class . $size. ' />';
-		$html .= '<span>'.$language->getName().'</span>';
+		if (count($languages) > 1) $html .= '<input type="text" class="readonly" readonly="readonly" value="'.$language->getName().'"/>';
 		return $html;
 	}
 }

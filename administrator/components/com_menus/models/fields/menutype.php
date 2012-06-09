@@ -57,7 +57,19 @@ class JFormFieldMenutype extends JFormFieldList
 			case 'separator':
 				$value = JText::_('COM_MENUS_TYPE_SEPARATOR');
 				break;
+			
+			case 'logout':
+				$value = JText::_('JLOGOUT');
+				break;
 
+			case 'menus':
+				$value = JText::_('JMENUS');
+				break;
+			
+			case 'componentlist':
+				$value = JText::_('*Component List');
+				break;
+			
 			default:
 				$link	= $this->form->getValue('link');
 				// Clean the link back to the option, view and layout

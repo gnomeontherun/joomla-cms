@@ -49,9 +49,9 @@ class MenusViewItems extends JView
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as $item) {
 			$this->ordering[$item->parent_id][] = $item->id;
-			$client = JSITE;
+			$client = 0;
 			if ($item->client_id == 1) {
-				$client = JADMINISTRATOR;
+				$client = 1;
 			}
 
 			// item type text

@@ -45,13 +45,15 @@ JHtml::_('behavior.modal');
 <script type="text/javascript">
 	// Hide/show all rows which are not assigned.
 	window.addEvent('domready', function(){
-		document.id('showmods').addEvent('click', function(e) {
-			if ($$('.adminlist tr.no').getStyle('display')[0] == 'none') {
-				$$('.adminlist tr.no').show();
-			} else {
-				$$('.adminlist tr.no').hide();
-			}
-		});
+		if (document.id('showmods')) { 
+			document.id('showmods').addEvent('click', function(e) {
+				if ($$('.adminlist tr.no').getStyle('display')[0] == 'none') {
+					$$('.adminlist tr.no').show();
+				} else {
+					$$('.adminlist tr.no').hide();
+				}
+			});
+		}
 		// Set the client_id if the menutype changes
 		$('jform_menutype').addEvent('change', function() {
 			Joomla.submitform('item.setMenutype')

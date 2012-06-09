@@ -1386,8 +1386,7 @@ class JInstallerComponent extends JAdapterInstance
 		$query->select('m.id, e.extension_id');
 		$query->from('#__menu AS m');
 		$query->leftJoin('#__extensions AS e ON m.component_id = e.extension_id');
-		$query->where('m.parent_id = 1');
-		$query->where("m.client_id = 1");
+		$query->where('m.client_id = 1');
 		$query->where('e.element = ' . $db->quote($option));
 
 		$db->setQuery($query);
@@ -1431,13 +1430,13 @@ class JInstallerComponent extends JAdapterInstance
 		if ($menuElement)
 		{
 			$data = array();
-			$data['menutype'] = 'main';
+			$data['menutype'] = 'components';
 			$data['client_id'] = 1;
 			$data['title'] = (string) $menuElement;
 			$data['alias'] = (string) $menuElement;
 			$data['link'] = 'index.php?option=' . $option;
 			$data['type'] = 'component';
-			$data['published'] = 0;
+			$data['published'] = 1;
 			$data['parent_id'] = 1;
 			$data['component_id'] = $component_id;
 			$data['img'] = ((string) $menuElement->attributes()->img) ? (string) $menuElement->attributes()->img : 'class:component';
@@ -1466,7 +1465,7 @@ class JInstallerComponent extends JAdapterInstance
 			$data['alias'] = $option;
 			$data['link'] = 'index.php?option=' . $option;
 			$data['type'] = 'component';
-			$data['published'] = 0;
+			$data['published'] = 1;
 			$data['parent_id'] = 1;
 			$data['component_id'] = $component_id;
 			$data['img'] = 'class:component';
@@ -1502,12 +1501,12 @@ class JInstallerComponent extends JAdapterInstance
 		foreach ($this->manifest->administration->submenu->menu as $child)
 		{
 			$data = array();
-			$data['menutype'] = 'main';
+			$data['menutype'] = 'components';
 			$data['client_id'] = 1;
 			$data['title'] = (string) $child;
 			$data['alias'] = (string) $child;
 			$data['type'] = 'component';
-			$data['published'] = 0;
+			$data['published'] = 1;
 			$data['parent_id'] = $parent_id;
 			$data['component_id'] = $component_id;
 			$data['img'] = ((string) $child->attributes()->img) ? (string) $child->attributes()->img : 'class:component';

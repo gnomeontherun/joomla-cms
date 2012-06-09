@@ -39,7 +39,7 @@ class JFormFieldMenuParent extends JFormFieldList
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select('a.id AS value, a.title AS text, a.level');
+		$query->select('a.id AS value, a.title AS text, a.level, a.client_id');
 		$query->from('#__menu AS a');
 		$query->join('LEFT', $db->quoteName('#__menu').' AS b ON a.lft > b.lft AND a.rgt < b.rgt');
 
@@ -64,6 +64,15 @@ class JFormFieldMenuParent extends JFormFieldList
 		$db->setQuery($query);
 
 		$options = $db->loadObjectList();
+		
+		// Translate options for admin items
+		foreach ($options as $i => $option)
+		{
+			if ($option->client_id == 1)
+			{
+				$options[$i]->text = JText::_($options[$i]->text);
+			}
+		}
 
 		// Check for a database error.
 		if ($db->getErrorNum()) {
