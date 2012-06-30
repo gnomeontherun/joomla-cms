@@ -176,6 +176,7 @@ class MenusModelItems extends JModelList
 			' WHEN ' . $db->quote('separator') . ' THEN a.published+6 ' .
 			' WHEN ' . $db->quote('menus') . ' THEN a.published+2*(e.enabled-1) ' .
 			' WHEN ' . $db->quote('logout') . ' THEN a.published+2*(e.enabled-1) ' .
+			' WHEN ' . $db->quote('componentlist') . ' THEN a.published+2*(e.enabled-1) ' .
 			' END AS published');
 		$query->from($db->quoteName('#__menu').' AS a');
 

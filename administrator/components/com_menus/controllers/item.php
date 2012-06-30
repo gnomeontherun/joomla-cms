@@ -158,7 +158,7 @@ class MenusControllerItem extends JControllerForm
 
 		// Populate the row id from the session.
 		$data['id'] = $recordId;
-		$data['title'] = 'MOD_MENU_ITEM_'.$data['id'];
+		if (empty($data['title'])) $data['title'] = 'MOD_MENU_ITEM_'.$data['id'];
 
 		// The save2copy task needs to be handled slightly differently.
 		if ($task == 'save2copy')
@@ -250,7 +250,7 @@ class MenusControllerItem extends JControllerForm
 		}
 		
 		// if a new item, then need to get the ID for the language string
-		if ($data['id'])
+		if ($data['id'] && $data['client_id'])
 		{
 			// Update menu title string with ID
 			$data['title'] = 'MOD_MENU_ITEM_' . $model->getState($this->context . '.id');
