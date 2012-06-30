@@ -4,10 +4,7 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.view');
 
 /**
  * HTML View class for the Content component
@@ -16,7 +13,7 @@ jimport('joomla.application.component.view');
  * @subpackage	com_content
  * @since 1.5
  */
-class ContentViewArchive extends JView
+class ContentViewArchive extends JViewLegacy
 {
 	protected $state = null;
 	protected $item = null;
@@ -44,9 +41,7 @@ class ContentViewArchive extends JView
 			$item->parent_slug = ($item->parent_alias) ? ($item->parent_id . ':' . $item->parent_alias) : $item->parent_id;
 		}
 
-
-
-		$form = new stdClass();
+		$form = new stdClass;
 		// Month Field
 		$months = array(
 			'' => JText::_('COM_CONTENT_MONTH'),
@@ -150,4 +145,3 @@ class ContentViewArchive extends JView
 		}
 	}
 }
-?>

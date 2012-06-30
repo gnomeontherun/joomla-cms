@@ -6,10 +6,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access.
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.model');
 
 /**
  * Joomla! update overview Model
@@ -19,7 +16,7 @@ jimport('joomla.application.component.model');
  * @author      nikosdion <nicholas@dionysopoulos.me>
  * @since       2.5.4
  */
-class JoomlaupdateModelDefault extends JModel
+class JoomlaupdateModelDefault extends JModelLegacy
 {
 	/**
 	 * Detects if the Joomla! update site currently in use matches the one
@@ -85,7 +82,7 @@ class JoomlaupdateModelDefault extends JModel
 			$update_site->last_check_timestamp = 0;
 			$update_site->location = $updateURL;
 			$db->updateObject('#__update_sites', $update_site, 'update_site_id');
-			
+
 			// Remove cached updates
 			$query = $db->getQuery(true)
 				->delete($db->nq('#__updates'))
@@ -515,7 +512,7 @@ ENDDATA;
 		{
 			$db->Query();
 		}
-		catch (JException $e)
+		catch (RuntimeException $e)
 		{
 			// Install failed, roll back changes
 			$installer->abort(
@@ -644,7 +641,6 @@ ENDDATA;
 		{
 			$installer->set('extension_message', $msg);
 		}
-
 
 		return true;
 	}

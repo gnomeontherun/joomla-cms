@@ -5,6 +5,8 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
+
 /**
  * Joomla Installation Database Helper Class.
  *
@@ -12,7 +14,7 @@
  * @package		Joomla.Installation
  * @since		1.6
  */
-class JInstallationHelperDatabase
+class InstallationHelperDatabase
 {
 	/**
 	 * Method to get a JDatabase object.
@@ -28,7 +30,7 @@ class JInstallationHelperDatabase
 	 * @return	JDatabase
 	 * @since	1.0
 	 */
-	public static function & getDBO($driver, $host, $user, $password, $database, $prefix, $select = true)
+	public static function getDBO($driver, $host, $user, $password, $database, $prefix, $select = true)
 	{
 		static $db;
 

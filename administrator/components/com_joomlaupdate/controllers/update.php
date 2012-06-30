@@ -9,16 +9,14 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controller');
-
 /**
  * The Joomla! update controller for the Update view
- * 
+ *
  * @package     Joomla.Administrator
  * @subpackage  com_joomlaupdate
  * @since       2.5.4
  */
-class JoomlaupdateControllerUpdate extends JController
+class JoomlaupdateControllerUpdate extends JControllerLegacy
 {
 	/**
 	 * Performs the download of the update package
@@ -48,13 +46,13 @@ class JoomlaupdateControllerUpdate extends JController
 			$url = 'index.php?option=com_joomlaupdate';
 			$message = JText::_('COM_JOOMLAUPDATE_VIEW_UPDATE_DOWNLOADFAILED');
 		}
-		
+
 		$this->setRedirect($url, $message, $messageType);
 	}
 
 	/**
-	 * Start the installation of the new Joomla! version 
-	 * 
+	 * Start the installation of the new Joomla! version
+	 *
 	 * @return void
 	 *
 	 * @since 2.5.4
@@ -64,16 +62,16 @@ class JoomlaupdateControllerUpdate extends JController
 		$this->_applyCredentials();
 
 		$model = $this->getModel('Default');
-		
+
 		$file = JFactory::getApplication()->getUserState('com_joomlaupdate.file', null);
 		$model->createRestorationFile($file);
-		
+
 		$this->display();
 	}
 
 	/**
 	 * Finalise the upgrade by running the necessary scripts
-	 * 
+	 *
 	 * @return void
 	 *
 	 * @since 2.5.4
@@ -105,7 +103,7 @@ class JoomlaupdateControllerUpdate extends JController
 
 		$model->cleanUp();
 
-		$url = 'index.php?option=com_joomlaupdate';
+		$url = 'index.php?option=com_joomlaupdate&layout=complete';
 		$this->setRedirect($url);
 	}
 
@@ -133,7 +131,7 @@ class JoomlaupdateControllerUpdate extends JController
 		if ($view = $this->getView($vName, $vFormat)) {
 			// Get the model for the view.
 			$model = $this->getModel('Default');
-			
+
 			// Push the model into the view (as default).
 			$view->setModel($model, true);
 			$view->setLayout($lName);
@@ -156,7 +154,7 @@ class JoomlaupdateControllerUpdate extends JController
 	protected function _applyCredentials()
 	{
 		jimport('joomla.client.helper');
-		
+
 		if (!JClientHelper::hasCredentials('ftp'))
 		{
 			$user = JFactory::getApplication()->getUserStateFromRequest('com_joomlaupdate.ftp_user', 'ftp_user', null, 'raw');

@@ -9,8 +9,6 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
 /**
  * Joomla! Update's Default View
  *
@@ -18,13 +16,13 @@ jimport('joomla.application.component.view');
  * @subpackage  com_installer
  * @since       2.5.4
  */
-class JoomlaupdateViewDefault extends JView
+class JoomlaupdateViewDefault extends JViewLegacy
 {
 	/**
 	 * Renders the view
-	 * 
+	 *
 	 * @param   string  $tpl  Template name
-	 * 
+	 *
 	 * @return void
 	 *
 	 * @since  2.5.4
@@ -50,11 +48,12 @@ class JoomlaupdateViewDefault extends JView
 		JToolBarHelper::preferences('com_joomlaupdate');
 
 		// Load mooTools
-		JHtml::_('behavior.framework');
+		JHtml::_('behavior.framework', true);
 
 		// Load our Javascript
 		$document = JFactory::getDocument();
 		$document->addScript('../media/com_joomlaupdate/default.js');
+		JHtml::_('stylesheet', 'media/mediamanager.css', array(), true);
 
 		// Render the view
 		parent::display($tpl);

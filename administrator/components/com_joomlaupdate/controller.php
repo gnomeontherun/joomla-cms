@@ -6,10 +6,7 @@
  * @license		GNU General Public License, see LICENSE.php
  */
 
-// No direct access.
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.controller');
 
 /**
  * Joomla! Update Controller
@@ -18,7 +15,7 @@ jimport('joomla.application.component.controller');
  * @subpackage	com_joomlaupdate
  * @since		2.5.4
  */
-class JoomlaupdateController extends JController
+class JoomlaupdateController extends JControllerLegacy
 {
 	/**
 	 * Method to display a view.
@@ -46,7 +43,7 @@ class JoomlaupdateController extends JController
 
 			// Get the model for the view.
 			$model = $this->getModel($vName);
-			
+
 			// Perform update source preference check and refresh update information
 			$model->applyUpdateSite();
 			$model->refreshUpdates();

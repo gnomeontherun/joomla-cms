@@ -95,7 +95,10 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_HOME', 'a.home', $listDirn, $listOrder); ?>
 				</th>
-				<?php if ($app->get('menu_associations', 0)):?>
+				<?php
+				$assoc = isset($app->menu_associations) ? $app->menu_associations : 0;
+				if ($assoc):
+				?>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
 				</th>
@@ -123,8 +126,8 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 		$originalOrders = array();
 		if (count($this->items)) :
 		foreach ($this->items as $i => $item) :
-			if ($item->client_id) : include('default_adminitem.php'); //	$this->loadTemplate('adminitem');
-			else : include('default_item.php');
+			if ($item->client_id) : $this->loadTemplate('adminitem.php');
+			else : $this->loadTemplate('item.php');
 			endif;
 		endforeach; 
 		endif; ?>

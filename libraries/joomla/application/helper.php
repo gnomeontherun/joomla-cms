@@ -165,6 +165,7 @@ class JApplicationHelper
 	 * @return  string  The requested path
 	 *
 	 * @since   11.1
+	 * @deprecated  12.1
 	 */
 	public static function getPath($varname, $user_option = null)
 	{
@@ -288,9 +289,13 @@ class JApplicationHelper
 	 * @return  array  XML metadata.
 	 *
 	 * @since   11.1
+	 * @deprecated  13.3  Use JInstaller::parseXMLInstallFile instead.
+	 * @note    This method must remain as is to allow updates from 2.5.4 and earlier sites to work.
 	 */
 	public static function parseXMLInstallFile($path)
 	{
+		JLog::add('JApplicationHelper::parseXMLInstallFile is deprecated. Use JInstaller::parseXMLInstallFile instead.', JLog::WARNING, 'deprecated');
+
 		// Read the file to see if it's a valid component XML file
 		if (!$xml = JFactory::getXML($path))
 		{
@@ -387,6 +392,7 @@ class JApplicationHelper
 	 * @return  string   File name or null
 	 *
 	 * @since   11.1
+	 * @deprecated  12.1
 	 */
 	protected static function _checkPath($path, $checkAdmin = 1)
 	{
