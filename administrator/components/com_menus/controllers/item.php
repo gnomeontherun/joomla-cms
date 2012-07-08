@@ -158,7 +158,9 @@ class MenusControllerItem extends JControllerForm
 
 		// Populate the row id from the session.
 		$data['id'] = $recordId;
-		if (empty($data['title'])) $data['title'] = 'MOD_MENU_ITEM_'.$data['id'];
+		if (empty($data['title'])) {
+			$data['title'] = 'MOD_MENU_ITEM_'.$data['id'];
+		}
 
 		// The save2copy task needs to be handled slightly differently.
 		if ($task == 'save2copy')
@@ -228,7 +230,7 @@ class MenusControllerItem extends JControllerForm
 
 			return false;
 		}
-		
+
 		// Update the client_id based on the menutype
 		$type = JTable::getInstance('MenuType', 'JTable');
 		if ($type->load(array('menutype' => $data['menutype'])))
@@ -248,25 +250,26 @@ class MenusControllerItem extends JControllerForm
 
 			return false;
 		}
-		
+
 		// if a new item, then need to get the ID for the language string
-		if ($data['id'] && $data['client_id'])
+		if (!$data['id'] && $data['client_id'])
 		{
 			// Update menu title string with ID
 			$data['title'] = 'MOD_MENU_ITEM_' . $model->getState($this->context . '.id');
+			$data['alias'] = JApplication::stringURLSafe($data['title']);
 			$data['id'] = $model->getState($this->context . '.id');
 			// Resave item with updated title
 			if (!$model->save($data))
 			{
 				$this->setMessage('NO!');
-				
+
 				return false;
 			}
 		}
-		
+
 		// Saved, update the menu language strings
 		$titles = JRequest::getVar('titles', array(), 'post', 'array');
-		
+
 		// Loop through the languages
 		foreach ($titles as $tag => $title)
 		{
@@ -427,7 +430,7 @@ class MenusControllerItem extends JControllerForm
 		$this->type = $type;
 		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId), false));
 	}
-	
+
 	/**
 	 * Sets the menutype of the menu item currently being edited.
 	 *
@@ -443,7 +446,7 @@ class MenusControllerItem extends JControllerForm
 		// Get the posted values from the request.
 		$data = JRequest::getVar('jform', array(), 'post', 'array');
 		$recordId = JRequest::getInt('id');
-		
+
 		// Update the client_id based on the menutype
 		$type = JTable::getInstance('MenuType', 'JTable');
 		if ($type->load(array('menutype' => $data['menutype'])))

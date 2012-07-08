@@ -9,6 +9,17 @@
 // no direct access
 defined('_JEXEC') or die;
 
+$item = $this->current->item;
+$i = $this->current->index;
+$user		= JFactory::getUser();
+$app		= JFactory::getApplication();
+$userId		= $user->get('id');
+$listOrder	= $this->escape($this->state->get('list.ordering'));
+$listDirn	= $this->escape($this->state->get('list.direction'));
+$ordering 	= ($listOrder == 'a.lft');
+$canOrder	= $user->authorise('core.edit.state',	'com_menus');
+$saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
+
 $orderkey = array_search($item->id, $this->ordering[$item->parent_id]);
 $canCreate	= $user->authorise('core.create',		'com_menus');
 $canEdit	= $user->authorise('core.edit',			'com_menus');
@@ -33,9 +44,7 @@ $canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
 		<p class="smallsub" title="<?php echo $this->escape($item->path);?>">
 			<?php echo str_repeat('<span class="gtr">|&mdash;</span>', $item->level-1) ?>
 			<?php if ($item->type !='url') : ?>
-				<?php if (empty($item->note)) : ?>
-					<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
-				<?php else : ?>
+				<?php if (!empty($item->note)) : ?>
 					<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
 				<?php endif; ?>
 			<?php elseif($item->type =='url' && $item->note) : ?>

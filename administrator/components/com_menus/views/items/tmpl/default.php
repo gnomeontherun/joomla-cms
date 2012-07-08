@@ -56,7 +56,7 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 				<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
 				<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'));?>
 			</select>
-			
+
 			<?php if ($this->menu->client_id == 0) : ?>
 			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
 				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
@@ -126,10 +126,13 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 		$originalOrders = array();
 		if (count($this->items)) :
 		foreach ($this->items as $i => $item) :
-			if ($item->client_id) : $this->loadTemplate('adminitem.php');
-			else : $this->loadTemplate('item.php');
+			$this->current = new stdClass();
+			$this->current->item = $item;
+			$this->current->index = $i;
+			if ($item->client_id) : echo $this->loadTemplate('adminitem');
+			else : echo $this->loadTemplate('item');
 			endif;
-		endforeach; 
+		endforeach;
 		endif; ?>
 		</tbody>
 	</table>

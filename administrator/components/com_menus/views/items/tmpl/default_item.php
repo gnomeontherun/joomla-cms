@@ -9,11 +9,24 @@
 // no direct access
 defined('_JEXEC') or die;
 
+$item = $this->current->item;
+$i = $this->current->index;
+$user		= JFactory::getUser();
+$app		= JFactory::getApplication();
+$userId		= $user->get('id');
+$listOrder	= $this->escape($this->state->get('list.ordering'));
+$listDirn	= $this->escape($this->state->get('list.direction'));
+$ordering 	= ($listOrder == 'a.lft');
+$canOrder	= $user->authorise('core.edit.state',	'com_menus');
+$saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
+
 $orderkey = array_search($item->id, $this->ordering[$item->parent_id]);
 $canCreate	= $user->authorise('core.create',		'com_menus');
 $canEdit	= $user->authorise('core.edit',			'com_menus');
 $canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id')|| $item->checked_out==0;
 $canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
+
+
 ?>
 <tr class="row<?php echo $i % 2; ?>">
 	<td class="center">

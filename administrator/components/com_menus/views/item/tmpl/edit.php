@@ -45,7 +45,7 @@ JHtml::_('behavior.modal');
 <script type="text/javascript">
 	// Hide/show all rows which are not assigned.
 	window.addEvent('domready', function(){
-		if (document.id('showmods')) { 
+		if (document.id('showmods')) {
 			document.id('showmods').addEvent('click', function(e) {
 				if ($$('.adminlist tr.no').getStyle('display')[0] == 'none') {
 					$$('.adminlist tr.no').show();
@@ -84,7 +84,7 @@ JHtml::_('behavior.modal');
 					<li> <?php echo $this->form->getLabel('aliastip'); ?></li>
 				<?php endif; ?>
 
-				<?php if ($this->item->type !='url'): ?>
+				<?php if ($this->form->getValue('client_id') == 0 && $this->item->type !='url'): ?>
 					<li><?php echo $this->form->getLabel('alias'); ?>
 					<?php echo $this->form->getInput('alias'); ?></li>
 				<?php endif; ?>
@@ -123,7 +123,7 @@ JHtml::_('behavior.modal');
 				<?php if ($this->form->getValue('client_id') == 0) : ?>
 				<li><?php echo $this->form->getLabel('language'); ?>
 				<?php echo $this->form->getInput('language'); ?></li>
-				
+
 				<li><?php echo $this->form->getLabel('template_style_id'); ?>
 				<?php echo $this->form->getInput('template_style_id'); ?></li>
 				<?php endif; ?>
@@ -137,7 +137,7 @@ JHtml::_('behavior.modal');
 
 <div class="width-40 fltrt">
 	<?php echo JHtml::_('sliders.start', 'menu-sliders-'.$this->item->id); ?>
-	<?php 
+	<?php
 		echo $this->loadTemplate('translations');
 		//Load  parameters.
 		echo $this->loadTemplate('options'); ?>
