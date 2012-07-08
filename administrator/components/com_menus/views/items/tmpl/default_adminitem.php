@@ -41,6 +41,7 @@ $canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
 		<?php else : ?>
 			<?php echo $this->escape(JText::_($item->title)); ?>
 		<?php endif; ?>
+		<?php if (!empty($item->note)) : ?>
 		<p class="smallsub" title="<?php echo $this->escape($item->path);?>">
 			<?php echo str_repeat('<span class="gtr">|&mdash;</span>', $item->level-1) ?>
 			<?php if ($item->type !='url') : ?>
@@ -50,6 +51,7 @@ $canChange	= $user->authorise('core.edit.state',	'com_menus') && $canCheckin;
 			<?php elseif($item->type =='url' && $item->note) : ?>
 				<?php echo JText::sprintf('JGLOBAL_LIST_NOTE', $this->escape($item->note));?>
 			<?php endif; ?></p>
+		<?php endif; ?>
 	</td>
 	<td class="center">
 		<?php echo JHtml::_('MenusHtml.Menus.state', $item->published, $i, $canChange, 'cb'); ?>

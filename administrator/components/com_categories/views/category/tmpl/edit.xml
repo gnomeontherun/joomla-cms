@@ -5,4 +5,16 @@
 			<![CDATA[*Add Category]]>
 		</message>
 	</layout>
+	<fields name="request">
+		<fieldset name="request"
+		 >
+
+			<field name="id" type="category"
+				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
+				extension="com_content"
+				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
+				required="true"
+			/>
+		</fieldset>
+	</fields>
 </metadata>

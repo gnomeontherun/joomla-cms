@@ -138,7 +138,7 @@ JHtml::_('behavior.modal');
 <div class="width-40 fltrt">
 	<?php echo JHtml::_('sliders.start', 'menu-sliders-'.$this->item->id); ?>
 	<?php
-		echo $this->loadTemplate('translations');
+		//echo $this->loadTemplate('translations');
 		//Load  parameters.
 		echo $this->loadTemplate('options'); ?>
 

@@ -7,6 +7,7 @@
  */
 
 defined('_JEXEC') or die;
+var_dump($this->form->getFieldsets('request'));
 ?>
 <?php
 	$fieldSets = $this->form->getFieldsets('request');

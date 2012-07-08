@@ -5,5 +5,13 @@
 			<![CDATA[*Categories]]>
 		</message>
 	</layout>
+	<fields name="request" addfieldpath="administrator/components/com_categories/models/fields">
+		<fieldset name="request">
 
+			<field name="extension" type="extensions"
+				description="*Extension"
+				label="*Extension"
+			/>
+		</fieldset>
+	</fields>
 </metadata>

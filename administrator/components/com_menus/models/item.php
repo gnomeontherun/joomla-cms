@@ -619,7 +619,7 @@ class MenusModelItem extends JModelAdmin
 		}
 
 		// Prime required properties.
-		
+
 		if ($type = $this->getState('item.type')) {
 			$table->type = $type;
 		}
@@ -662,19 +662,19 @@ class MenusModelItem extends JModelAdmin
 				$table->component_id = $component->id;
 				$table->link = 'index.php?option=com_login&task=logout';
 				break;
-			
+
 			case 'menus':
 				$component = JComponentHelper::getComponent('com_menus');
 				$table->component_id = $component->id;
 				$table->link = '';
 				break;
-			
+
 			case 'componentlist':
 				$component = JComponentHelper::getComponent('com_menus');
 				$table->component_id = $component->id;
 				$table->link = '';
 				break;
-			
+
 			case 'component':
 			default:
 				// Enforce a valid type.
@@ -744,7 +744,7 @@ class MenusModelItem extends JModelAdmin
 			}
 		}
 		$result->menuordering = $pk;
-		
+
 		// Update the client_id based on the menutype
 		$type = JTable::getInstance('MenuType', 'JTable');
 		if ($type->load(array('menutype' => $this->getState('item.menutype'))))
@@ -895,7 +895,14 @@ class MenusModelItem extends JModelAdmin
 			if (isset($args['option'])) {
 				// The option determines the base path to work with.
 				$option = $args['option'];
-				$base	= JPATH_SITE.'/components/'.$option;
+				if ($data['client_id'] == 1)
+				{
+					$base 	= JPATH_ADMINISTRATOR.'/components/'.$option;
+				}
+				else
+				{
+					$base	= JPATH_SITE.'/components/'.$option;
+				}
 			}
 
 			// Confirm a view is defined.
@@ -1028,7 +1035,7 @@ class MenusModelItem extends JModelAdmin
 				$form->load($addform, false);
 			}
 		}
-		
+
 		// Trigger the default form events.
 		parent::preprocessForm($form, $data, $group);
 	}
