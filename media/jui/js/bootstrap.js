@@ -487,7 +487,9 @@
       if (this.transitioning) return
       dimension = this.dimension()
       this.reset(this.$element[dimension]())
+      /* >>> JUI >>> */
       this.transition('removeClass', $.Event('hideme'), 'hidden')
+      /* <<< JUI <<< */
       this.$element[dimension](0)
     }
 
@@ -597,7 +599,13 @@
   var toggle = '[data-toggle="dropdown"]'
     , Dropdown = function (element) {
         var $el = $(element).on('click.dropdown.data-api', this.toggle)
+        /* >>> JUI >>> */
+          .on('mouseover.dropdown.data-api', this.toggle)
+        /* <<< JUI <<< */
         $('html').on('click.dropdown.data-api', function () {
+          /* >>> JUI >>> */
+          $el.parent().parent().removeClass('nav-hover')
+          /* <<< JUI <<< */
           $el.parent().removeClass('open')
         })
       }
@@ -611,6 +619,9 @@
         , $parent
         , selector
         , isActive
+        /* >>> JUI >>> */
+        , isHover
+        /* <<< JUI <<< */
 
       if ($this.is('.disabled, :disabled')) return
 
@@ -625,10 +636,18 @@
       $parent.length || ($parent = $this.parent())
 
       isActive = $parent.hasClass('open')
+      /* >>> JUI >>> */
+      isHover = $parent.parent().hasClass('nav-hover')
+      /* <<< JUI <<< */
 
       clearMenus()
 
-      if (!isActive) $parent.toggleClass('open')
+      /* >>> JUI >>> */
+      if ((!isActive && e.type == 'click') || (isHover && e.type == 'mouseover')){
+        $parent.parent().toggleClass('nav-hover')
+		$parent.toggleClass('open')
+      }
+      /* <<< JUI <<< */
 
       return false
     }
@@ -636,6 +655,9 @@
   }
 
   function clearMenus() {
+    /* >>> JUI >>> */
+    $(toggle).parent().parent().removeClass('nav-hover')
+    /* <<< JUI <<< */
     $(toggle).parent().removeClass('open')
   }
 
@@ -663,6 +685,9 @@
     $('body')
       .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
       .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+      /* >>> JUI >>> */
+      .on('mouseover.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+      /* <<< JUI <<< */
   })
 
 }(window.jQuery);/* =========================================================
