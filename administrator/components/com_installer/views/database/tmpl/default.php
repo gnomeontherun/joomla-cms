@@ -37,6 +37,14 @@ defined('_JEXEC') or die;
 			<a class="close" data-dismiss="alert" href="#">&times;</a>
 			<?php echo JText::_('COM_INSTALLER_MSG_DATABASE_OK'); ?>
 		</div>
+
+		<ul class="nav nav-tabs">
+			<li><a href="#other" data-toggle="tab"><?php echo JText::_('COM_INSTALLER_MSG_DATABASE_INFO');?></a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="other">
+
 	<?php else : ?>
 		<div class="alert alert-error">
 			<a class="close" data-dismiss="alert" href="#">&times;</a>
@@ -78,6 +86,7 @@ defined('_JEXEC') or die;
 				</fieldset>
 			</div>
 			<div class="tab-pane" id="other">
+	<?php endif; ?>
 				<fieldset class="panelform">
 					<ul>
 						<li><?php echo JText::sprintf('COM_INSTALLER_MSG_DATABASE_SCHEMA_VERSION', $this->schemaVersion); ?></li>
@@ -89,8 +98,6 @@ defined('_JEXEC') or die;
 				</fieldset>
 			</div>
 		</div>
-
-	<?php endif; ?>
 
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
