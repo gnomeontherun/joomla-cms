@@ -645,7 +645,7 @@
       /* >>> JUI >>> */
       if ((!isActive && e.type == 'click') || (isHover && e.type == 'mouseover')){
         $parent.parent().toggleClass('nav-hover')
-		$parent.toggleClass('open')
+        $parent.toggleClass('open')
       }
       /* <<< JUI <<< */
 
