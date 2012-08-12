@@ -53,13 +53,13 @@ body.modal {
 .row-even,.row-odd {
 	padding: 5px;
 	width: 99%;
-	border-bottom: 1px solid #DDD;
+	border-bottom: 1px solid @tableBorder;
 }
 .row-odd {
-	background-color: #fff;
+	background-color: @tableBackground;
 }
 .row-even {
-	background-color: #f9f9f9;
+	background-color: @tableBackgroundAccent;
 }
 
 .blog-row-rule,
@@ -157,79 +157,6 @@ body.modal {
 	margin: 0 0 10px 10px;
 }
 
-/* Mapping Bootstrap Icons => Joomla jGrid Classes */
-.grid_true,
-.grid_false {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  line-height: 14px;
-  vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
-  background-position: 14px 14px;
-  background-repeat: no-repeat;
-  *margin-right: .3em;
-}
-.icon-publish,
-.icon-save,
-.icon-apply,
-.grid_true {
-  background-position: -288px 0;
-}
-.icon-new,
-.icon-save-new {
-  background-position: -408px -96px;
-}
-.icon-unpublish,
-.grid_false {
-  background-position: -216px -96px;
-}
-.icon-default,
-.icon-featured {
-  background-position: -120px 0;
-}
-.icon-notdefault {
-  background-position: -144px 0;
-}
-.icon-delete,
-.icon-cancel {
-  background-position: -312px 0;
-}
-.icon-copy,
-.icon-save-copy {
-  background-position: 0 -96px;
-}
-.icon-archive {
-  background-position: -168px -24px;
-}
-.icon-checkin {
-  background-position: -287px -24px;
-}
-.icon-purge {
-  background-position: -456px 0;
-}
-.icon-article {
-  background-position: -24px -24px;
-}
-.icon-image {
-  background-position: -456px -48px;
-}
-.icon-pagebreak {
-  background-position: -432px -119px;
-}
-.icon-unblock {
-  background-position: -192px -96px;
-}
-.icon-uparrow {
-  background-position: -289px -96px;
-}
-.icon-downarrow {
-  background-position: -312px -96px;
-}
-.icon-checkedout {
-  background-position: -287px -24px;
-}
-
 /* Specific Widths */
 .width-10 {
 	width: 10px;
@@ -306,7 +233,7 @@ hr.hr-condensed {
 	line-height: 18px;
 	text-align: left;
 	vertical-align: middle;
-	border-top: 1px solid #dddddd;
+	border-top: 1px solid @tableBorder;
 	margin-left: 0;
 }
 
@@ -314,7 +241,7 @@ hr.hr-condensed {
 .list-striped dd,
 .row-striped .row,
 .row-striped .row-fluid {
-	border-bottom: 1px solid #dddddd;
+	border-bottom: 1px solid @tableBorder;
 	padding: 8px;
 }
 
@@ -322,14 +249,14 @@ hr.hr-condensed {
 .list-striped dd:nth-child(odd),
 .row-striped .row:nth-child(odd),
 .row-striped .row-fluid:nth-child(odd) {
-	background-color: #f9f9f9;
+	background-color: @tableBackgroundAccent;
 }
 
 .list-striped li:hover,
 .list-striped dd:hover,
 .row-striped .row:hover,
 .row-striped .row-fluid:hover {
-	background-color: #f5f5f5;
+	background-color: @tableBackgroundHover;
 }
 
 .row-striped .row-fluid {
@@ -394,10 +321,10 @@ fieldset.radio.btn-group {
 .tip-wrap {
 	max-width: 200px;
 	padding: 3px 8px;
-	color: #ffffff;
+	color: @white;
 	text-align: center;
 	text-decoration: none;
-	background-color: #000000;
+	background-color: @black;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -411,7 +338,7 @@ fieldset.radio.btn-group {
 }
 /* Input Prepend Chosen Select Boxes */
 .input-prepend .chzn-container-single .chzn-single {
-	border-color: #CCC;
+	border-color: @inputBorder;
 	height: 26px;
 	-webkit-border-radius: 0 3px 3px 0;
 	-moz-border-radius: 0 3px 3px 0;
@@ -426,7 +353,7 @@ fieldset.radio.btn-group {
 	border-radius: 0 3px 0 0;
 }
 .input-prepend .chzn-container-single .chzn-drop{
-	border-color: #CCC;
+	border-color: @inputBorder;
 }
 .input-prepend > .add-on,
 .input-append > .add-on{
