@@ -29,17 +29,17 @@ class InstallationController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		// Get the current URI to redirect to.
-		$uri		= JURI::getInstance();
-		$redirect	= base64_encode($uri);
+		$uri      = JURI::getInstance();
+		$redirect = base64_encode($uri);
 
 		// Get the document object.
-		$document	= JFactory::getDocument();
+		$document = JFactory::getDocument();
 
 		// Set the default view name and format from the Request.
 		if (file_exists(JPATH_CONFIGURATION . '/configuration.php') && (filesize(JPATH_CONFIGURATION . '/configuration.php') > 10)
 			&& file_exists(JPATH_INSTALLATION . '/index.php'))
 		{
-			$default_view	= 'remove';
+			$default_view = 'remove';
 		}
 		else
 		{
@@ -55,7 +55,8 @@ class InstallationController extends JControllerLegacy
 			$this->input->set('view', $default_view);
 		}
 
-		if ($view = $this->getView($vName, $vFormat))
+		$view = $this->getView($vName, $vFormat);
+		if ($view)
 		{
 			$model = $this->getModel('Setup', 'InstallationModel', array('dbo' => null));
 			$sufficient = $model->getPhpOptionsSufficient();
