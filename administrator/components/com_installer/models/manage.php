@@ -83,7 +83,7 @@ class InstallerModelManage extends InstallerModel
 	 * @return	boolean True on success
 	 * @since	1.5
 	 */
-	function publish(&$eid = array(), $value = 1)
+	public function publish(&$eid = array(), $value = 1)
 	{
 		// Initialise variables.
 		$user = JFactory::getUser();
@@ -142,7 +142,7 @@ class InstallerModelManage extends InstallerModel
 	 * @return	boolean	result of refresh
 	 * @since	1.6
 	 */
-	function refresh($eid)
+	public function refresh($eid)
 	{
 		if (!is_array($eid)) {
 			$eid = array($eid => 0);
@@ -170,7 +170,7 @@ class InstallerModelManage extends InstallerModel
 	 * @return	boolean	True on success
 	 * @since	1.5
 	 */
-	function remove($eid = array())
+	public function remove($eid = array())
 	{
 		// Initialise variables.
 		$user = JFactory::getUser();

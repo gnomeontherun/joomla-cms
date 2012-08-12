@@ -16,13 +16,14 @@ require_once dirname(dirname(__DIR__)) . '/helper/component.php';
  *
  * @package     Joomla.Administrator
  * @subpackage  com_config
+ * @since       1.5
  */
 class ConfigViewComponent extends JViewLegacy
 {
 	/**
 	 * Display the view
 	 */
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		$form		= $this->get('Form');
 		$component	= $this->get('Component');

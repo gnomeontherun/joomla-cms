@@ -16,6 +16,7 @@ require_once dirname(dirname(__DIR__)) . '/helper/component.php';
  *
  * @package     Joomla.Administrator
  * @subpackage  com_config
+ * @since       1.5
  */
 class ConfigViewApplication extends JViewLegacy
 {
