@@ -131,7 +131,7 @@ $sortFields = $this->getSortFields();
 					<th class="nowrap hidden-phone" width="10%">
 						<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_ELEMENT_HEADING', 'element', $listDirn, $listOrder); ?>
 					</th>
-					th width="5%" class="hidden-phone">
+					<th width="5%" class="hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ACCESS', 'access', $listDirn, $listOrder); ?>
 					</th>
 					<th class="nowrap hidden-phone" width="1%">
