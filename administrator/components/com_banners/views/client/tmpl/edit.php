@@ -29,7 +29,7 @@ $canDo	= BannersHelper::getActions();
 		  <li class="active"><a href="#general" data-toggle="tab"><?php echo empty($this->item->id) ? JText::_('COM_BANNERS_NEW_CLIENT') : JText::sprintf('COM_BANNERS_EDIT_CLIENT', $this->item->id);?></a></li>
 		  <li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
 		</ul>
-		
+
 		<div class="tab-content">
 			<!-- Begin Tabs -->
 			<div class="tab-pane active" id="general">

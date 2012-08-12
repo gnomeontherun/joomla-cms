@@ -112,14 +112,14 @@ Joomla.submitbutton = function(pressbutton) {
 						</td>
 					</tr>
 					<?php endif; ?>
-		
+
 					<?php foreach ($this->items as $i => $item):
 					$canCreate	= $user->authorise('core.create',		'com_finder');
 					$canEdit	= $user->authorise('core.edit',			'com_finder');
 					$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
 					$canChange	= $user->authorise('core.edit.state',	'com_finder') && $canCheckin;
 					?>
-		
+
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center">
 							<?php echo JHtml::_('grid.id', $i, $item->filter_id); ?>
@@ -161,7 +161,7 @@ Joomla.submitbutton = function(pressbutton) {
 					</tr>
 				</tfoot>
 			</table>
-		
+
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="boxchecked" value="0" />
 			<input type="hidden" name="filter_order" value="<?php echo $this->state->get('list.ordering'); ?>" />

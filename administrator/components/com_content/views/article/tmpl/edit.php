@@ -61,10 +61,10 @@ endif;
 		<!-- Begin Content -->
 		<div class="span10 form-horizontal">
 			<ul class="nav nav-tabs">
-			  <li class="active"><a href="#general" data-toggle="tab"><?php echo JText::_('COM_CONTENT_ARTICLE_DETAILS');?></a></li>
-			  <li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_CONTENT_FIELDSET_PUBLISHING');?></a></li>
-			  <?php  $fieldSets = $this->form->getFieldsets('attribs'); ?>
-			  	<?php foreach ($fieldSets as $name => $fieldSet) : ?>
+				<li class="active"><a href="#general" data-toggle="tab"><?php echo JText::_('COM_CONTENT_ARTICLE_DETAILS');?></a></li>
+				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_CONTENT_FIELDSET_PUBLISHING');?></a></li>
+				<?php $fieldSets = $this->form->getFieldsets('attribs'); ?>
+					<?php foreach ($fieldSets as $name => $fieldSet) : ?>
 					<?php if ($params['show_article_options'] || (( $params['show_article_options'] == '' && !empty($editoroptions) ))): ?>
 						<?php if ($name != 'editorConfig' && $name != 'basic-limited') : ?>
 							<li><a href="#attrib-<?php echo $name;?>" data-toggle="tab"><?php echo JText::_($fieldSet->label);?></a></li>
@@ -74,9 +74,9 @@ endif;
 				<?php if ( $this->canDo->get('core.admin')   ):  ?>
 					<li><a href="#editor" data-toggle="tab"><?php echo JText::_('COM_CONTENT_SLIDER_EDITOR_CONFIG');?></a></li>
 				<?php endif ?>
-			  <li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
-			  <?php if ($this->canDo->get('core.admin')): ?>
-			 	 <li><a href="#permissions" data-toggle="tab"><?php echo JText::_('COM_CONTENT_FIELDSET_RULES');?></a></li>
+				<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
+				<?php if ($this->canDo->get('core.admin')): ?>
+					<li><a href="#permissions" data-toggle="tab"><?php echo JText::_('COM_CONTENT_FIELDSET_RULES');?></a></li>
 			 	<?php endif ?>
 			</ul>
 

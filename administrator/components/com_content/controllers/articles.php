@@ -110,10 +110,8 @@ class ContentControllerArticles extends JControllerAdmin
 	 */
 	public function saveOrderAjax()
 	{
-		// Get the input
-		$input = JFactory::getApplication()->input;
-		$pks = $input->post->get('cid', array(), 'array');
-		$order = $input->post->get('order', array(), 'array');
+		$pks = $this->input->post->get('cid', array(), 'array');
+		$order = $this->input->post->get('order', array(), 'array');
 
 		// Sanitize the input
 		JArrayHelper::toInteger($pks);

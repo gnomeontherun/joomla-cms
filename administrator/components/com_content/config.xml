@@ -315,7 +315,7 @@
 		</field>
 	</fieldset>
 	<fieldset name="editinglayout" label="COM_CONTENT_EDITING_LAYOUT"
-				description="COM_CONTENT_CONFIG_EDITOR_LAYOUT">	
+				description="COM_CONTENT_CONFIG_EDITOR_LAYOUT">
 		<field
 			name="show_publishing_options"
 			type="radio"
@@ -328,7 +328,7 @@
 				value="0">JNO</option>
 			<option
 				value="1">JYES</option>
-		</field>	
+		</field>
 		<field
 			name="show_article_options"
 			type="radio"
@@ -341,7 +341,7 @@
 				value="0">JNO</option>
 			<option
 				value="1">JYES</option>
-		</field>		
+		</field>
 		<field
 			name="show_urls_images_frontend"
 			type="radio"
@@ -354,7 +354,7 @@
 				value="0">JNO</option>
 			<option
 				value="1">JYES</option>
-		</field>		
+		</field>
 		<field
 			name="show_urls_images_backend"
 			type="radio"
@@ -367,7 +367,7 @@
 				value="0">JNO</option>
 			<option
 				value="1">JYES</option>
-		</field>	
+		</field>
 		<field
 			name="spacer3"
 			type="spacer"
@@ -417,7 +417,7 @@
 			type="spacer"
 			hr="true"
 			/>
-			
+
 		<field
 			name="float_intro"
 			type="list"
@@ -425,7 +425,7 @@
 			description="COM_CONTENT_FLOAT_DESC">
 				<option value="right">COM_CONTENT_RIGHT</option>
 				<option value="left">COM_CONTENT_LEFT</option>
-				<option value="none">COM_CONTENT_NONE</option>	
+				<option value="none">COM_CONTENT_NONE</option>
 		</field>
 		<field
 			name="float_fulltext"
@@ -453,7 +453,7 @@
 			view="category"
 		/>
 
-		<field name="show_category_title" 
+		<field name="show_category_title"
 			type="radio"
 			class="btn-group"
 			label="JGLOBAL_SHOW_CATEGORY_TITLE"
@@ -498,7 +498,7 @@
 				<option value="5">J5</option>
 		</field>
 
-		<field name="show_empty_categories" 
+		<field name="show_empty_categories"
 			type="radio"
 			class="btn-group"
 			label="JGLOBAL_SHOW_EMPTY_CATEGORIES_LABEL"
@@ -509,7 +509,7 @@
 				<option value="1">JSHOW</option>
 		</field>
 
-		<field name="show_no_articles" 
+		<field name="show_no_articles"
 			type="radio"
 			class="btn-group"
 			label="COM_CONTENT_NO_ARTICLES_LABEL"
@@ -520,7 +520,7 @@
 				<option value="1">JSHOW</option>
 		</field>
 
-		<field name="show_subcat_desc" 
+		<field name="show_subcat_desc"
 			type="radio"
 			class="btn-group"
 			label="JGLOBAL_SHOW_SUBCATEGORIES_DESCRIPTION_LABEL"
@@ -531,7 +531,7 @@
 				<option value="1">JSHOW</option>
 		</field>
 
-		<field name="show_cat_num_articles" 
+		<field name="show_cat_num_articles"
 			type="radio"
 			class="btn-group"
 			label="COM_CONTENT_NUMBER_CATEGORY_ITEMS_LABEL"
@@ -547,7 +547,7 @@
 		label="JCATEGORIES"
 		description="COM_CONTENT_CONFIG_CATEGORIES_SETTINGS_DESC"
 		>
-		<field name="show_base_description" 
+		<field name="show_base_description"
 			type="radio"
 			class="btn-group"
 			default="1"
@@ -572,7 +572,7 @@
 				<option value="5">J5</option>
 			</field>
 
-			<field name="show_empty_categories_cat" 
+			<field name="show_empty_categories_cat"
 				type="radio"
 				class="btn-group"
 				default="0"
@@ -583,7 +583,7 @@
 				<option value="1">JSHOW</option>
 			</field>
 
-			<field name="show_subcat_desc_cat" 
+			<field name="show_subcat_desc_cat"
 				type="radio"
 				class="btn-group"
 				default="1"
@@ -594,7 +594,7 @@
 				<option value="1">JSHOW</option>
 			</field>
 
-			<field name="show_cat_num_articles_cat" 
+			<field name="show_cat_num_articles_cat"
 				type="radio"
 				class="btn-group"
 				default="1"
@@ -681,7 +681,7 @@
 
 		<field name="show_pagination_limit"
 			type="radio"
-			class="btn-group" 
+			class="btn-group"
 			default="1"
 			label="JGLOBAL_DISPLAY_SELECT_LABEL"
 			description="JGLOBAL_DISPLAY_SELECT_DESC">

@@ -39,7 +39,7 @@ JHtml::_('behavior.formvalidation');
 			?>
 			<li><a href="#params-<?php echo $name;?>" data-toggle="tab"><?php echo JText::_($fieldSet->label);?></a></li>
 			<?php endforeach; ?>
-			<?php 
+			<?php
 			$fieldSets = $this->form->getFieldsets('metadata');
 			foreach ($fieldSets as $name => $fieldSet) :
 			?>
@@ -193,7 +193,7 @@ JHtml::_('behavior.formvalidation');
 			<?php echo $this->loadTemplate('params'); ?>
 
 			<?php echo $this->loadTemplate('metadata'); ?>
-			
+
 			</div>
 			</fieldset>
 		<input type="hidden" name="task" value="" />

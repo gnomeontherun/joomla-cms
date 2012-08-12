@@ -100,10 +100,10 @@ Joomla.submitbutton = function(pressbutton) {
 						</td>
 					</tr>
 					<?php endif; ?>
-		
+
 					<?php $canChange	= JFactory::getUser()->authorise('core.manage',	'com_finder'); ?>
 					<?php foreach ($this->items as $i => $item): ?>
-		
+
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center">
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
@@ -142,7 +142,7 @@ Joomla.submitbutton = function(pressbutton) {
 					</tr>
 				</tfoot>
 			</table>
-		
+
 			<input type="hidden" name="task" value="display" />
 			<input type="hidden" name="boxchecked" value="0" />
 			<input type="hidden" name="filter_order" value="<?php echo $listOrder ?>" />

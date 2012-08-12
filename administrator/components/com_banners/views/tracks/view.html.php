@@ -71,6 +71,7 @@ class BannersViewTracks extends JViewLegacy
 		}
 		JToolbarHelper::help('JHELP_COMPONENTS_BANNERS_TRACKS');
 	}
+
 	/**
 	 * Returns an array of fields the table can be sorted by
 	 *

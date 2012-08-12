@@ -30,11 +30,11 @@ $canDo = LanguagesHelper::getActions();
 		<li><a href="#metadata" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
 		<li><a href="#site_name" data-toggle="tab"><?php echo JText::_('COM_LANGUAGES_FIELDSET_SITE_NAME_LABEL');?></a></li>
 	</ul>
-	
+
 	<div class="tab-content">
 		<div class="tab-pane active" id="details">
 			<div class="control-group">
-		  		<div class="controls">
+				<div class="controls">
 					<?php if ($this->item->lang_id) : ?>
 						<?php echo JText::sprintf('JGLOBAL_RECORD_NUMBER', $this->item->lang_id); ?>
 					<?php else : ?>
@@ -42,7 +42,7 @@ $canDo = LanguagesHelper::getActions();
 					<?php endif; ?>
 				</div>
 			</div>
-	
+
 			<div class="control-group">
 					<div class="control-label">
 						<?php echo $this->form->getLabel('title'); ?>
@@ -93,7 +93,7 @@ $canDo = LanguagesHelper::getActions();
 					</div>
 				</div>
 			<?php endif; ?>
-	
+
 			<div class="control-group">
 					<div class="control-label">
 						<?php echo $this->form->getLabel('access'); ?>

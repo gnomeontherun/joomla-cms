@@ -185,7 +185,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-	
+
 		<div>
 			<input type="hidden" name="task" value="" />
 			<input type="hidden" name="boxchecked" value="0" />
