@@ -109,84 +109,68 @@ $sortFields = $this->getSortFields();
 				</select>
 			</div>
 		</div>
-	</fieldset>
-	<div class="clr"> </div>
-
-	<table class="adminlist">
-		<thead>
-			<tr>
-				<th width="1%">
-					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
-				</th>
-				<th class="title">
-					<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_NAME_HEADING', 'name', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'enabled', $listDirn, $listOrder); ?>
-				</th>
-				<th width="10%">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'ordering', $listDirn, $listOrder); ?>
-					<?php if ($canOrder && $saveOrder) :?>
-						<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'plugins.saveorder'); ?>
-					<?php endif; ?>
-				</th>
-
-				<th class="nowrap" width="10%">
-					<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_FOLDER_HEADING', 'folder', $listDirn, $listOrder); ?>
-				</th>
-				<th class="nowrap" width="10%">
-					<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_ELEMENT_HEADING', 'element', $listDirn, $listOrder); ?>
-				</th>
-                <th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ACCESS', 'access', $listDirn, $listOrder); ?>
-				</th>
-				<th class="nowrap" width="1%">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'extension_id', $listDirn, $listOrder); ?>
-				</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="12">
-					<?php echo $this->pagination->getListFooter(); ?>
-				</td>
-			</tr>
-		</tfoot>
-		<tbody>
-		<?php foreach ($this->items as $i => $item) :
-			$ordering   = ($listOrder == 'ordering');
-			$canEdit    = $user->authorise('core.edit',       'com_plugins');
-			$canCheckin = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
-			$canChange  = $user->authorise('core.edit.state', 'com_plugins') && $canCheckin;
-			?>
-			<tr class="row<?php echo $i % 2; ?>">
-				<td class="center">
-					<?php echo JHtml::_('grid.id', $i, $item->extension_id); ?>
-				</td>
-				<td>
-					<?php if ($item->checked_out) : ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'plugins.', $canCheckin); ?>
-					<?php endif; ?>
-					<?php if ($canEdit) : ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_plugins&task=plugin.edit&extension_id='.(int) $item->extension_id); ?>">
-							<?php echo $item->name; ?></a>
-					<?php else : ?>
-							<?php echo $item->name; ?>
-					<?php endif; ?>
-				</td>
-				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->enabled, $i, 'plugins.', $canChange); ?>
-				</td>
-				<td class="order">
-					<?php if ($canChange) : ?>
-						<?php if ($saveOrder) :?>
-							<?php if ($listDirn == 'asc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, (@$this->items[$i - 1]->folder == $item->folder), 'plugins.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, (@$this->items[$i + 1]->folder == $item->folder), 'plugins.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php elseif ($listDirn == 'desc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, (@$this->items[$i - 1]->folder == $item->folder), 'plugins.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, (@$this->items[$i + 1]->folder == $item->folder), 'plugins.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php endif; ?>
+		<div class="clearfix"> </div>
+		<table class="table table-striped" id="articleList">
+			<thead>
+				<tr>
+					<th width="1%" class="center hidden-phone" nowrap="nowrap">
+							<i class="icon-menu-2 hasTip" title="<?php echo JText::_('JGRID_HEADING_ORDERING'); ?>"></i>
+					</th>
+					<th width="1%" class="hidden-phone">
+						<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+					</th>
+					<th width="5%" class="center">
+						<?php echo JText::_('JSTATUS'); ?>
+					</th>
+					<th class="title">
+						<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_NAME_HEADING', 'name', $listDirn, $listOrder); ?>
+					</th>
+					<th class="nowrap hidden-phone" width="10%">
+						<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_FOLDER_HEADING', 'folder', $listDirn, $listOrder); ?>
+					</th>
+					<th class="nowrap hidden-phone" width="10%">
+						<?php echo JHtml::_('grid.sort', 'COM_PLUGINS_ELEMENT_HEADING', 'element', $listDirn, $listOrder); ?>
+					</th>
+					th width="5%" class="hidden-phone">
+						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ACCESS', 'access', $listDirn, $listOrder); ?>
+					</th>
+					<th class="nowrap hidden-phone" width="1%">
+						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'extension_id', $listDirn, $listOrder); ?>
+					</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="12">
+						<?php echo $this->pagination->getListFooter(); ?>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+			<?php foreach ($this->items as $i => $item) :
+				$ordering	= ($listOrder == 'ordering');
+				$canEdit	= $user->authorise('core.edit',			'com_plugins');
+				$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
+				$canChange	= $user->authorise('core.edit.state',	'com_plugins') && $canCheckin;
+				?>
+				<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->folder?>">
+					<td class="order nowrap center hidden-phone">
+						<?php if ($canChange) :
+							$disableClassName = '';
+							$disabledLabel	  = '';
+							if (!$saveOrder) :
+								$disabledLabel    = JText::_('JORDERINGDISABLED');
+								$disableClassName = 'inactive tip-top';
+							endif; ?>
+							<span class="sortable-handler <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>" rel="tooltip">
+								<i class="icon-menu" title="<?php echo $item->ordering;?>"></i>
+							</span>
+							<input type="text" style="display:none"  name="order[]" size="5"
+							value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
+						<?php else : ?>
+							<span class="sortable-handler inactive" >
+								<i class="icon-menu"></i>
+							</span>
 						<?php endif; ?>
 						</td>
 					<td class="center hidden-phone">
@@ -219,7 +203,7 @@ $sortFields = $this->getSortFields();
 						<?php echo (int) $item->extension_id;?>
 					</td>
 				</tr>
-				<?php endforeach; ?>
+			<?php endforeach; ?>
 			</tbody>
 		</table>
 
