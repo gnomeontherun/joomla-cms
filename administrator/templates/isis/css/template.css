@@ -4518,10 +4518,10 @@ body.modal {
 .row-odd {
   padding: 5px;
   width: 99%;
-  border-bottom: 1px solid #DDD;
+  border-bottom: 1px solid #dddddd;
 }
 .row-odd {
-  background-color: #fff;
+  background-color: transparent;
 }
 .row-even {
   background-color: #f9f9f9;
@@ -4613,78 +4613,6 @@ body.modal {
 }
 .thumbnail.pull-right {
   margin: 0 0 10px 10px;
-}
-/* Mapping Bootstrap Icons => Joomla jGrid Classes */
-.grid_true,
-.grid_false {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  line-height: 14px;
-  vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
-  background-position: 14px 14px;
-  background-repeat: no-repeat;
-  *margin-right: .3em;
-}
-.icon-publish,
-.icon-save,
-.icon-apply,
-.grid_true {
-  background-position: -288px 0;
-}
-.icon-new,
-.icon-save-new {
-  background-position: -408px -96px;
-}
-.icon-unpublish,
-.grid_false {
-  background-position: -216px -96px;
-}
-.icon-default,
-.icon-featured {
-  background-position: -120px 0;
-}
-.icon-notdefault {
-  background-position: -144px 0;
-}
-.icon-delete,
-.icon-cancel {
-  background-position: -312px 0;
-}
-.icon-copy,
-.icon-save-copy {
-  background-position: 0 -96px;
-}
-.icon-archive {
-  background-position: -168px -24px;
-}
-.icon-checkin {
-  background-position: -287px -24px;
-}
-.icon-purge {
-  background-position: -456px 0;
-}
-.icon-article {
-  background-position: -24px -24px;
-}
-.icon-image {
-  background-position: -456px -48px;
-}
-.icon-pagebreak {
-  background-position: -432px -119px;
-}
-.icon-unblock {
-  background-position: -192px -96px;
-}
-.icon-uparrow {
-  background-position: -289px -96px;
-}
-.icon-downarrow {
-  background-position: -312px -96px;
-}
-.icon-checkedout {
-  background-position: -287px -24px;
 }
 /* Specific Widths */
 .width-10 {
@@ -4854,7 +4782,7 @@ fieldset.radio.btn-group {
 }
 /* Input Prepend Chosen Select Boxes */
 .input-prepend .chzn-container-single .chzn-single {
-  border-color: #CCC;
+  border-color: #cccccc;
   height: 26px;
   -webkit-border-radius: 0 3px 3px 0;
   -moz-border-radius: 0 3px 3px 0;
@@ -4869,7 +4797,7 @@ fieldset.radio.btn-group {
   border-radius: 0 3px 0 0;
 }
 .input-prepend .chzn-container-single .chzn-drop {
-  border-color: #CCC;
+  border-color: #cccccc;
 }
 .input-prepend > .add-on,
 .input-append > .add-on {
