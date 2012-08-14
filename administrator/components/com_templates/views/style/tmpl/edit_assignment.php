@@ -17,7 +17,7 @@ $user = JFactory::getUser();
 <label id="jform_menuselect-lbl" for="jform_menuselect"><?php echo JText::_('JGLOBAL_MENU_SELECTION'); ?></label>
 <div class="btn-toolbar">
 	<button class="btn" type="button" class="jform-rightbtn" onclick="$$('.chk-menulink').each(function(el) { el.checked = !el.checked; });">
-		<i class="icon-adjust"></i> <?php echo JText::_('JGLOBAL_SELECTION_INVERT'); ?>
+		<i class="icon-checkbox-partial"></i> <?php echo JText::_('JGLOBAL_SELECTION_INVERT'); ?>
 	</button>
 </div>
 <div id="menu-assignment">
