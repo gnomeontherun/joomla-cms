@@ -44,6 +44,9 @@ $modMenuId = (int) $this->get('ModMenuId');
 				<th width="30%" colspan="3">
 					<?php echo JText::_('COM_MENUS_HEADING_NUMBER_MENU_ITEMS'); ?>
 				</th>
+				<th rowspan="2" width="15%">
+					<?php echo JText::_('JCLIENT'); ?>
+				</th>
 				<th width="20%" rowspan="2">
 					<?php echo JText::_('COM_MENUS_HEADING_LINKED_MODULES'); ?>
 				</th>
@@ -103,6 +106,9 @@ $modMenuId = (int) $this->get('ModMenuId');
 				<td class="center btns">
 					<a href="<?php echo JRoute::_('index.php?option=com_menus&view=items&menutype='.$item->menutype.'&filter_published=-2');?>">
 						<?php echo $item->count_trashed; ?></a>
+				</td>
+				<td class="center">
+					<?php echo ($item->client_id) ? JText::_('JADMINISTRATOR') : JText::_('JSITE'); ?>
 				</td>
 				<td class="left">
 					<?php if (isset($this->modules[$item->menutype])) : ?>
