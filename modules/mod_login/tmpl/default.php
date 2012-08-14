@@ -20,16 +20,16 @@ JHtml::_('behavior.keepalive');
 	<fieldset class="userdata">
 	<div id="form-login-username" class="control-group">
 		<div class="controls">
-          <div class="input-prepend">
-            <span class="add-on"><i class="icon-user tip" title="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME') ?>"></i></span><input id="modlgn-username" type="text" name="username" class="input-small"  size="18" placeholder="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME') ?>" />
-          </div>
-        </div>
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-user tip" title="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME') ?>"></i></span><input id="modlgn-username" type="text" name="username" class="input-small"  size="18" placeholder="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME') ?>" />
+			</div>
+		</div>
 	</div>
 	<div id="form-login-password" class="control-group">
 		<div class="controls">
-		  <div class="input-prepend">
-		    <span class="add-on"><i class="icon-lock tip" title="<?php echo JText::_('JGLOBAL_PASSWORD') ?>"></i></span><input id="modlgn-passwd" type="password" name="password" class="input-small" size="18" placeholder="<?php echo JText::_('JGLOBAL_PASSWORD') ?>" />
-		  </div>
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-lock tip" title="<?php echo JText::_('JGLOBAL_PASSWORD') ?>"></i></span><input id="modlgn-passwd" type="password" name="password" class="input-small" size="18" placeholder="<?php echo JText::_('JGLOBAL_PASSWORD') ?>" />
+			</div>
 		</div>
 	</div>
 	<?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
@@ -38,11 +38,10 @@ JHtml::_('behavior.keepalive');
 	</div>
 	<?php endif; ?>
 	<div class="btn-group">
-		<button type="submit" name="Submit" class="btn btn-primary"><?php echo JText::_('JLOGIN') ?></button>
-		<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			<span class="caret"></span>
-		</a>
-		<ul class="dropdown-menu">
+		<ul class="unstyled">
+			<li>
+				<button type="submit" name="Submit" class="btn btn-primary"><?php echo JText::_('JLOGIN') ?></button>
+			</li>
 			<li>
 				<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>">
 				<?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_PASSWORD'); ?></a>
@@ -56,7 +55,7 @@ JHtml::_('behavior.keepalive');
 			if ($usersConfig->get('allowUserRegistration')) : ?>
 			<li>
 				<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-					<?php echo JText::_('MOD_LOGIN_REGISTER'); ?></a>
+				<?php echo JText::_('MOD_LOGIN_REGISTER'); ?></a>
 			</li>
 			<?php endif; ?>
 		</ul>
