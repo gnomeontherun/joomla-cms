@@ -1,23 +1,26 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-require_once dirname(__FILE__).'/articles.php';
+require_once __DIR__ . '/articles.php';
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_content
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
  */
 class ContentControllerFeatured extends ContentControllerArticles
 {
 	/**
 	 * Removes an item
 	 */
-	function delete()
+	public function delete()
 	{
 		// Check for request forgeries
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -59,7 +62,7 @@ class ContentControllerFeatured extends ContentControllerArticles
 	 * @return	void
 	 * @since	1.0
 	 */
-	function publish()
+	public function publish()
 	{
 		parent::publish();
 
@@ -81,5 +84,36 @@ class ContentControllerFeatured extends ContentControllerArticles
 	{
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
+	}
+
+	/**
+	 * Method to save the submitted ordering values for records via AJAX.
+	 *
+	 * @return	void
+	 *
+	 * @since   3.0
+	 */
+	public function saveOrderAjax()
+	{
+		$pks = $this->input->post->get('cid', array(), 'array');
+		$order = $this->input->post->get('order', array(), 'array');
+
+		// Sanitize the input
+		JArrayHelper::toInteger($pks);
+		JArrayHelper::toInteger($order);
+
+		// Get the model
+		$model = $this->getModel();
+
+		// Save the ordering
+		$return = $model->saveorder($pks, $order);
+
+		if ($return)
+		{
+			echo "1";
+		}
+
+		// Close the application
+		JFactory::getApplication()->close();
 	}
 }

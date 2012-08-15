@@ -66,13 +66,6 @@ class FinderIndexerTaxonomy
 		// Get the result.
 		$result = $db->loadObject();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
-
 		// Check if the database matches the input data.
 		if (!empty($result) && $result->state == $state && $result->access == $access)
 		{
@@ -150,13 +143,6 @@ class FinderIndexerTaxonomy
 		// Get the result.
 		$result = $db->loadObject();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
-
 		// Check if the database matches the input data.
 		if (!empty($result) && $result->state == $state && $result->access == $access)
 		{
@@ -217,10 +203,10 @@ class FinderIndexerTaxonomy
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName('link_id'));
 		$query->from($db->quoteName('#__finder_taxonomy_map'));
-		$query->where($db->quoteName('link_id') . ' = ' . (int)$linkId);
-		$query->where($db->quoteName('node_id') . ' = ' . (int)$nodeId);
+		$query->where($db->quoteName('link_id') . ' = ' . (int) $linkId);
+		$query->where($db->quoteName('node_id') . ' = ' . (int) $nodeId);
 		$db->setQuery($query);
-		$db->query();
+		$db->execute();
 		$id = (int) $db->loadResult();
 
 		$map = new JObject;
@@ -232,13 +218,6 @@ class FinderIndexerTaxonomy
 		}
 		else {
 			$db->insertObject('#__finder_taxonomy_map', $map);
-		}
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
 		}
 
 		return true;
@@ -271,13 +250,6 @@ class FinderIndexerTaxonomy
 		// Get the branch titles.
 		$db->setQuery($query);
 		$results = $db->loadColumn();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
 
 		return $results;
 	}
@@ -317,13 +289,6 @@ class FinderIndexerTaxonomy
 		$db->setQuery($query, 0, 1);
 		$result = $db->loadObject();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
-
 		return $result;
 	}
 
@@ -346,14 +311,7 @@ class FinderIndexerTaxonomy
 		$query->from($db->quoteName('#__finder_taxonomy_map'));
 		$query->where($db->quoteName('link_id') . ' = ' . (int) $linkId);
 		$db->setQuery($query);
-		$db->query();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
+		$db->execute();
 
 		return true;
 	}
@@ -383,14 +341,7 @@ class FinderIndexerTaxonomy
 			' WHERE t.' . $db->quoteName('parent_id') . ' > 1' .
 			' AND m.' . $db->quoteName('link_id') . ' IS NULL';
 		$db->setQuery($query);
-		$db->query();
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
-		}
+		$db->execute();
 
 		return $db->getAffectedRows();
 	}
@@ -419,13 +370,6 @@ class FinderIndexerTaxonomy
 		{
 			// Update the item.
 			$db->updateObject('#__finder_taxonomy', $item, 'id');
-		}
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			// Throw database error exception.
-			throw new Exception($db->getErrorMsg(), 500);
 		}
 
 		return true;

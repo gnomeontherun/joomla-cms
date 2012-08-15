@@ -9,10 +9,6 @@
 
 defined('JPATH_BASE') or die;
 
-jimport('joomla.application.component.helper');
-jimport('joomla.filesystem.file');
-
-// Load the base adapter.
 require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
 
 /**
@@ -242,9 +238,10 @@ class plgFinderCategories extends FinderIndexerAdapter
 		}
 
 		// Need to import component route helpers dynamically, hence the reason it's handled here
-		if (JFile::exists(JPATH_SITE . '/components/' . $item->extension . '/helpers/route.php'))
+		$path = JPATH_SITE . '/components/' . $item->extension . '/helpers/route.php';
+		if (is_file($path))
 		{
-			include_once JPATH_SITE . '/components/' . $item->extension . '/helpers/route.php';
+			include_once $path;
 		}
 
 		$extension = ucfirst(substr($item->extension, 4));
@@ -258,7 +255,7 @@ class plgFinderCategories extends FinderIndexerAdapter
 		$registry->loadString($item->metadata);
 		$item->metadata = $registry;
 
-		 /* Add the meta-data processing instructions based on the categories
+		/* Add the meta-data processing instructions based on the categories
 		 * configuration parameters.
 		 */
 		// Add the meta-author.

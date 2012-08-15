@@ -1,26 +1,27 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_checkin
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_checkin
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * Checkin Model
  *
- * @package		Joomla.Administrator
- * @subpackage	com_checkin
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_checkin
+ * @since       1.6
  */
 class CheckinModelCheckin extends JModelList
 {
 	protected $total;
+
 	protected $tables;
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -79,7 +80,7 @@ class CheckinModelCheckin extends JModelList
 			}
 
 			$db->setQuery($query);
-			if ($db->query()) {
+			if ($db->execute()) {
 				$results = $results + $db->getAffectedRows();
 			}
 		}
@@ -143,22 +144,23 @@ class CheckinModelCheckin extends JModelList
 			}
 			foreach ($tables as $tn)
 			{
-				$query=$db->getQuery(true)
+				$query = $db->getQuery(true)
 					->select('COUNT(*)')
 					->from($db->quoteName($tn))
 					->where('checked_out > 0');
 
 				$db->setQuery($query);
-				if ($db->query()) {
+				if ($db->execute()) {
 					$results[$tn] = $db->loadResult();
 				} else {
 					continue;
 				}
 			}
 			$this->total = count($results);
-			if ($this->getState('list.ordering')=='table')
+			if ($this->getState('list.ordering') == 'table')
 			{
-				if ($this->getState('list.direction')=='asc') {
+				if ($this->getState('list.direction') == 'asc')
+				{
 					ksort($results);
 				}
 				else {
@@ -167,7 +169,8 @@ class CheckinModelCheckin extends JModelList
 			}
 			else
 			{
-				if ($this->getState('list.direction')=='asc') {
+				if ($this->getState('list.direction') == 'asc')
+				{
 					asort($results);
 				}
 				else {

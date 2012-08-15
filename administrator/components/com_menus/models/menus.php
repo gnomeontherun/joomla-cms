@@ -1,15 +1,13 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- *
  * @package     Joomla.Administrator
  * @subpackage  com_menus
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.modellist');
 
 /**
  * Menu List Model for Menus.
@@ -88,14 +86,17 @@ class MenusModelMenus extends JModelList
 			->from('#__menu AS m')
 			->where('m.published = 1')
 			->where('m.menutype IN ('.$menuTypes.')')
-			->group('m.menutype')
-			;
-		$db->setQuery($query);
-		$countPublished = $db->loadAssocList('menutype', 'count_published');
+			->group('m.menutype');
 
-		if ($db->getErrorNum())
+		$db->setQuery($query);
+
+		try
 		{
-			$this->setError($db->getErrorMsg());
+			$countPublished = $db->loadAssocList('menutype', 'count_published');
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
 			return false;
 		}
 
@@ -104,11 +105,14 @@ class MenusModelMenus extends JModelList
 			->where('m.published = 0')
 			->where('m.menutype IN ('.$menuTypes.')');
 		$db->setQuery($query);
-		$countUnpublished = $db->loadAssocList('menutype', 'count_published');
 
-		if ($db->getErrorNum())
+		try
 		{
-			$this->setError($db->getErrorMsg());
+			$countUnpublished = $db->loadAssocList('menutype', 'count_published');
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
 			return false;
 		}
 
@@ -117,11 +121,14 @@ class MenusModelMenus extends JModelList
 			->where('m.published = -2')
 			->where('m.menutype IN ('.$menuTypes.')');
 		$db->setQuery($query);
-		$countTrashed = $db->loadAssocList('menutype', 'count_published');
 
-		if ($db->getErrorNum())
+		try
 		{
-			$this->setError($db->getErrorMsg());
+			$countTrashed = $db->loadAssocList('menutype', 'count_published');
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage);
 			return false;
 		}
 

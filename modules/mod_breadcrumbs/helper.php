@@ -1,13 +1,21 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_breadcrumbs
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_breadcrumbs
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
+/**
+ * Helper for mod_breadcrumbs
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_breadcrumbs
+ * @since       1.5
+ */
 class modBreadCrumbsHelper
 {
 	public static function getList(&$params)

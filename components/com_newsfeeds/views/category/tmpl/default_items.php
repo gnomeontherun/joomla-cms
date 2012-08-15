@@ -1,12 +1,12 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_newsfeeds
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_newsfeeds
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.framework');
@@ -20,7 +20,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<p> <?php echo JText::_('COM_NEWSFEEDS_NO_ARTICLES'); ?>	 </p>
 <?php else : ?>
 
-<form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<fieldset class="filters">
 	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
@@ -33,7 +33,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 	</fieldset>
 	<table class="category">
-		<?php if ($this->params->get('show_headings')==1) : ?>
+		<?php if ($this->params->get('show_headings') == 1) : ?>
 		<thead><tr>
 
 				<th class="item-title" id="tableOrdering">

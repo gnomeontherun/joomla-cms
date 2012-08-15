@@ -1,8 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -10,7 +12,7 @@ defined('_JEXEC') or die;
 ?>
 <?php
 //get template params
-$templateparams	=  JFactory::getApplication()->getTemplate(true)->params;
+$templateparams	= JFactory::getApplication()->getTemplate(true)->params;
 
 //get language and direction
 $doc = JFactory::getDocument();
@@ -28,7 +30,7 @@ if(!$templateparams->get('html5', 0)): ?>
 <meta name="language" content="<?php echo $this->language; ?>" />
 
 <title><?php echo $this->error->getCode(); ?> - <?php echo $this->title; ?></title>
-<?php if ($this->error->getCode()>=400 && $this->error->getCode() < 500) { 	?>
+<?php if ($this->error->getCode() >= 400 && $this->error->getCode() < 500) { 	?>
 
 
 		<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/system/css/system.css" type="text/css" />
@@ -46,15 +48,12 @@ if(!$templateparams->get('html5', 0)): ?>
 ?>
 		<link rel="stylesheet" href="<?php echo $file;?>" type="text/css" />
 <?php
-	 	endforeach;
+		endforeach;
 	endif;
 ?>
 		<?php if ($this->direction == 'rtl') : ?>
 		<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/template_rtl.css" type="text/css" />
 		<?php endif; ?>
-		<!--[if lte IE 6]>
-			<link href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
-		<![endif]-->
 		<!--[if IE 7]>
 			<link href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/ie7only.css" rel="stylesheet" type="text/css" />
 		<![endif]-->
@@ -90,10 +89,8 @@ if(!$templateparams->get('html5', 0)): ?>
 			<?php endif; ?>
 					<div class="logoheader">
 						<?php
-								$logo =  $templateparams->get('logo');
+								$logo = $templateparams->get('logo');
 							?>
-
-							<?php jimport( 'joomla.application.module.helper' ); ?>
 
 						<h1 id="logo">
 						<?php if ($logo != null ): ?>
@@ -129,8 +126,8 @@ if(!$templateparams->get('html5', 0)): ?>
 							<nav class="left1" id="nav">
 						<?php endif; ?>
 				<h2 class="unseen"><?php echo JText::_('TPL_BEEZ5_NAVIGATION'); ?></h2>
-											<?php $module = JModuleHelper::getModule( 'menu' );
-											echo JModuleHelper::renderModule( $module);	?>
+											<?php $module = JModuleHelper::getModule('menu');
+											echo JModuleHelper::renderModule($module);	?>
 					<?php if(!$templateparams->get('html5', 0)): ?>
 							</div>
 						<?php else: ?>
@@ -140,12 +137,12 @@ if(!$templateparams->get('html5', 0)): ?>
 			<div id="errorboxbody">
 						<h2><?php echo JText::_('JERROR_AN_ERROR_HAS_OCCURRED'); ?><br />
 								<?php echo JText::_('JERROR_LAYOUT_PAGE_NOT_FOUND'); ?></h2>
-								<?php if (JModuleHelper::getModule( 'search' )) : ?>
+								<?php if (JModuleHelper::getModule('search')) : ?>
 									<div id="searchbox">
 									<h3 class="unseen"><?php echo JText::_('TPL_BEEZ5_SEARCH'); ?></h3>
 									<p><?php echo JText::_('JERROR_LAYOUT_SEARCH'); ?></p>
-									<?php $module = JModuleHelper::getModule( 'search' );
-									echo JModuleHelper::renderModule( $module);	?>
+									<?php $module = JModuleHelper::getModule('search');
+									echo JModuleHelper::renderModule($module);	?>
 									</div>
 								<?php endif; ?>
 								<div>
@@ -154,7 +151,7 @@ if(!$templateparams->get('html5', 0)): ?>
 
 					<h3><?php echo JText::_('JERROR_LAYOUT_PLEASE_CONTACT_THE_SYSTEM_ADMINISTRATOR'); ?></h3>
 
-					<h2>#<?php echo $this->error->getCode() ; ?>&nbsp;<?php echo $this->error->getMessage();?></h2><br />
+					<h2>#<?php echo $this->error->getCode(); ?>&nbsp;<?php echo $this->error->getMessage();?></h2><br />
 
 				</div><!-- end wrapper -->
 			</div><!-- end contentarea -->

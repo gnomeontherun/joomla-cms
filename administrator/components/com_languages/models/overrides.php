@@ -1,21 +1,20 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * Languages Overrides Model
  *
- * @package			Joomla.Administrator
- * @subpackage	com_languages
- * @since				2.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       2.5
  */
 class LanguagesModelOverrides extends JModelList
 {
@@ -56,7 +55,7 @@ class LanguagesModelOverrides extends JModelList
 		}
 
 		// Parse the override.ini file in oder to get the keys and strings
-		$filename = constant('JPATH_'.strtoupper($this->getState('filter.client'))).DS.'language'.DS.'overrides'.DS.$this->getState('filter.language').'.override.ini';
+		$filename = constant('JPATH_' . strtoupper($this->getState('filter.client'))) . '/language/overrides/' . $this->getState('filter.language') . '.override.ini';
 		$strings = LanguagesHelper::parseFile($filename);
 
 		// Consider the odering
@@ -232,7 +231,7 @@ class LanguagesModelOverrides extends JModelList
 		$app = JFactory::getApplication();
 
 		// Parse the override.ini file in oder to get the keys and strings
-		$filename = constant('JPATH_'.strtoupper($this->getState('filter.client'))).DS.'language'.DS.'overrides'.DS.$this->getState('filter.language').'.override.ini';
+		$filename = constant('JPATH_' . strtoupper($this->getState('filter.client'))) . '/language/overrides/' . $this->getState('filter.language') . '.override.ini';
 		$strings = LanguagesHelper::parseFile($filename);
 
 		// Unset strings that shall be deleted
@@ -252,7 +251,7 @@ class LanguagesModelOverrides extends JModelList
 		$registry = new JRegistry;
 		$registry->loadObject($strings);
 
-		$filename = constant('JPATH_'.strtoupper($this->getState('filter.client'))).DS.'language'.DS.'overrides'.DS.$this->getState('filter.language').'.override.ini';
+		$filename = constant('JPATH_' . strtoupper($this->getState('filter.client'))) . 'language/overrides/' . $this->getState('filter.language') . '.override.ini';
 
 		if (!JFile::write($filename, $registry->toString('INI')))
 		{

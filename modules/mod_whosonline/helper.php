@@ -1,18 +1,26 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_whosonline
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_whosonline
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
+/**
+ * Helper for mod_whosonline
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_whosonline
+ * @since       1.5
+ */
 class modWhosonlineHelper
 {
 	// show online count
-	static function getOnlineCount() {
+	public static function getOnlineCount()
+	{
 		$db		= JFactory::getDbo();
 		// calculate number of guests and users
 		$result	= array();
@@ -45,7 +53,8 @@ class modWhosonlineHelper
 	}
 
 	// show online member names
-	static function getOnlineUserNames($params) {
+	public static function getOnlineUserNames($params)
+	{
 		$db		= JFactory::getDbo();
 		$query	= $db->getQuery(true);
 		$query->select('a.username, a.time, a.userid, a.usertype, a.client_id');

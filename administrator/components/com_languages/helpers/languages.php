@@ -1,18 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 /**
  * Languages component helper.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       1.6
  */
 class LanguagesHelper
 {
@@ -68,17 +70,15 @@ class LanguagesHelper
 	/**
 	 * Method for parsing ini files
 	 *
-	 * @param		string	$filename Path and name of the ini file to parse
+	 * @param   string  $filename Path and name of the ini file to parse
 	 *
-	 * @return	array		Array of strings found in the file, the array indices will be the keys. On failure an empty array will be returned
+	 * @return  array   Array of strings found in the file, the array indices will be the keys. On failure an empty array will be returned
 	 *
-	 * @since		2.5
+	 * @since   2.5
 	 */
 	public static function parseFile($filename)
 	{
-		jimport('joomla.filesystem.file');
-
-		if (!JFile::exists($filename))
+		if (!is_file($filename))
 		{
 			return array();
 		}

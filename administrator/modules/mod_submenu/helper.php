@@ -1,16 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  mod_submenu
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	mod_submenu
- * @since		1.6
+ * Helper for mod_submenu
+ *
+ * @package     Joomla.Administrator
+ * @subpackage  mod_submenu
+ * @since       1.6
  */
 abstract class modSubmenuHelper
 {
@@ -22,7 +26,7 @@ abstract class modSubmenuHelper
 	public static function getItems()
 	{
 		// Initialise variables.
-		$menu = JToolBar::getInstance('submenu');
+		$menu = JToolbar::getInstance('submenu');
 
 		$list = $menu->getItems();
 

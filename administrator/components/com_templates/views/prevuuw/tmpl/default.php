@@ -1,15 +1,14 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 ?>
-
 
 <form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="adminForm">
 <div class="width-100">
@@ -21,7 +20,7 @@ defined('_JEXEC') or die;
 	</h3>
 	<div class="clr"></div>
 	<div class="width-100 temprev">
-		<?php echo JHtml::_('iframe', $this->url.'index.php?tp='.$this->tp.'&amp;template='.$this->id, 'previewframe',  array('class' => 'previewframe')) ?>
+		<?php echo JHtml::_('iframe', $this->url . 'index.php?tp=' . $this->tp . '&amp;template=' . $this->id, 'previewframe', array('class' => 'previewframe')) ?>
 	</div>
 </div>
 

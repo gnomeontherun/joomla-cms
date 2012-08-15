@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,17 +12,22 @@ defined('_JEXEC') or die;
 /**
  * HTML View class for the Templates component
  *
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ * @since       1.6
  */
 class TemplatesViewPrevuuw extends JViewLegacy
 {
 	protected $client;
+
 	protected $id;
+
 	protected $option;
+
 	protected $template;
+
 	protected $tp;
+
 	protected $url;
 
 	/**
@@ -59,7 +65,7 @@ class TemplatesViewPrevuuw extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JToolBarHelper::title(JText::_('COM_TEMPLATES_MANAGER'), 'thememanager');
-		JToolBarHelper::custom('edit', 'back.png', 'back_f2.png', 'Back', false, false);
+		JToolbarHelper::title(JText::_('COM_TEMPLATES_MANAGER'), 'thememanager');
+		JToolbarHelper::custom('edit', 'back.png', 'back_f2.png', 'Back', false, false);
 	}
 }

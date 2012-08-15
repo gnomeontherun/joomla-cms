@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,30 +12,34 @@ defined('_JEXEC') or die;
 /**
  * HTML Article View class for the Content component
  *
- * @package		Joomla.Site
- * @subpackage	com_content
- * @since		1.5
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ * @since       1.5
  */
 class ContentViewArticle extends JViewLegacy
 {
 	protected $item;
+
 	protected $params;
+
 	protected $print;
+
 	protected $state;
+
 	protected $user;
 
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$user		= JFactory::getUser();
 		$userId		= $user->get('id');
-		$dispatcher	= JDispatcher::getInstance();
+		$dispatcher	= JEventDispatcher::getInstance();
 
-		$this->item		= $this->get('Item');
-		$this->print	= JRequest::getBool('print');
-		$this->state	= $this->get('State');
-		$this->user		= $user;
+		$this->item  = $this->get('Item');
+		$this->print = $app->input->getBool('print');
+		$this->state = $this->get('State');
+		$this->user  = $user;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -106,7 +113,8 @@ class ContentViewArticle extends JViewLegacy
 
 		}
 
-		if ($item->params->get('show_intro', '1')=='1') {
+		if ($item->params->get('show_intro', '1') == '1')
+		{
 			$item->text = $item->introtext.' '.$item->fulltext;
 		}
 		elseif ($item->fulltext) {

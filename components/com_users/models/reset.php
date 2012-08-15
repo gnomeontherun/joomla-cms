@@ -1,23 +1,20 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_users
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modelform');
-jimport('joomla.event.dispatcher');
-jimport('joomla.database.table');
-
 /**
  * Rest model class for Users.
  *
- * @package		Joomla.Site
- * @subpackage	com_users
- * @since		1.5
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ * @since       1.5
  */
 class UsersModelReset extends JModelForm
 {
@@ -227,11 +224,14 @@ class UsersModelReset extends JModelForm
 
 		// Get the user id.
 		$db->setQuery((string) $query);
-		$user = $db->loadObject();
 
-		// Check for an error.
-		if ($db->getErrorNum()) {
-			return new JException(JText::sprintf('COM_USERS_DATABASE_ERROR', $db->getErrorMsg()), 500);
+		try
+		{
+			$user = $db->loadObject();
+		}
+		catch (RuntimeException $e)
+		{
+			return new JException(JText::sprintf('COM_USERS_DATABASE_ERROR', $e->getMessage()), 500);
 		}
 
 		// Check for a user.
@@ -240,7 +240,7 @@ class UsersModelReset extends JModelForm
 			return false;
 		}
 
-		$parts	= explode( ':', $user->activation );
+		$parts	= explode(':', $user->activation);
 		$crypt	= $parts[0];
 		if (!isset($parts[1])) {
 			$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
@@ -314,11 +314,14 @@ class UsersModelReset extends JModelForm
 
 		// Get the user object.
 		$db->setQuery((string) $query);
-		$userId = $db->loadResult();
 
-		// Check for an error.
-		if ($db->getErrorNum()) {
-			$this->setError(JText::sprintf('COM_USERS_DATABASE_ERROR', $db->getErrorMsg()), 500);
+		try
+		{
+			$userId = $db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError(JText::sprintf('COM_USERS_DATABASE_ERROR', $e->getMessage()), 500);
 			return false;
 		}
 

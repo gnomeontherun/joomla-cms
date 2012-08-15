@@ -1,6 +1,7 @@
 <?php
 /**
  * @package    Joomla.Installation
+ *
  * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -36,7 +37,7 @@ class JRouterInstallation extends JObject
 	 *
 	 * @return  string  The absolute search engine friendly URL
 	 *
-	 * @since	1.5
+	 * @since   1.5
 	 */
 	public function build($url)
 	{

@@ -1,16 +1,16 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
-$templateparams =$app->getTemplate(true)->params;
+$templateparams = $app->getTemplate(true)->params;
 
 if ($templateparams->get('html5') != 1) :
 	require JPATH_BASE.'/components/com_content/views/category/tmpl/default_articles.php';
@@ -35,7 +35,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 
 <?php else : ?>
 
-<form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if ($this->params->get('filter_field') != 'hide') : ?>
 	<fieldset class="filters">
 		<legend class="element-invisible">
@@ -65,7 +65,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			<tr>
 
 				<th class="list-title" id="tableOrdering">
-					<?php  echo JHtml::_('grid.sort', 'COM_CONTENT_HEADING_TITLE', 'a.title', $listDirn, $listOrder) ; ?>
+					<?php echo JHtml::_('grid.sort', 'COM_CONTENT_HEADING_TITLE', 'a.title', $listDirn, $listOrder); ?>
 				</th>
 
 				<?php if ($date = $this->params->get('list_show_date')) : ?>
@@ -109,15 +109,19 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 
 					<?php if ($this->params->get('list_show_date')) : ?>
 					<td class="list-date">
-						<?php echo JHtml::_('date', $article->displayDate, $this->escape(
-						$this->params->get('date_format', JText::_('DATE_FORMAT_LC3')))); ?>
+						<?php
+						echo JHtml::_(
+							'date', $article->displayDate, $this->escape(
+								$this->params->get('date_format', JText::_('DATE_FORMAT_LC3'))
+							)
+						); ?>
 					</td>
 					<?php endif; ?>
 
 					<<?php if ($this->params->get('list_show_author', 1)) : ?>
 					<td class="list-author">
 						<?php if(!empty($article->author) || !empty($article->created_by_alias)) : ?>
-							<?php $author =  $article->author ?>
+							<?php $author = $article->author ?>
 							<?php $author = ($article->created_by_alias ? $article->created_by_alias : $author);?>
 
 							<?php if (!empty($article->contactid ) &&  $this->params->get('link_author') == true):?>
@@ -153,7 +157,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 						$fullURL->setVar('return', base64_encode($returnURL));
 					?>
 					<a href="<?php echo $fullURL; ?>" class="register">
-					<?php echo JText::_( 'COM_CONTENT_REGISTER_TO_READ_MORE' ); ?></a>
+					<?php echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE'); ?></a>
 				</td>
 				<?php endif; ?>
 
@@ -170,7 +174,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 
 <?php // Add pagination links ?>
 <?php if (!empty($this->items)) : ?>
-	<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->get('pages.total') > 1)) : ?>
+	<?php if (($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2)) && ($this->pagination->pagesTotal > 1)) : ?>
 	<div class="pagination">
 
 		<?php if ($this->params->def('show_pagination_results', 1)) : ?>

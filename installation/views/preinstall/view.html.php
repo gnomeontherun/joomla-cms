@@ -1,6 +1,7 @@
 <?php
 /**
  * @package    Joomla.Installation
+ *
  * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -26,16 +27,16 @@ class InstallationViewPreinstall extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		$this->form			= $this->get('Form');
 		$this->state		= $this->get('State');
 		$this->settings		= $this->get('PhpSettings');
 		$this->options		= $this->get('PhpOptions');
-		$this->sufficient	= $this->get('PhpOptionsSufficient');
 		$this->version		= new JVersion;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseError(500, implode("\n", $errors));
+			$app->enqueueMessage(implode("\n", $errors), 'error');
 		}
 
 		parent::display($tpl);

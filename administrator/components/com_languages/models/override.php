@@ -1,21 +1,20 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
-
 /**
  * Languages Override Model
  *
- * @package			Joomla.Administrator
- * @subpackage	com_languages
- * @since				2.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       2.5
  */
 class LanguagesModelOverride extends JModelAdmin
 {
@@ -87,17 +86,18 @@ class LanguagesModelOverride extends JModelAdmin
 	{
 		require_once JPATH_COMPONENT.'/helpers/languages.php';
 
-		$pk	= (!empty($pk)) ? $pk : JRequest::getCmd('id');
+		$input = JFactory::getApplication()->input;
+		$pk	= (!empty($pk)) ? $pk : $input->get('id');
 		$filename = constant('JPATH_'.strtoupper($this->getState('filter.client'))) . '/language/overrides/' . $this->getState('filter.language', 'en-GB').'.override.ini';
 		$strings = LanguagesHelper::parseFile($filename);
 
 		$result = new stdClass;
-		$result->key			= '';
-		$result->override	= '';
+		$result->key      = '';
+		$result->override = '';
 		if (isset($strings[$pk]))
 		{
-			$result->key			= $pk;
-			$result->override	= $strings[$pk];
+			$result->key      = $pk;
+			$result->override = $strings[$pk];
 		}
 
 		return $result;

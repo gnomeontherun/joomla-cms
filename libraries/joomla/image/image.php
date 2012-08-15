@@ -78,7 +78,7 @@ class JImage
 		if (!isset(self::$formats[IMAGETYPE_JPEG]))
 		{
 			$info = gd_info();
-			self::$formats[IMAGETYPE_JPEG] = (isset($info['JPEG Support']) && $info['JPEG Support'] || isset($info['JPG Support']) && $info['JPG Support']) ? true : false;
+			self::$formats[IMAGETYPE_JPEG] = ($info['JPEG Support']) ? true : false;
 			self::$formats[IMAGETYPE_PNG] = ($info['PNG Support']) ? true : false;
 			self::$formats[IMAGETYPE_GIF] = ($info['GIF Read Support']) ? true : false;
 		}
@@ -102,7 +102,7 @@ class JImage
 	 *
 	 * @param   string  $path  The filesystem path to the image for which to get properties.
 	 *
-	 * @return  object
+	 * @return  stdClass
 	 *
 	 * @since   11.3
 	 * @throws  InvalidArgumentException
@@ -155,7 +155,7 @@ class JImage
 	 * @since   11.3
 	 * @throws  LogicException
 	 */
-	public function crop($width, $height, $left, $top, $createNew = true)
+	public function crop($width, $height, $left = null, $top = null, $createNew = true)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
@@ -168,6 +168,16 @@ class JImage
 
 		// Sanitize height.
 		$height = $this->sanitizeHeight($height, $width);
+
+		// Autocrop offsets
+		if (is_null($left))
+		{
+			$left = round(($this->getWidth() - $width) / 2);
+		}
+		if (is_null($top))
+		{
+			$top = round(($this->getHeight() - $height) / 2);
+		}
 
 		// Sanitize left.
 		$left = $this->sanitizeOffset($left);
@@ -445,7 +455,7 @@ class JImage
 	 * @param   mixed    $width        The width of the resized image in pixels or a percentage.
 	 * @param   mixed    $height       The height of the resized image in pixels or a percentage.
 	 * @param   bool     $createNew    If true the current image will be cloned, resized and returned; else
-	 * the current image will be resized and returned.
+	 *                                 the current image will be resized and returned.
 	 * @param   integer  $scaleMethod  Which method to use for scaling
 	 *
 	 * @return  JImage
@@ -519,7 +529,7 @@ class JImage
 	 * @param   mixed    $angle       The angle of rotation for the image
 	 * @param   integer  $background  The background color to use when areas are added due to rotation
 	 * @param   bool     $createNew   If true the current image will be cloned, rotated and returned; else
-	 * the current image will be rotated and returned.
+	 *                                the current image will be rotated and returned.
 	 *
 	 * @return  JImage
 	 *
@@ -535,7 +545,7 @@ class JImage
 		}
 
 		// Sanitize input
-		$angle = floatval($angle);
+		$angle = (float) $angle;
 
 		// Create the new truecolor image handle.
 		$handle = imagecreatetruecolor($this->getWidth(), $this->getHeight());
@@ -576,7 +586,7 @@ class JImage
 	 * @param   integer  $type     The image type to save the file as.
 	 * @param   array    $options  The image type options to use in saving the file.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @see     http://www.php.net/manual/image.constants.php
 	 * @since   11.3
@@ -593,16 +603,16 @@ class JImage
 		switch ($type)
 		{
 			case IMAGETYPE_GIF:
-				imagegif($this->handle, $path);
+				return imagegif($this->handle, $path);
 				break;
 
 			case IMAGETYPE_PNG:
-				imagepng($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 0);
+				return imagepng($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 0);
 				break;
 
 			case IMAGETYPE_JPEG:
 			default:
-				imagejpeg($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 100);
+				return imagejpeg($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 100);
 		}
 	}
 
@@ -652,10 +662,10 @@ class JImage
 	 * @param   integer  $height       The height of the resized image in pixels.
 	 * @param   integer  $scaleMethod  The method to use for scaling
 	 *
-	 * @return  object
+	 * @return  stdClass
 	 *
 	 * @since   11.3
-	 * @throws  InvalidArgumentException
+	 * @throws  InvalidArgumentException  If width, height or both given as zero
 	 */
 	protected function prepareDimensions($width, $height, $scaleMethod)
 	{
@@ -665,14 +675,25 @@ class JImage
 		switch ($scaleMethod)
 		{
 			case self::SCALE_FILL:
-				$dimensions->width = intval(round($width));
-				$dimensions->height = intval(round($height));
+				$dimensions->width = (int) round($width);
+				$dimensions->height = (int) round($height);
 				break;
 
 			case self::SCALE_INSIDE:
 			case self::SCALE_OUTSIDE:
-				$rx = $this->getWidth() / $width;
-				$ry = $this->getHeight() / $height;
+
+				// Both $height or $width cannot be zero
+				if ($width == 0 || $height == 0)
+				{
+					throw new InvalidArgumentException(' Width or height cannot be zero with this scale method ');
+				}
+
+				// If both $width and $height are not equals to zero
+				else
+				{
+					$rx = $this->getWidth() / $width;
+					$ry = $this->getHeight() / $height;
+				}
 
 				if ($scaleMethod == self::SCALE_INSIDE)
 				{
@@ -683,8 +704,8 @@ class JImage
 					$ratio = ($rx < $ry) ? $rx : $ry;
 				}
 
-				$dimensions->width = intval(round($this->getWidth() / $ratio));
-				$dimensions->height = intval(round($this->getHeight() / $ratio));
+				$dimensions->width = (int) round($this->getWidth() / $ratio);
+				$dimensions->height = (int) round($this->getHeight() / $ratio);
 				break;
 
 			default:
@@ -713,12 +734,12 @@ class JImage
 		// If we were given a percentage, calculate the integer value.
 		if (preg_match('/^[0-9]+(\.[0-9]+)?\%$/', $height))
 		{
-			$height = intval(round($this->getHeight() * floatval(str_replace('%', '', $height)) / 100));
+			$height = (int) round($this->getHeight() * (float) str_replace('%', '', $height) / 100);
 		}
 		// Else do some rounding so we come out with a sane integer value.
 		else
 		{
-			$height = intval(round(floatval($height)));
+			$height = (int) round((float) $height);
 		}
 
 		return $height;
@@ -735,7 +756,7 @@ class JImage
 	 */
 	protected function sanitizeOffset($offset)
 	{
-		return intval(round(floatval($offset)));
+		return (int) round((float) $offset);
 	}
 
 	/**
@@ -756,12 +777,12 @@ class JImage
 		// If we were given a percentage, calculate the integer value.
 		if (preg_match('/^[0-9]+(\.[0-9]+)?\%$/', $width))
 		{
-			$width = intval(round($this->getWidth() * floatval(str_replace('%', '', $width)) / 100));
+			$width = (int) round($this->getWidth() * (float) str_replace('%', '', $width) / 100);
 		}
 		// Else do some rounding so we come out with a sane integer value.
 		else
 		{
-			$width = intval(round(floatval($width)));
+			$width = (int) round((float) $width);
 		}
 
 		return $width;

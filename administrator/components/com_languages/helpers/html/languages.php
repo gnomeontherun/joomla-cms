@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Utility class working with languages
  *
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       1.6
  */
 abstract class JHtmlLanguages
 {
@@ -42,7 +45,7 @@ abstract class JHtmlLanguages
 	 */
 	public static function id($rowNum, $language)
 	{
-		return '<input type="radio" id="cb'.$rowNum.'" name="cid" value="'.htmlspecialchars($language).'" onclick="Joomla.isChecked(this.checked);" title="'.($rowNum+1).'"/>';
+		return '<input type="radio" id="cb' . $rowNum . '" name="cid" value="' . htmlspecialchars($language) . '" onclick="Joomla.isChecked(this.checked);" title="' . ($rowNum + 1) . '"/>';
 	}
 
 	public static function clients()

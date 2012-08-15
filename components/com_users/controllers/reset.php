@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_users
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -13,9 +14,9 @@ require_once JPATH_COMPONENT.'/controller.php';
 /**
  * Reset controller class for Users.
  *
- * @package		Joomla.Site
- * @subpackage	com_users
- * @version		1.6
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ * @since       1.6
  */
 class UsersControllerReset extends UsersController
 {
@@ -81,9 +82,9 @@ class UsersControllerReset extends UsersController
 	 * Method to confirm the password request.
 	 *
 	 * @access	public
-	 * @since	1.0
+	 * @since	1.6
 	 */
-	function confirm()
+	public function confirm()
 	{
 		// Check the request token.
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));

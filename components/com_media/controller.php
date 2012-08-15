@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_media
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_media
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Media Manager Component Controller
  *
- * @package		Joomla.Site
- * @subpackage	com_media
- * @version 1.5
+ * @package     Joomla.Site
+ * @subpackage  com_media
+ * @since       1.5
  */
 class MediaController extends JControllerLegacy
 {
@@ -29,19 +30,19 @@ class MediaController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		JPluginHelper::importPlugin('content');
-		$vName = JRequest::getCmd('view', 'images');
+		$vName = $this->input->get('view', 'images');
 
 		switch ($vName)
 		{
 			case 'imagesList':
 				$mName = 'list';
-				$vLayout = JRequest::getCmd('layout', 'default');
+				$vLayout = $this->input->get('layout', 'default');
 
 				break;
 
 			case 'images':
 			default:
-				$vLayout = JRequest::getCmd('layout', 'default');
+				$vLayout = $this->input->get('layout', 'default');
 				$mName = 'manager';
 				$vName = 'images';
 
@@ -49,7 +50,7 @@ class MediaController extends JControllerLegacy
 		}
 
 		$document = JFactory::getDocument();
-		$vType		= $document->getType();
+		$vType    = $document->getType();
 
 		// Get/Create the view
 		$view = $this->getView($vName, $vType);
@@ -70,7 +71,7 @@ class MediaController extends JControllerLegacy
 		return $this;
 	}
 
-	function ftpValidate()
+	public function ftpValidate()
 	{
 		// Set FTP credentials, if given
 		JClientHelper::setCredentialsFromRequest('ftp');

@@ -1,6 +1,7 @@
 <?php
 /**
  * @package    Joomla.Installation
+ *
  * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -13,6 +14,7 @@ defined('_JEXEC') or die;
  * Provide many supporting API functions
  *
  * @package  Joomla.Installation
+ * @since    1.5
  */
 class JInstallation extends JApplication
 {
@@ -41,8 +43,8 @@ class JInstallation extends JApplication
 	public function render()
 	{
 		$document = JFactory::getDocument();
-		$config = JFactory::getConfig();
-		$user = JFactory::getUser();
+		$config   = JFactory::getConfig();
+		$user     = JFactory::getUser();
 
 		switch ($document->getType())
 		{
@@ -67,14 +69,14 @@ class JInstallation extends JApplication
 
 		// Execute the task.
 		$controller	= JControllerLegacy::getInstance('Installation');
-		$controller->execute(JRequest::getVar('task'));
+		$controller->execute($this->input->get('task'));
 		$controller->redirect();
 
 		// Get output from the buffer and clean it.
 		$contents = ob_get_contents();
 		ob_end_clean();
 
-		$file = JRequest::getCmd('tmpl', 'index');
+		$file = $this->input->get('tmpl', 'index');
 
 		$params = array(
 			'template'	=> 'template',
@@ -109,7 +111,7 @@ class JInstallation extends JApplication
 		// Check the request data for the language.
 		if (empty($options['language']))
 		{
-			$requestLang = JRequest::getCmd('lang', null);
+			$requestLang = $this->input->get('lang');
 			if (!is_null($requestLang))
 			{
 				$options['language'] = $requestLang;
@@ -276,6 +278,8 @@ class JInstallation extends JApplication
 		$options['name'] = $name;
 
 		$session = JFactory::getSession($options);
+		$session->initialise($this->input);
+		$session->start();
 		if (!$session->get('registry') instanceof JRegistry)
 		{
 			// Registry has been corrupted somehow
@@ -293,7 +297,7 @@ class JInstallation extends JApplication
 	 */
 	public function getLocalise()
 	{
-		$xml = JFactory::getXML(JPATH_SITE . '/installation/localise.xml');
+		$xml = simplexml_load_file(JPATH_SITE . '/installation/localise.xml');
 
 		if (!$xml)
 		{

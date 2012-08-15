@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,8 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Component Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_content
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ * @since       1.5
  */
 class ContentController extends JControllerLegacy
 {
@@ -32,11 +36,11 @@ class ContentController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		// Load the submenu.
-		ContentHelper::addSubmenu(JRequest::getCmd('view', 'articles'));
+		ContentHelper::addSubmenu($this->input->get('view', 'articles'));
 
-		$view		= JRequest::getCmd('view', 'articles');
-		$layout 	= JRequest::getCmd('layout', 'articles');
-		$id			= JRequest::getInt('id');
+		$view   = $this->input->get('view', 'articles');
+		$layout = $this->input->get('layout', 'articles');
+		$id     = $this->input->getInt('id');
 
 		// Check for edit form.
 		if ($view == 'article' && $layout == 'edit' && !$this->checkEditId('com_content.edit.article', $id)) {

@@ -7,10 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access.
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.controlleradmin');
 
 /**
  * Users list controller class.
@@ -41,8 +38,8 @@ class UsersControllerUsers extends JControllerAdmin
 	{
 		parent::__construct($config);
 
-		$this->registerTask('block',		'changeBlock');
-		$this->registerTask('unblock',		'changeBlock');
+		$this->registerTask('block', 'changeBlock');
+		$this->registerTask('unblock', 'changeBlock');
 	}
 
 	/**

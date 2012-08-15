@@ -1,20 +1,18 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_contact
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_contact
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modelform');
-jimport('joomla.event.dispatcher');
-
 /**
- * @package		Joomla.Site
- * @subpackage	com_contact
- * @since 1.5
+ * @package     Joomla.Site
+ * @subpackage  com_contact
+ * @since       1.5
  */
 class ContactModelContact extends JModelForm
 {
@@ -44,7 +42,7 @@ class ContactModelContact extends JModelForm
 		$app = JFactory::getApplication('site');
 
 		// Load state from the request.
-		$pk = JRequest::getInt('id');
+		$pk = $app->input->getInt('id');
 		$this->setState('contact.id', $pk);
 
 		// Load the parameters.
@@ -91,7 +89,7 @@ class ContactModelContact extends JModelForm
 
 	protected function loadFormData()
 	{
-		$data = (array)JFactory::getApplication()->getUserState('com_contact.contact.data', array());
+		$data = (array) JFactory::getApplication()->getUserState('com_contact.contact.data', array());
 		return $data;
 	}
 
@@ -162,12 +160,8 @@ class ContactModelContact extends JModelForm
 
 				$data = $db->loadObject();
 
-				if ($error = $db->getErrorMsg()) {
-					throw new JException($error);
-				}
-
 				if (empty($data)) {
-					throw new JException(JText::_('COM_CONTACT_ERROR_CONTACT_NOT_FOUND'), 404);
+					throw new Exception(JText::_('COM_CONTACT_ERROR_CONTACT_NOT_FOUND'), 404);
 				}
 
 				// Check for published state if filter set.
@@ -206,7 +200,7 @@ class ContactModelContact extends JModelForm
 
 				$this->_item[$pk] = $data;
 			}
-			catch (JException $e)
+			catch (Exception $e)
 			{
 				$this->setError($e);
 				$this->_item[$pk] = false;
@@ -221,8 +215,7 @@ class ContactModelContact extends JModelForm
 				$this->_item[$pk]->profile = $extendedData->profile;
 			}
 		}
-  		return $this->_item[$pk];
-
+		return $this->_item[$pk];
 	}
 
 	protected function getContactQuery($pk = null)
@@ -250,8 +243,10 @@ class ContactModelContact extends JModelForm
 			$case_when1 .= $query->concatenate(array($c_id, 'cc.alias'), ':');
 			$case_when1 .= ' ELSE ';
 			$case_when1 .= $c_id.' END as catslug';
-			$query->select('a.*, cc.access as category_access, cc.title as category_name, '
-			.$case_when.','.$case_when1);
+			$query->select(
+				'a.*, cc.access as category_access, cc.title as category_name, '
+				. $case_when . ',' . $case_when1
+			);
 
 			$query->from('#__contact_details AS a');
 
@@ -267,16 +262,13 @@ class ContactModelContact extends JModelForm
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN ('.$groups.')');
 
-			try {
+			try
+			{
 				$db->setQuery($query);
 				$result = $db->loadObject();
 
-				if ($error = $db->getErrorMsg()) {
-					throw new Exception($error);
-				}
-
 				if (empty($result)) {
-						throw new JException(JText::_('COM_CONTACT_ERROR_CONTACT_NOT_FOUND'), 404);
+					throw new Exception(JText::_('COM_CONTACT_ERROR_CONTACT_NOT_FOUND'), 404);
 				}
 
 			// If we are showing a contact list, then the contact parameters take priority
@@ -286,7 +278,9 @@ class ContactModelContact extends JModelForm
 					$registry->loadString($result->params);
 					$this->getState('params')->merge($registry);
 				}
-			} catch (Exception $e) {
+			}
+			catch (Exception $e)
+			{
 				$this->setError($e);
 				return false;
 			}
@@ -322,7 +316,7 @@ class ContactModelContact extends JModelForm
 
 				$query->from('#__content as a');
 				$query->leftJoin('#__categories as c on a.catid=c.id');
-				$query->where('a.created_by = '.(int)$result->user_id);
+				$query->where('a.created_by = ' . (int) $result->user_id);
 				$query->where('a.access IN ('. $groups.')');
 				$query->order('a.state DESC, a.created DESC');
 				// filter per language if plugin published
@@ -339,12 +333,12 @@ class ContactModelContact extends JModelForm
 				//get the profile information for the linked user
 				require_once JPATH_ADMINISTRATOR.'/components/com_users/models/user.php';
 				$userModel = JModelLegacy::getInstance('User', 'UsersModel', array('ignore_request' => true));
-					$data = $userModel->getItem((int)$result->user_id);
+				$data = $userModel->getItem((int) $result->user_id);
 
 				JPluginHelper::importPlugin('user');
 				$form = new JForm('com_users.profile');
 				// Get the dispatcher.
-				$dispatcher	= JDispatcher::getInstance();
+				$dispatcher	= JEventDispatcher::getInstance();
 
 				// Trigger the form preparation event.
 				$dispatcher->trigger('onContentPrepareForm', array($form, $data));

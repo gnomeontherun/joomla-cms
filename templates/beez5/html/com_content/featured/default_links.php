@@ -1,16 +1,17 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
+
 $app = JFactory::getApplication();
-$templateparams =$app->getTemplate(true)->params;
-if ($templateparams->get('html5')!=1)
+$templateparams = $app->getTemplate(true)->params;
+if ($templateparams->get('html5') != 1)
 {
 	require JPATH_BASE.'/components/com_content/views/featured/tmpl/default_links.php';
 	//evtl. ersetzen durch JPATH_COMPONENT.'/views/...'

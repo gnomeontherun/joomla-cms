@@ -1,17 +1,20 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_config
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
  * Note: this view is intended only to be opened in a popup
- * @package		Joomla.Administrator
- * @subpackage	com_config
+ *
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
+ * @since       1.5
  */
 class ConfigControllerComponent extends JControllerLegacy
 {
@@ -22,7 +25,7 @@ class ConfigControllerComponent extends JControllerLegacy
 	 * @return	void
 	 * @since	1.5
 	 */
-	function __construct($config = array())
+	public function __construct($config = array())
 	{
 		parent::__construct($config);
 
@@ -31,9 +34,21 @@ class ConfigControllerComponent extends JControllerLegacy
 	}
 
 	/**
+	 * Cancel operation
+	 */
+	function cancel()
+	{
+		// Clean the session data.
+		$app = JFactory::getApplication();
+		$app->setUserState('com_config.config.global.data',	null);
+
+		$this->setRedirect('index.php');
+	}
+
+	/**
 	 * Save the configuration
 	 */
-	function save()
+	public function save()
 	{
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -42,12 +57,12 @@ class ConfigControllerComponent extends JControllerLegacy
 		JClientHelper::setCredentialsFromRequest('ftp');
 
 		// Initialise variables.
-		$app	= JFactory::getApplication();
-		$model	= $this->getModel('Component');
-		$form	= $model->getForm();
-		$data	= JRequest::getVar('jform', array(), 'post', 'array');
-		$id		= JRequest::getInt('id');
-		$option	= JRequest::getCmd('component');
+		$app    = JFactory::getApplication();
+		$model  = $this->getModel('Component');
+		$form   = $model->getForm();
+		$data   = JRequest::getVar('jform', array(), 'post', 'array');
+		$id     = $this->input->getInt('id');
+		$option = $this->input->get('component');
 
 		// Check if the user is authorized to do this.
 		if (!JFactory::getUser()->authorise('core.admin', $option))
@@ -77,7 +92,7 @@ class ConfigControllerComponent extends JControllerLegacy
 			$app->setUserState('com_config.config.global.data', $data);
 
 			// Redirect back to the edit screen.
-			$this->setRedirect(JRoute::_('index.php?option=com_config&view=component&component='.$option.'&tmpl=component', false));
+			$this->setRedirect(JRoute::_('index.php?option=com_config&view=component&component=' . $option, false));
 			return false;
 		}
 
@@ -97,7 +112,7 @@ class ConfigControllerComponent extends JControllerLegacy
 
 			// Save failed, go back to the screen and display a notice.
 			$message = JText::sprintf('JERROR_SAVE_FAILED', $model->getError());
-			$this->setRedirect('index.php?option=com_config&view=component&component='.$option.'&tmpl=component', $message, 'error');
+			$this->setRedirect('index.php?option=com_config&view=component&component='  . $option, $message, 'error');
 			return false;
 		}
 
@@ -106,12 +121,12 @@ class ConfigControllerComponent extends JControllerLegacy
 		{
 			case 'apply':
 				$message = JText::_('COM_CONFIG_SAVE_SUCCESS');
-				$this->setRedirect('index.php?option=com_config&view=component&component='.$option.'&tmpl=component&refresh=1', $message);
+				$this->setRedirect('index.php?option=com_config&view=component&component=' . $option, $message);
 				break;
 
 			case 'save':
 			default:
-				$this->setRedirect('index.php?option=com_config&view=close&tmpl=component');
+				$this->setRedirect('index.php');
 				break;
 		}
 

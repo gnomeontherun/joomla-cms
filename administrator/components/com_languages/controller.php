@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Languages Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       1.5
  */
 class LanguagesController extends JControllerLegacy
 {
@@ -35,12 +38,12 @@ class LanguagesController extends JControllerLegacy
 		require_once JPATH_COMPONENT.'/helpers/languages.php';
 
 		// Load the submenu.
-		LanguagesHelper::addSubmenu(JRequest::getCmd('view', 'installed'));
+		LanguagesHelper::addSubmenu($this->input->get('view', 'installed'));
 
-		$view	= JRequest::getCmd('view', 'languages');
-		$layout	= JRequest::getCmd('layout', 'default');
-		$client	= JRequest::getInt('client');
-		$id		= JRequest::getInt('id');
+		$view   = $this->input->get('view', 'languages');
+		$layout = $this->input->get('layout', 'default');
+		$client = $this->input->getInt('client');
+		$id     = $this->input->getInt('id');
 
 		// Check for edit form.
 		if ($view == 'language' && $layout == 'edit' && !$this->checkEditId('com_languages.edit.language', $id)) {

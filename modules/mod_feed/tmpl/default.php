@@ -1,12 +1,12 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_feed
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_feed
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 ?>
 
@@ -94,7 +94,7 @@ if ($feed != false)
 					// item description
 					$text = $currItem->get_description();
 					$text = str_replace('&apos;', "'", $text);
-					$text=strip_tags($text);
+					$text = strip_tags($text);
 					// word limit check
 					if ($words)
 					{

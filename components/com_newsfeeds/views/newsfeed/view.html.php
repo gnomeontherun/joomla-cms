@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_newsfeeds
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_newsfeeds
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,10 +12,9 @@ defined('_JEXEC') or die;
 /**
  * HTML View class for the Newsfeeds component
  *
- * @static
- * @package		Joomla.Site
- * @subpackage	com_newsfeeds
- * @since 1.0
+ * @package     Joomla.Site
+ * @subpackage  com_newsfeeds
+ * @since       1.0
  */
 class NewsfeedsViewNewsfeed extends JViewLegacy
 {
@@ -39,27 +39,28 @@ class NewsfeedsViewNewsfeed extends JViewLegacy
 	/**
 	 * @since	1.6
 	 */
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		// Initialise variables.
 		$app		= JFactory::getApplication();
 		$user		= JFactory::getUser();
-		$dispatcher	= JDispatcher::getInstance();
+		$dispatcher	= JEventDispatcher::getInstance();
 
 		// Get view related request variables.
-		$print = JRequest::getBool('print');
+		$print = $app->input->getBool('print');
 
 		// Get model data.
 		$state = $this->get('State');
 		$item = $this->get('Item');
 
-		if ($item) {
-		// Get Category Model data
-		$categoryModel = JModelLegacy::getInstance('Category', 'NewsfeedsModel', array('ignore_request' => true));
-		$categoryModel->setState('category.id', $item->catid);
-		$categoryModel->setState('list.ordering', 'a.name');
-		$categoryModel->setState('list.direction', 'asc');
-		$items = $categoryModel->getItems();
+		if ($item)
+		{
+			// Get Category Model data
+			$categoryModel = JModelLegacy::getInstance('Category', 'NewsfeedsModel', array('ignore_request' => true));
+			$categoryModel->setState('category.id', $item->catid);
+			$categoryModel->setState('list.ordering', 'a.name');
+			$categoryModel->setState('list.direction', 'asc');
+			$items = $categoryModel->getItems();
 		}
 
 		// Check for errors.
@@ -154,8 +155,7 @@ class NewsfeedsViewNewsfeed extends JViewLegacy
 		$temp->loadString($item->params);
 		$params->merge($temp);
 
-		//  get RSS parsed object
-		$rssDoc = JFactory::getFeedParser($newsfeed->link, $newsfeed->cache_time);
+		$rssDoc = JSimplepieFactory::getFeedParser($newsfeed->link, $newsfeed->cache_time);
 
 		if ($rssDoc == false) {
 			$msg = JText::_('COM_NEWSFEEDS_ERRORS_FEED_NOT_RETRIEVED');
@@ -192,12 +192,12 @@ class NewsfeedsViewNewsfeed extends JViewLegacy
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
-		$this->assignRef('params'  , $params  );
-		$this->assignRef('newsfeed', $newsfeed);
-		$this->assignRef('state', $state);
-		$this->assignRef('item', $item);
-		$this->assignRef('user', $user);
-		$this->print = $print;
+		$this->params    = &$params;
+		$this->newsfeed = &$newsfeed;
+		$this->state    = &$state;
+		$this->item     = &$item;
+		$this->user     = &$user;
+		$this->print    = $print;
 
 		$this->_prepareDocument();
 
@@ -246,7 +246,7 @@ class NewsfeedsViewNewsfeed extends JViewLegacy
 				$path[] = array('title' => $category->title, 'link' => NewsfeedsHelperRoute::getCategoryRoute($category->id));
 				$category = $category->getParent();
 			}
- 			$path = array_reverse($path);
+			$path = array_reverse($path);
 			foreach($path as $item)
 			{
 				$pathway->addItem($item['title'], $item['link']);

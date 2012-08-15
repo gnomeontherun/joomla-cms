@@ -1,12 +1,12 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
@@ -38,10 +38,10 @@ else :
 <?php
 if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->paginationposition && $this->item->paginationrelative)
 {
- echo $this->item->pagination;
+	echo $this->item->pagination;
 }
- ?>
-<?php if ($params->get('show_title')) : ?>
+
+if ($params->get('show_title')) : ?>
 		<h2>
 			<?php echo $this->escape($this->item->title); ?>
 		</h2>
@@ -55,13 +55,13 @@ if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->
 		<?php if (!$this->print) : ?>
 				<?php if ($params->get('show_print_icon')) : ?>
 				<li class="print-icon">
-						<?php echo JHtml::_('icon.print_popup',  $this->item, $params); ?>
+						<?php echo JHtml::_('icon.print_popup', $this->item, $params); ?>
 				</li>
 				<?php endif; ?>
 
 				<?php if ($params->get('show_email_icon')) : ?>
 				<li class="email-icon">
-						<?php echo JHtml::_('icon.email',  $this->item, $params); ?>
+						<?php echo JHtml::_('icon.email', $this->item, $params); ?>
 				</li>
 				<?php endif; ?>
 				<?php if ($this->user->authorise('core.edit', 'com_content.article.'.$this->item->id)) : ?>
@@ -71,7 +71,7 @@ if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->
 					<?php endif; ?>
 		<?php else : ?>
 				<li>
-						<?php echo JHtml::_('icon.print_screen',  $this->item, $params); ?>
+						<?php echo JHtml::_('icon.print_screen', $this->item, $params); ?>
 				</li>
 		<?php endif; ?>
 		</ul>
@@ -130,12 +130,13 @@ if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->
 <?php endif; ?>
 <?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
 	<dd class="createdby">
-		<?php $author =  $this->item->author; ?>
+		<?php $author = $this->item->author; ?>
 		<?php $author = ($this->item->created_by_alias ? $this->item->created_by_alias : $author);?>
 
 			<?php if (!empty($this->item->contactid ) &&  $params->get('link_author') == true):?>
-				<?php 	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' ,
-				 JHtml::_('link', JRoute::_('index.php?option=com_contact&view=contact&id='.$this->item->contactid), $author)); ?>
+				<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY',
+					JHtml::_('link', JRoute::_('index.php?option=com_contact&view=contact&id=' . $this->item->contactid), $author)
+				); ?>
 
 			<?php else :?>
 				<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
@@ -155,7 +156,7 @@ if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->
 		<?php echo $this->item->toc; ?>
 	<?php endif; ?>
 
-<?php if (isset($urls) AND ((!empty($urls->urls_position) AND ($urls->urls_position=='0')) OR  ($params->get('urls_position')=='0' AND empty($urls->urls_position) ))
+<?php if (isset($urls) AND ((!empty($urls->urls_position) AND ($urls->urls_position == '0')) OR ($params->get('urls_position') == '0' AND empty($urls->urls_position)))
 		OR (empty($urls->urls_position) AND (!$params->get('urls_position')))): ?>
 
 	<?php echo $this->loadTemplate('links'); ?>
@@ -174,21 +175,21 @@ if (!empty($this->item->pagination) && $this->item->pagination && !$this->item->
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination AND !$this->item->paginationposition AND !$this->item->paginationrelative):
 	echo $this->item->pagination;
- endif;
+endif;
 ?>
 	<?php echo $this->item->text; ?>
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination AND $this->item->paginationposition AND!$this->item->paginationrelative):
-	 echo $this->item->pagination;?>
+	echo $this->item->pagination;?>
 <?php endif; ?>
 
-	<?php if (isset($urls) AND ((!empty($urls->urls_position)  AND ($urls->urls_position=='1')) OR ( $params->get('urls_position')=='1') )): ?>
+	<?php if (isset($urls) AND ((!empty($urls->urls_position) AND ($urls->urls_position == '1')) OR ( $params->get('urls_position') == '1'))): ?>
 
 	<?php echo $this->loadTemplate('links'); ?>
 	<?php endif; ?>
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination AND $this->item->paginationposition AND $this->item->paginationrelative):
-	 echo $this->item->pagination;?>
+	echo $this->item->pagination;?>
 <?php endif; ?>
 	<?php echo $this->item->event->afterDisplayContent; ?>
 </article>

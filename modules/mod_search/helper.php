@@ -1,17 +1,20 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_search
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_search
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Site
- * @subpackage	mod_search
- * @since		1.5
+ * Helper for mod_search
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_search
+ * @since       1.5
  */
 class modSearchHelper
 {

@@ -1,18 +1,19 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2009 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
+
 $params =& $this->item->params;
 $app = JFactory::getApplication();
-$templateparams =$app->getTemplate(true)->params;
+$templateparams = $app->getTemplate(true)->params;
 
-if ($templateparams->get('html5')!=1)
+if ($templateparams->get('html5') != 1)
 {
 	require JPATH_BASE.'/components/com_content/views/category/tmpl/blog_links.php';
 	//evtl. ersetzen durch JPATH_COMPONENT.'/views/...'

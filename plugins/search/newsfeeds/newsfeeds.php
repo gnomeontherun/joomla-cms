@@ -1,25 +1,26 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Plugin
+ * @subpackage  Search.newsfeeds
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 /**
  * Newsfeeds Search plugin
  *
- * @package		Joomla.Plugin
- * @subpackage	Search.content
- * @since		1.6
+ * @package     Joomla.Plugin
+ * @subpackage  Search.newsfeeds
+ * @since       1.6
  */
 class plgSearchNewsfeeds extends JPlugin
 {
 	/**
 	 * Constructor
 	 *
-	 * @access      protected
 	 * @param       object  $subject The object to observe
 	 * @param       array   $config  An array that holds the plugin configuration
 	 * @since       1.5
@@ -33,7 +34,7 @@ class plgSearchNewsfeeds extends JPlugin
 	/**
 	 * @return array An array of search areas
 	 */
-	function onContentSearchAreas()
+	public function onContentSearchAreas()
 	{
 		static $areas = array(
 			'newsfeeds' => 'PLG_SEARCH_NEWSFEEDS_NEWSFEEDS'
@@ -51,7 +52,7 @@ class plgSearchNewsfeeds extends JPlugin
 	 * @param string ordering option, newest|oldest|popular|alpha|category
 	 * @param mixed An array if the search it to be restricted to areas, null if search all
 	 */
-	function onContentSearch($text, $phrase='', $ordering='', $areas=null)
+	public function onContentSearch($text, $phrase='', $ordering='', $areas=null)
 	{
 		$db		= JFactory::getDbo();
 		$app	= JFactory::getApplication();
@@ -64,15 +65,15 @@ class plgSearchNewsfeeds extends JPlugin
 			}
 		}
 
-		$sContent		= $this->params->get('search_content',		1);
-		$sArchived		= $this->params->get('search_archived',		1);
-		$limit			= $this->params->def('search_limit',		50);
+		$sContent  = $this->params->get('search_content', 1);
+		$sArchived = $this->params->get('search_archived', 1);
+		$limit     = $this->params->def('search_limit', 50);
 		$state = array();
 		if ($sContent) {
-			$state[]=1;
+			$state[] = 1;
 		}
 		if ($sArchived) {
-			$state[]=2;
+			$state[] = 2;
 		}
 
 		$text = trim($text);

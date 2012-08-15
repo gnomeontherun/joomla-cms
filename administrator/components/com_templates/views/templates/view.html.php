@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * View class for a list of template styles.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ * @since       1.6
  */
 class TemplatesViewTemplates extends JViewLegacy
 {
@@ -57,8 +60,8 @@ class TemplatesViewTemplates extends JViewLegacy
 		// Check if there are no matching items
 		if(!count($this->items)) {
 			JFactory::getApplication()->enqueueMessage(
-				JText::_('COM_TEMPLATES_MSG_MANAGE_NO_TEMPLATES')
-				, 'warning'
+				JText::_('COM_TEMPLATES_MSG_MANAGE_NO_TEMPLATES'),
+				'warning'
 			);
 		}
 
@@ -77,11 +80,11 @@ class TemplatesViewTemplates extends JViewLegacy
 		$state	= $this->get('State');
 		$canDo	= TemplatesHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_TEMPLATES_MANAGER_TEMPLATES'), 'thememanager');
+		JToolbarHelper::title(JText::_('COM_TEMPLATES_MANAGER_TEMPLATES'), 'thememanager');
 		if ($canDo->get('core.admin')) {
-			JToolBarHelper::preferences('com_templates');
-			JToolBarHelper::divider();
+			JToolbarHelper::preferences('com_templates');
+			JToolbarHelper::divider();
 		}
-		JToolBarHelper::help('JHELP_EXTENSIONS_TEMPLATE_MANAGER_TEMPLATES');
+		JToolbarHelper::help('JHELP_EXTENSIONS_TEMPLATE_MANAGER_TEMPLATES');
 	}
 }

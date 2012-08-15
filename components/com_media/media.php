@@ -1,23 +1,27 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_media
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_media
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
+$app   = JFactory::getApplication();
+$input = $app->input;
+
 $params = JComponentHelper::getParams('com_media');
 // Make sure the user is authorized to view this page
 $user = JFactory::getUser();
-$asset = JRequest::getCmd('asset');
-$author = JRequest::getCmd('author');
+$asset = $input->get('asset');
+$author = $input->get('author');
 if (!$asset or
 		!$user->authorise('core.edit', $asset)
 	&&	!$user->authorise('core.create', $asset)
 	&& 	count($user->getAuthorisedCategories($asset, 'core.create')) == 0
-	&&	!($user->id==$author && $user->authorise('core.edit.own', $asset)))
+	&&	!($user->id == $author && $user->authorise('core.edit.own', $asset)))
 {
 	return JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
 }
@@ -39,8 +43,7 @@ require_once JPATH_COMPONENT.'/controller.php';
 
 // Make sure the user is authorized to view this page
 $user	= JFactory::getUser();
-$app	= JFactory::getApplication();
-$cmd	= JRequest::getCmd('task', null);
+$cmd	= $input->get('task', null);
 
 if (strpos($cmd, '.') != false) {
 	// We have a defined controller/task pair -- lets split them out
@@ -78,8 +81,5 @@ else {
 $controller->addViewPath(JPATH_COMPONENT_ADMINISTRATOR.'/views');
 $controller->addModelPath(JPATH_COMPONENT_ADMINISTRATOR.'/models');
 
-// Perform the Request task
 $controller->execute($task);
-
-// Redirect if set by the controller
 $controller->redirect();

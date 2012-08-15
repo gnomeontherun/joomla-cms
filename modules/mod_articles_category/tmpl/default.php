@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_articles_category
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_category
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -17,7 +18,7 @@ defined('_JEXEC') or die;
 		<ul>
 			<?php foreach ($group as $item) : ?>
 				<li>
-					<h<?php echo $item_heading+1; ?>>
+					<h<?php echo $item_heading + 1; ?>>
 					   	<?php if ($params->get('link_titles') == 1) : ?>
 						<a class="mod-articles-category-title <?php echo $item->active; ?>" href="<?php echo $item->link; ?>">
 						<?php echo $item->title; ?>
@@ -32,7 +33,7 @@ defined('_JEXEC') or die;
 				            (<?php echo $item->displayHits; ?>)  </span>
 				        <?php endif; ?></a>
 				            <?php endif; ?>
-			        </h<?php echo $item_heading+1; ?>>
+			        </h<?php echo $item_heading + 1; ?>>
 
 
 				<?php if ($params->get('show_author')) :?>

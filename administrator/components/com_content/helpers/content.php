@@ -1,18 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access
 defined('_JEXEC') or die;
 
 /**
  * Content component helper.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_content
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ * @since       1.6
  */
 class ContentHelper
 {
@@ -208,10 +210,14 @@ class ContentHelper
 			elseif ($blackList) {
 				// Remove the white-listed attributes from the black-list.
 				$filter = JFilterInput::getInstance(
-					array_diff($blackListTags, $whiteListTags), 			// blacklisted tags
-					array_diff($blackListAttributes, $whiteListAttributes), // blacklisted attributes
-					1,														// blacklist tags
-					1														// blacklist attributes
+					// Blacklisted tags
+					array_diff($blackListTags, $whiteListTags),
+					// Blacklisted attributes
+					array_diff($blackListAttributes, $whiteListAttributes),
+					// Blacklist tags
+					1,
+					// Blacklist attributes
+					1
 				);
 				// Remove white listed tags from filter's default blacklist
 				if ($whiteListTags) {

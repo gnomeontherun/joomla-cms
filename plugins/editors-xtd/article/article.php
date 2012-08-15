@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Plugin
+ * @subpackage  Editors-xtd.article
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Editor Article buton
  *
- * @package		Joomla.Plugin
- * @subpackage	Editors-xtd.article
- * @since 1.5
+ * @package     Joomla.Plugin
+ * @subpackage  Editors-xtd.article
+ * @since       1.5
  */
 class plgButtonArticle extends JPlugin
 {
@@ -34,7 +37,7 @@ class plgButtonArticle extends JPlugin
 	 *
 	 * @return array A four element array of (article_id, article_title, category_id, object)
 	 */
-	function onDisplay($name)
+	public function onDisplay($name)
 	{
 		/*
 		 * Javascript to insert the link
@@ -65,11 +68,11 @@ class plgButtonArticle extends JPlugin
 		$link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;'.JSession::getFormToken().'=1';
 
 		$button = new JObject;
-		$button->set('modal', true);
-		$button->set('link', $link);
-		$button->set('text', JText::_('PLG_ARTICLE_BUTTON_ARTICLE'));
-		$button->set('name', 'article');
-		$button->set('options', "{handler: 'iframe', size: {x: 770, y: 400}}");
+		$button->modal = true;
+		$button->link = $link;
+		$button->text = JText::_('PLG_ARTICLE_BUTTON_ARTICLE');
+		$button->name = 'file-add';
+		$button->options = "{handler: 'iframe', size: {x: 800, y: 500}}";
 
 		return $button;
 	}

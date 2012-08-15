@@ -14,8 +14,7 @@ define('FINDER_PATH_INDEXER', JPATH_ADMINISTRATOR . '/components/com_finder/help
 JLoader::register('FinderIndexerHelper', FINDER_PATH_INDEXER . '/helper.php');
 JLoader::register('FinderIndexerQuery', FINDER_PATH_INDEXER . '/query.php');
 JLoader::register('FinderIndexerResult', FINDER_PATH_INDEXER . '/result.php');
-
-jimport('joomla.application.component.modellist');
+JLoader::register('FinderIndexerStemmer', FINDER_PATH_INDEXER . '/stemmer.php');
 
 /**
  * Search model class for the Finder package.
@@ -119,12 +118,6 @@ class FinderModelSearch extends JModelList
 		// Load the results from the database.
 		$db->setQuery($query);
 		$rows = $db->loadObjectList('link_id');
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			throw new Exception($db->getErrorMsg(), 500);
-		}
 
 		// Set up our results container.
 		$results = $items;
@@ -360,12 +353,6 @@ class FinderModelSearch extends JModelList
 			$this->_db->setQuery($sql);
 			$total = $this->_db->loadResult();
 
-			// Check for a database error.
-			if ($this->_db->getErrorNum())
-			{
-				throw new Exception($this->_db->getErrorMsg(), 500);
-			}
-
 			// Push the total into cache.
 			$this->store($store, min($total, $limit));
 
@@ -440,12 +427,6 @@ class FinderModelSearch extends JModelList
 					// Load the results from the database.
 					$this->_db->setQuery($sql, $start, $limit);
 					$temp = $this->_db->loadObjectList();
-
-					// Check for a database error.
-					if ($this->_db->getErrorNum())
-					{
-						throw new Exception($this->_db->getErrorMsg(), 500);
-					}
 
 					// Set the more flag to true if any of the sets equal the limit.
 					$more = (count($temp) === $limit) ? true : false;
@@ -559,12 +540,6 @@ class FinderModelSearch extends JModelList
 						$this->_db->setQuery($sql, $reqStart, $limit);
 						$temp = $this->_db->loadObjectList('link_id');
 
-						// Check for a database error.
-						if ($this->_db->getErrorNum())
-						{
-							throw new Exception($this->_db->getErrorMsg(), 500);
-						}
-
 						// Set the required token more flag to true if the set equal the limit.
 						$reqMore = (count($temp) === $limit) ? true : false;
 
@@ -655,12 +630,6 @@ class FinderModelSearch extends JModelList
 			$this->_db->setQuery($base, (int) $this->getState('list.start'), (int) $this->getState('list.limit'));
 			$return = $this->_db->loadObjectList('link_id');
 
-			// Check for a database error.
-			if ($this->_db->getErrorNum())
-			{
-				throw new Exception($this->_db->getErrorMsg(), 500);
-			}
-
 			// Get a new store id because this data is page specific.
 			$store = $this->getStoreId('getResultsData', true);
 
@@ -739,12 +708,6 @@ class FinderModelSearch extends JModelList
 					// Load the results from the database.
 					$this->_db->setQuery($sql, $start, $limit);
 					$temp = $this->_db->loadObjectList('link_id');
-
-					// Check for a database error.
-					if ($this->_db->getErrorNum())
-					{
-						throw new Exception($this->_db->getErrorMsg(), 500);
-					}
 
 					// Store this set in cache.
 					$this->store($setId, $temp);
@@ -904,12 +867,6 @@ class FinderModelSearch extends JModelList
 						$this->_db->setQuery($sql, $reqStart, $limit);
 						$temp = $this->_db->loadObjectList('link_id');
 
-						// Check for a database error.
-						if ($this->_db->getErrorNum())
-						{
-							throw new Exception($this->_db->getErrorMsg(), 500);
-						}
-
 						// Set the required token more flag to true if the set equal the limit.
 						$reqMore = (count($temp) === $limit) ? true : false;
 
@@ -1028,12 +985,6 @@ class FinderModelSearch extends JModelList
 			// Load the link ids from the database.
 			$db->setQuery($query);
 			$temp = $db->loadColumn();
-
-			// Check for a database error.
-			if ($db->getErrorNum())
-			{
-				throw new Exception($db->getErrorMsg(), 500);
-			}
 
 			// Merge the link ids.
 			$links = array_merge($links, $temp);

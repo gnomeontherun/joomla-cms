@@ -1,19 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_redirect
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
-
 /**
  * Redirect link model.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_redirect
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_redirect
+ * @since       1.6
  */
 class RedirectModelLink extends JModelAdmin
 {
@@ -156,12 +157,14 @@ class RedirectModelLink extends JModelAdmin
 				' SET '.$db->quoteName('new_url').' = '.$db->Quote($url).', '.$db->quoteName('published').' = 1, '.$db->quoteName('comment').' = '.$db->Quote($comment) .
 				' WHERE '.$db->quoteName('id').' IN ('.implode(',', $pks).')'
 			);
-			$db->query();
 
-			// Check for a database error.
-			if ($error = $this->_db->getErrorMsg())
+			try
 			{
-				$this->setError($error);
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->setError($e->getMessage());
 				return false;
 			}
 		}

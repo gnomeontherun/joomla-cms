@@ -1,12 +1,12 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_contact
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_contact
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.framework');
@@ -18,7 +18,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<p> <?php echo JText::_('COM_CONTACT_NO_ARTICLES'); ?>	 </p>
 <?php else : ?>
 
-<form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 <?php if ($this->params->get('show_pagination_limit')) : ?>
 	<fieldset class="filters">
 	<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
@@ -29,7 +29,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		</div>
 	</fieldset>
 <?php endif; ?>
-	<table class="category">
+	<table class="category table table-striped">
 		<?php if ($this->params->get('show_headings')) : ?>
 		<thead><tr>
 
@@ -85,7 +85,11 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			</tr>
 		</thead>
 		<?php endif; ?>
-
+		<tfoot>
+			<tr>
+				<td colspan="9"></td>
+			</tr>
+		</tfoot>
 		<tbody>
 			<?php foreach($this->items as $i => $item) : ?>
 				<?php if ($this->items[$i]->published == 0) : ?>

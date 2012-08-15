@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_weblinks
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_weblinks
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -31,7 +32,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<p> <?php echo JText::_('COM_WEBLINKS_NO_WEBLINKS'); ?></p>
 <?php else : ?>
 
-<form action="<?php echo htmlspecialchars(JFactory::getURI()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
 		<fieldset class="filters">
 		<legend class="hidelabeltxt"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></legend>
@@ -45,16 +46,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 	<?php endif; ?>
 
 	<table class="category">
-		<?php if ($this->params->get('show_headings')==1) : ?>
+		<?php if ($this->params->get('show_headings') == 1) : ?>
 
 		<thead><tr>
 
 			<th class="title">
-					<?php echo JHtml::_('grid.sort',  'COM_WEBLINKS_GRID_TITLE', 'title', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_WEBLINKS_GRID_TITLE', 'title', $listDirn, $listOrder); ?>
 			</th>
 			<?php if ($this->params->get('show_link_hits')) : ?>
 			<th class="hits">
-					<?php echo JHtml::_('grid.sort',  'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'hits', $listDirn, $listOrder); ?>
 			</th>
 			<?php endif; ?>
 		</tr>
@@ -108,7 +109,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 							// open in a modal window
 							JHtml::_('behavior.modal', 'a.modal'); ?>
 							<a class="modal" href="<?php echo $link;?>"  rel="{handler: 'iframe', size: {x:<?php echo $this->escape($width);?>, y:<?php echo $this->escape($height);?>}}">
-								<?php echo $this->escape($item->title). ' </a>' ;
+								<?php echo $this->escape($item->title). ' </a>';
 							break;
 
 						default:
@@ -129,7 +130,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 						<?php endif; ?>
 			</p>
 
-			<?php if (($this->params->get('show_link_description')) and ($item->description !='')): ?>
+			<?php if (($this->params->get('show_link_description')) and ($item->description != '')): ?>
 				<?php echo $item->description; ?>
 			<?php endif; ?>
 		</td>

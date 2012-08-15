@@ -1,16 +1,17 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_contact
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_contact
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_contact
+ * @package     Joomla.Administrator
+ * @subpackage  com_contact
  */
 abstract class JHtmlContact
 {
@@ -22,7 +23,7 @@ abstract class JHtmlContact
 	 * @return	string	The anchor tag to toggle featured/unfeatured contacts.
 	 * @since	1.6
 	 */
-	static function featured($value = 0, $i, $canChange = true)
+	public static function featured($value = 0, $i, $canChange = true)
 	{
 		// Array of image, task, title, action
 		$states	= array(

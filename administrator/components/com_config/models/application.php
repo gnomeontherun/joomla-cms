@@ -1,18 +1,19 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_config
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modelform');
-
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_config
+ * Model for the global configuration
+ *
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
  */
 class ConfigModelApplication extends JModelForm
 {
@@ -215,7 +216,7 @@ class ConfigModelApplication extends JModelForm
 	 *
 	 * @since	1.6
 	 */
-	function removeroot()
+	public function removeroot()
 	{
 		// Get the previous configuration.
 		$prev = new JConfig;
@@ -228,8 +229,6 @@ class ConfigModelApplication extends JModelForm
 
 		// Write the configuration file.
 		return $this->writeConfigFile($config);
-
-		return true;
 	}
 
 	/**

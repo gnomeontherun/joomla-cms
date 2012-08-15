@@ -1,16 +1,24 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_feed
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_feed
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
+/**
+ * Helper for mod_feed
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_feed
+ * @since       1.5
+ */
 class modFeedHelper
 {
-	static function getFeed($params)
+	public static function getFeed($params)
 	{
 		// module params
 		$rssurl	= $params->get('rssurl', '');
@@ -21,7 +29,7 @@ class modFeedHelper
 			$cache_time  = $params->get('cache_time', 15) * 60;
 		}
 
-		$rssDoc = JFactory::getFeedParser($rssurl, $cache_time);
+		$rssDoc = JSimplepieFactory::getFeedParser($rssurl, $cache_time);
 
 		$feed = new stdclass;
 

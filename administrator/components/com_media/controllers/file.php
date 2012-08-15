@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -12,9 +15,9 @@ jimport('joomla.filesystem.folder');
 /**
  * Media File Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_media
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ * @since       1.5
  */
 class MediaControllerFile extends JControllerLegacy
 {
@@ -50,10 +53,10 @@ class MediaControllerFile extends JControllerLegacy
 			return false;
 		}
 		if (
-			$_SERVER['CONTENT_LENGTH']>($params->get('upload_maxsize', 0) * 1024 * 1024) ||
-			$_SERVER['CONTENT_LENGTH']>(int)(ini_get('upload_max_filesize'))* 1024 * 1024 ||
-			$_SERVER['CONTENT_LENGTH']>(int)(ini_get('post_max_size'))* 1024 * 1024 ||
-			$_SERVER['CONTENT_LENGTH']>(int)(ini_get('memory_limit'))* 1024 * 1024
+			$_SERVER['CONTENT_LENGTH'] > ($params->get('upload_maxsize', 0) * 1024 * 1024) ||
+			$_SERVER['CONTENT_LENGTH'] > (int) (ini_get('upload_max_filesize')) * 1024 * 1024 ||
+			$_SERVER['CONTENT_LENGTH'] > (int) (ini_get('post_max_size')) * 1024 * 1024 ||
+			$_SERVER['CONTENT_LENGTH'] > (int) (ini_get('memory_limit')) * 1024 * 1024
 		)
 		{
 			JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_WARNFILETOOLARGE'));
@@ -62,19 +65,20 @@ class MediaControllerFile extends JControllerLegacy
 		// Input is in the form of an associative array containing numerically indexed arrays
 		// We want a numerically indexed array containing associative arrays
 		// Cast each item as array in case the Filedata parameter was not sent as such
-		$files = array_map( array($this, 'reformatFilesArray'),
+		$files = array_map(
+			array($this, 'reformatFilesArray'),
 			(array) $files['name'], (array) $files['type'], (array) $files['tmp_name'], (array) $files['error'], (array) $files['size']
 		);
 
 		// Perform basic checks on file info before attempting anything
 		foreach ($files as &$file)
 		{
-			if ($file['error']==1)
+			if ($file['error'] == 1)
 			{
 				JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_WARNFILETOOLARGE'));
 				return false;
 			}
-			if ($file['size']>($params->get('upload_maxsize', 0) * 1024 * 1024))
+			if ($file['size'] > ($params->get('upload_maxsize', 0) * 1024 * 1024))
 			{
 				JError::raiseNotice(100, JText::_('COM_MEDIA_ERROR_WARNFILETOOLARGE'));
 				return false;
@@ -98,7 +102,7 @@ class MediaControllerFile extends JControllerLegacy
 		// Set FTP credentials, if given
 		JClientHelper::setCredentialsFromRequest('ftp');
 		JPluginHelper::importPlugin('content');
-		$dispatcher	= JDispatcher::getInstance();
+		$dispatcher	= JEventDispatcher::getInstance();
 
 		foreach ($files as &$file)
 		{
@@ -160,7 +164,7 @@ class MediaControllerFile extends JControllerLegacy
 			'tmp_name'	=> $tmp_name,
 			'error'		=> $error,
 			'size'		=> $size,
-			'filepath'	=> JPath::clean(implode(DS, array(COM_MEDIA_BASE, $this->folder, $name)))
+			'filepath'	=> JPath::clean(implode(DIRECTORY_SEPARATOR, array(COM_MEDIA_BASE, $this->folder, $name)))
 		);
 	}
 
@@ -194,7 +198,7 @@ class MediaControllerFile extends JControllerLegacy
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Get some data from the request
-		$tmpl	= JRequest::getCmd('tmpl');
+		$tmpl	= $this->input->get('tmpl');
 		$paths	= JRequest::getVar('rm', array(), '', 'array');
 		$folder = JRequest::getVar('folder', '', '', 'path');
 
@@ -222,7 +226,7 @@ class MediaControllerFile extends JControllerLegacy
 		JClientHelper::setCredentialsFromRequest('ftp');
 
 		JPluginHelper::importPlugin('content');
-		$dispatcher	= JDispatcher::getInstance();
+		$dispatcher	= JEventDispatcher::getInstance();
 
 		// Initialise variables.
 		$ret = true;
@@ -236,7 +240,7 @@ class MediaControllerFile extends JControllerLegacy
 				continue;
 			}
 
-			$fullPath = JPath::clean(implode(DS, array(COM_MEDIA_BASE, $folder, $path)));
+			$fullPath = JPath::clean(implode(DIRECTORY_SEPARATOR, array(COM_MEDIA_BASE, $folder, $path)));
 			$object_file = new JObject(array('filepath' => $fullPath));
 			if (is_file($fullPath))
 			{

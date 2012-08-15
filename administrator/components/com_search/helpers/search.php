@@ -1,17 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_search
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access.
 defined('_JEXEC') or die;
 
 /**
  * Search component helper.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_search
+ * @package     Joomla.Administrator
+ * @subpackage  com_search
+ * @since       1.5
  */
 class SearchHelper
 {
@@ -46,7 +49,7 @@ class SearchHelper
 		return $result;
 	}
 
-	static function santiseSearchWord(&$searchword, $searchphrase)
+	public static function santiseSearchWord(&$searchword, $searchphrase)
 	{
 		$ignored = false;
 
@@ -86,7 +89,10 @@ class SearchHelper
 		return $ignored;
 	}
 
-	static function limitSearchWord(&$searchword)
+	/**
+	 * @since  1.5
+	 */
+	public static function limitSearchWord(&$searchword)
 	{
 		$restriction = false;
 
@@ -108,7 +114,10 @@ class SearchHelper
 		return $restriction;
 	}
 
-	static function logSearch($search_term)
+	/**
+	 * @since  1.5
+	 */
+	public static function logSearch($search_term)
 	{
 		$db = JFactory::getDbo();
 
@@ -122,21 +131,21 @@ class SearchHelper
 			$db = JFactory::getDbo();
 			$query = 'SELECT hits'
 			. ' FROM #__core_log_searches'
-			. ' WHERE LOWER(search_term) = "'.$search_term.'"'
-			;
+			. ' WHERE LOWER(search_term) = "'.$search_term.'"';
+
 			$db->setQuery($query);
-			$hits = intval($db->loadResult());
+			$hits = (int) $db->loadResult();
 			if ($hits) {
 				$query = 'UPDATE #__core_log_searches'
 				. ' SET hits = (hits + 1)'
-				. ' WHERE LOWER(search_term) = "'.$search_term.'"'
-				;
+				. ' WHERE LOWER(search_term) = "'.$search_term.'"';
+
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 			} else {
 				$query = 'INSERT INTO #__core_log_searches VALUES ("'.$search_term.'", 1)';
 				$db->setQuery($query);
-				$db->query();
+				$db->execute();
 			}
 		}
 	}
@@ -147,6 +156,8 @@ class SearchHelper
 	 * @param string The source string
 	 * @param string The searchword to select around
 	 * @return string
+	 *
+	 * @since  1.5
 	 */
 	public static function prepareSearchContent($text, $searchword)
 	{
@@ -200,8 +211,10 @@ class SearchHelper
 	 * @param int Number of chars to return
 	 * @param string The searchword to select around
 	 * @return string
+	 *
+	 * @since  1.5
 	 */
-	static function _smartSubstr($text, $searchword)
+	public static function _smartSubstr($text, $searchword)
 	{
 		$lang = JFactory::getLanguage();
 		$length = $lang->getSearchDisplayedCharactersNumber();

@@ -56,13 +56,6 @@ abstract class JHtmlAccess
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			JError::raiseWarning(500, $db->getErrorMsg());
-			return null;
-		}
-
 		// If params is an array, push these options to the array
 		if (is_array($params))
 		{
@@ -112,13 +105,6 @@ abstract class JHtmlAccess
 		$db->setQuery($query);
 		$options = $db->loadObjectList();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			JError::raiseNotice(500, $db->getErrorMsg());
-			return null;
-		}
-
 		for ($i = 0, $n = count($options); $i < $n; $i++)
 		{
 			$options[$i]->text = str_repeat('- ', $options[$i]->level) . $options[$i]->text;
@@ -162,16 +148,7 @@ abstract class JHtmlAccess
 		$db->setQuery($query);
 		$groups = $db->loadObjectList();
 
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			JError::raiseNotice(500, $db->getErrorMsg());
-			return null;
-		}
-
 		$html = array();
-
-		$html[] = '<ul class="checklist usergroups">';
 
 		for ($i = 0, $n = count($groups); $i < $n; $i++)
 		{
@@ -182,6 +159,7 @@ abstract class JHtmlAccess
 			{
 				// Setup  the variable attributes.
 				$eid = $count . 'group_' . $item->id;
+
 				// Don't call in_array unless something is selected
 				$checked = '';
 				if ($selected)
@@ -191,16 +169,17 @@ abstract class JHtmlAccess
 				$rel = ($item->parent_id > 0) ? ' rel="' . $count . 'group_' . $item->parent_id . '"' : '';
 
 				// Build the HTML for the item.
-				$html[] = '	<li>';
-				$html[] = '		<input type="checkbox" name="' . $name . '[]" value="' . $item->id . '" id="' . $eid . '"';
-				$html[] = '				' . $checked . $rel . ' />';
-				$html[] = '		<label for="' . $eid . '">';
-				$html[] = '		' . str_repeat('<span class="gi">|&mdash;</span>', $item->level) . $item->title;
-				$html[] = '		</label>';
-				$html[] = '	</li>';
+				$html[] = '	<div class="control-group">';
+				$html[] = '		<div class="controls">';
+				$html[] = '			<label class="checkbox" for="' . $eid . '">';
+				$html[] = '			<input type="checkbox" name="' . $name . '[]" value="' . $item->id . '" id="' . $eid . '"';
+				$html[] = '					' . $checked . $rel . ' />';
+				$html[] = '			' . str_repeat('<span class="gi">|&mdash;</span>', $item->level) . $item->title;
+				$html[] = '			</label>';
+				$html[] = '		</div>';
+				$html[] = '	</div>';
 			}
 		}
-		$html[] = '</ul>';
 
 		return implode("\n", $html);
 	}
@@ -254,15 +233,13 @@ abstract class JHtmlAccess
 	/**
 	 * Gets a list of the asset groups as an array of JHtml compatible options.
 	 *
-	 * @param   array  $config  An array of options for the options
-	 *
 	 * @return  mixed  An array or false if an error occurs
 	 *
 	 * @since   11.1
 	 */
-	public static function assetgroups($config = array())
+	public static function assetgroups()
 	{
-		if (empty(JHtmlAccess::$asset_groups))
+		if (empty(self::$asset_groups))
 		{
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true);
@@ -273,17 +250,10 @@ abstract class JHtmlAccess
 			$query->order('a.ordering ASC');
 
 			$db->setQuery($query);
-			JHtmlAccess::$asset_groups = $db->loadObjectList();
-
-			// Check for a database error.
-			if ($db->getErrorNum())
-			{
-				JError::raiseNotice(500, $db->getErrorMsg());
-				return false;
-			}
+			self::$asset_groups = $db->loadObjectList();
 		}
 
-		return JHtmlAccess::$asset_groups;
+		return self::$asset_groups;
 	}
 
 	/**
@@ -302,7 +272,7 @@ abstract class JHtmlAccess
 	{
 		static $count;
 
-		$options = JHtmlAccess::assetgroups();
+		$options = self::assetgroups();
 		if (isset($config['title']))
 		{
 			array_unshift($options, JHtml::_('select.option', '', $config['title']));
@@ -313,7 +283,7 @@ abstract class JHtmlAccess
 			$options,
 			$name,
 			array(
-				'id' => isset($config['id']) ? $config['id'] : 'assetgroups_' . ++$count,
+				'id' => isset($config['id']) ? $config['id'] : 'assetgroups_' . (++$count),
 				'list.attr' => (is_null($attribs) ? 'class="inputbox" size="3"' : $attribs),
 				'list.select' => (int) $selected
 			)

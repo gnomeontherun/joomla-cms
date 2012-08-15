@@ -1,28 +1,27 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_weblinks
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_weblinks
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.helper');
 
 /**
  * Weblink Component HTML Helper
  *
  * @static
- * @package		Joomla.Site
- * @subpackage	com_weblinks
- * @since 1.5
+ * @package     Joomla.Site
+ * @subpackage  com_weblinks
+ * @since       1.5
  */
 class JHtmlIcon
 {
-	static function create($weblink, $params)
+	public static function create($weblink, $params)
 	{
-		$uri = JFactory::getURI();
+		$uri = JURI::getInstance();
 
 		$url = JRoute::_(WeblinksHelperRoute::getFormRoute(0, base64_encode($uri)));
 		$text = JHtml::_('image', 'system/new.png', JText::_('JNEW'), null, true);
@@ -31,10 +30,10 @@ class JHtmlIcon
 		return $output;
 	}
 
-	static function edit($weblink, $params, $attribs = array())
+	public static function edit($weblink, $params, $attribs = array())
 	{
 		$user = JFactory::getUser();
-		$uri = JFactory::getURI();
+		$uri = JURI::getInstance();
 
 		if ($params && $params->get('popup')) {
 			return;

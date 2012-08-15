@@ -1,16 +1,17 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License, see LICENSE.php
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
  */
 class InstallerControllerManage extends JControllerLegacy
 {
@@ -25,8 +26,8 @@ class InstallerControllerManage extends JControllerLegacy
 	{
 		parent::__construct($config);
 
-		$this->registerTask('unpublish',		'publish');
-		$this->registerTask('publish',			'publish');
+		$this->registerTask('unpublish', 'publish');
+		$this->registerTask('publish',   'publish');
 	}
 
 	/**
@@ -94,7 +95,7 @@ class InstallerControllerManage extends JControllerLegacy
 	 *
 	 * @since	1.6
 	 */
-	function refresh()
+	public function refresh()
 	{
 		// Check for request forgeries
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));

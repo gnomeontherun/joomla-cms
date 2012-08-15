@@ -1,17 +1,27 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_articles_archive
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_archive
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
+/**
+ * Helper for mod_articles_archive
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_archive
+ * @since       1.5
+ */
 class modArchiveHelper
 {
-	static function getList(&$params)
+	/*
+	 * @since  1.5
+	 */
+	public static function getList(&$params)
 	{
 		//get database
 		$db		= JFactory::getDbo();
@@ -26,7 +36,7 @@ class modArchiveHelper
 			$query->where('language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').')');
 		}
 
-		$db->setQuery($query, 0, intval($params->get('count')));
+		$db->setQuery($query, 0, (int) $params->get('count'));
 		$rows = (array) $db->loadObjectList();
 
 		$app	= JFactory::getApplication();

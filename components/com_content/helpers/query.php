@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_content
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -12,9 +13,9 @@ defined('_JEXEC') or die;
  * Content Component Query Helper
  *
  * @static
- * @package		Joomla.Site
- * @subpackage	com_content
- * @since		1.5
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ * @since       1.5
  */
 class ContentHelperQuery
 {
@@ -121,8 +122,8 @@ class ContentHelperQuery
 	 * @return	string	The SQL field(s) to order by.
 	 * @since	1.6
 	 */
-	public static function getQueryDate($orderDate) {
-
+	public static function getQueryDate($orderDate)
+	{
 		switch ($orderDate)
 		{
 			case 'modified' :

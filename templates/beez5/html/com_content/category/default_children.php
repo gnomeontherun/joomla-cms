@@ -1,16 +1,16 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
-$templateparams =$app->getTemplate(true)->params;
+$templateparams = $app->getTemplate(true)->params;
 
 if ($templateparams->get('html5') != 1) :
 	require JPATH_BASE.'/components/com_content/views/category/tmpl/default_children.php';
@@ -37,22 +37,22 @@ $class = ' class="first"';
 					<?php echo $this->escape($child->title); ?></a>
 				</span>
 				<?php if ($this->params->get('show_subcat_desc') == 1) :?>
-				<?php if ($child->description and $this->params->get('show_description')!=0 ) : ?>
+				<?php if ($child->description and $this->params->get('show_description') != 0 ) : ?>
 					<div class="category-desc">
 						<?php echo JHtml::_('content.prepare', $child->description, '', 'com_content.category'); ?>
 					</div>
 				<?php endif; ?>
 				<?php endif; ?>
-				<?php if ($child->getNumItems()==true) : ?>
+				<?php if ($child->getNumItems() == true) : ?>
 				<dl>
 					<dt>
-						<?php echo JText::_('COM_CONTENT_NUM_ITEMS') ; ?>
+						<?php echo JText::_('COM_CONTENT_NUM_ITEMS'); ?>
 					</dt>
 					<dd>
 						<?php echo $child->getNumItems(true); ?>
 					</dd>
 				</dl>
-				<?php endif ; ?>
+				<?php endif; ?>
 
 				<?php if (count($child->getChildren()) > 0 ) :
 					$this->children[$child->id] = $child->getChildren();

@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	Templates.beez5
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  Template.beez5
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -13,7 +14,8 @@ $showRightColumn	= ($this->countModules('position-3') or $this->countModules('po
 $showbottom			= ($this->countModules('position-9') or $this->countModules('position-10') or $this->countModules('position-11'));
 $showleft			= ($this->countModules('position-4') or $this->countModules('position-7') or $this->countModules('position-5'));
 
-if ($showRightColumn==0 and $showleft==0) {
+if ($showRightColumn == 0 and $showleft == 0)
+{
 	$showno = 0;
 }
 
@@ -52,15 +54,12 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 ?>
 		<link rel="stylesheet" href="<?php echo $file;?>" type="text/css" />
 <?php
-	 	endforeach;
+		endforeach;
 	endif;
 ?>
 		<?php if ($this->direction == 'rtl') : ?>
 		<link rel="stylesheet" href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/template_rtl.css" type="text/css" />
 		<?php endif; ?>
-		<!--[if lte IE 6]>
-			<link href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/ieonly.css" rel="stylesheet" type="text/css" />
-		<![endif]-->
 		<!--[if IE 7]>
 			<link href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/ie7only.css" rel="stylesheet" type="text/css" />
 		<![endif]-->
@@ -72,8 +71,8 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 		<script type="text/javascript" src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/javascript/hide.js"></script>
 
 		<script type="text/javascript">
-			var big ='<?php echo (int)$this->params->get('wrapperLarge');?>%';
-			var small='<?php echo (int)$this->params->get('wrapperSmall'); ?>%';
+			var big ='<?php echo (int) $this->params->get('wrapperLarge');?>%';
+			var small='<?php echo (int) $this->params->get('wrapperSmall'); ?>%';
 			var altopen='<?php echo JText::_('TPL_BEEZ5_ALTOPEN', true); ?>';
 			var altclose='<?php echo JText::_('TPL_BEEZ5_ALTCLOSE', true); ?>';
 			var bildauf='<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/images/plus.png';
@@ -130,7 +129,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 					</div> <!-- end line -->
 		<div id="header-image">
 			<jdoc:include type="modules" name="position-15" />
-			<?php if ($this->countModules('position-15')==0): ?>
+			<?php if ($this->countModules('position-15') == 0): ?>
 				<img src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/images/fruits.jpg"  alt="<?php echo JText::_('TPL_BEEZ5_LOGO'); ?>" />
 			<?php endif; ?>
 		</div>
@@ -146,7 +145,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 
 					</div>
 
-					<?php if ($navposition=='left' and $showleft) : ?>
+					<?php if ($navposition == 'left' and $showleft) : ?>
 
 						<?php if(!$this->params->get('html5', 0)): ?>
 							<div class="left1 <?php if ($showRightColumn == null){ echo 'leftbigger';} ?>" id="nav">
@@ -210,7 +209,7 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 				<?php endif; ?>
 			<?php endif; ?>
 
-			<?php if ($navposition=='center' and $showleft) : ?>
+			<?php if ($navposition == 'center' and $showleft) : ?>
 
 				<?php if (!$this->params->get('html5', 0)): ?>
 					<div class="left <?php if ($showRightColumn == null){ echo 'leftbigger';} ?>" id="nav" >
@@ -251,10 +250,10 @@ $doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/md_sty
 					<?php endif; ?>
 					<?php if ($this->countModules('position-11')): ?>
 					<div class="box box3"> <jdoc:include type="modules" name="position-11" style="beezDivision" headerlevel="3" /></div>
-					<?php endif ; ?>
+					<?php endif; ?>
 				</div>
 			</div>
-		<?php endif ; ?>
+		<?php endif; ?>
 
 			<div id="footer-sub">
 

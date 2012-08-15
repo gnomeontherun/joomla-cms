@@ -1,16 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_menu
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Site
- * @subpackage	mod_menu
- * @since		1.5
+ * Helper for mod_menu
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_menu
+ * @since       1.5
  */
 class modMenuHelper
 {
@@ -22,7 +26,7 @@ class modMenuHelper
 	 * @return	array
 	 * @since	1.5
 	 */
-	static function getList(&$params)
+	public static function getList(&$params)
 	{
 		$app = JFactory::getApplication();
 		$menu = $app->getMenu();
@@ -55,7 +59,7 @@ class modMenuHelper
 					if (($start && $start > $item->level)
 						|| ($end && $item->level > $end)
 						|| (!$showAll && $item->level > 1 && !in_array($item->parent_id, $path))
-						|| ($start > 1 && !in_array($item->tree[$start-2], $path))
+						|| ($start > 1 && !in_array($item->tree[$start - 2], $path))
 					) {
 						unset($items[$i]);
 						continue;

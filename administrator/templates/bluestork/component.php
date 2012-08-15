@@ -1,15 +1,13 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	Templates.bluestork
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  Template.bluestork
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
-
-jimport('joomla.filesystem.file');
 
 $doc = JFactory::getDocument();
 
@@ -23,7 +21,8 @@ if ($this->direction == 'rtl') {
 /** Load specific language related css */
 $lang = JFactory::getLanguage();
 $file = 'language/'.$lang->getTag().'/'.$lang->getTag().'.css';
-if (JFile::exists($file)) {
+if (is_file($file))
+{
 	$doc->addStyleSheet($file);
 }
 

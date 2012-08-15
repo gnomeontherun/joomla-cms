@@ -10,6 +10,9 @@ require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 class SeleniumJoomlaTestCase extends PHPUnit_Extensions_SeleniumTestCase
 {
 	public $cfg; // configuration so tests can get at the fields
+	protected $captureScreenshotOnFailure = false;
+	protected $screenshotPath = null;
+	protected $screenshotUrl = null;
 
 	public function setUp()
 	{
@@ -22,6 +25,13 @@ class SeleniumJoomlaTestCase extends PHPUnit_Extensions_SeleniumTestCase
 			$this->setHost($cfg->selhost);
 		}
 		echo ".\n" . 'Starting ' . get_class($this) . ".\n";
+
+		if (isset($cfg->captureScreenshotOnFailure) && $cfg->captureScreenshotOnFailure)
+		{
+			$this->captureScreenshotOnFailure = true;
+			$this->screenshotPath = $cfg->folder . $cfg->path . $cfg->screenShotPath;
+			$this->screenshotUrl = $cfg->host . $cfg->path . $cfg->screenShotPath;
+		}
 	}
 
 	function checkMessage($message)
@@ -840,12 +850,15 @@ class SeleniumJoomlaTestCase extends PHPUnit_Extensions_SeleniumTestCase
 			sleep(1);
 		}
 		sleep(1);
+		$this->checkNotices();
 	}
 
 	function checkNotices()
 	{
 		try {
 			$this->assertFalse($this->isTextPresent("( ! ) Notice"), "**Warning: PHP Notice found on page!");
+			$this->assertElementNotPresent("//tr[contains(., '( ! ) Notice:')]", "**Warning: PHP Notice found on page!");
+			$this->assertElementNotPresent("//tr[contains(., '( ! ) Warning:')]", "**Warning: PHP Warning found on page!");
 		}
 		catch (PHPUnit_Framework_AssertionFailedError $e) {
 			echo "**Warning: PHP Notice found on page\n";
@@ -868,6 +881,8 @@ class SeleniumJoomlaTestCase extends PHPUnit_Extensions_SeleniumTestCase
 		{
 			try {
 				$this->assertFalse($this->isTextPresent("( ! ) Notice") || $this->isTextPresent("( ! ) Warning"), "**Warning: PHP Notice found on page!");
+				$this->assertElementNotPresent("//tr[contains(., '( ! ) Notice:')]", "**Warning: PHP Notice found on page!");
+				$this->assertElementNotPresent("//tr[contains(., '( ! ) Warning:')]", "**Warning: PHP Warning found on page!");
 			}
 			catch (PHPUnit_Framework_AssertionFailedError $e) {
 				echo "**Warning: PHP Notice found on page\n";

@@ -1,21 +1,20 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_cache
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_cache
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * Cache Model
  *
- * @package		Joomla.Administrator
- * @subpackage	com_cache
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_cache
+ * @since       1.6
  */
 class CacheModelCache extends JModelList
 {
@@ -68,8 +67,8 @@ class CacheModelCache extends JModelList
 	public function getData()
 	{
 		if (empty($this->_data)) {
-		    $cache 	= $this->getCache();
-			$data 	= $cache->getAll();
+			$cache = $this->getCache();
+			$data  = $cache->getAll();
 
 			if ($data != false) {
 				$this->_data = $data;
@@ -148,7 +147,6 @@ class CacheModelCache extends JModelList
 	public function getPagination()
 	{
 		if (empty($this->_pagination)) {
-			jimport('joomla.html.pagination');
 			$this->_pagination = new JPagination($this->getTotal(), $this->getState('list.start'), $this->getState('list.limit'));
 		}
 

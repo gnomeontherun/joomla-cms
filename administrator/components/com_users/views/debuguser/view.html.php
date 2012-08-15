@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,15 +12,18 @@ defined('_JEXEC') or die;
 /**
  * View class for a list of users.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_users
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_users
+ * @since       1.6
  */
 class UsersViewDebugUser extends JViewLegacy
 {
 	protected $actions;
+
 	protected $items;
+
 	protected $pagination;
+
 	protected $state;
 
 	/**
@@ -50,8 +56,8 @@ class UsersViewDebugUser extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JToolBarHelper::title(JText::sprintf('COM_USERS_VIEW_DEBUG_USER_TITLE', $this->user->id, $this->user->name), 'user');
+		JToolbarHelper::title(JText::sprintf('COM_USERS_VIEW_DEBUG_USER_TITLE', $this->user->id, $this->user->name), 'user');
 
-		JToolBarHelper::help('JHELP_USERS_DEBUG_USERS');
+		JToolbarHelper::help('JHELP_USERS_DEBUG_USERS');
 	}
 }

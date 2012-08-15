@@ -7,11 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-
-// No direct access.
 defined('_JEXEC') or die;
-
-jimport('joomla.application.component.controllerform');
 
 /**
  * Newsfeed controller class.
@@ -35,7 +31,7 @@ class NewsfeedsControllerNewsfeed extends JControllerForm
 	{
 		// Initialise variables.
 		$user = JFactory::getUser();
-		$categoryId = JArrayHelper::getValue($data, 'catid', JRequest::getInt('filter_category_id'), 'int');
+		$categoryId = JArrayHelper::getValue($data, 'catid', $this->input->getInt('filter_category_id'), 'int');
 		$allow = null;
 
 		if ($categoryId)

@@ -1,10 +1,12 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Plugin
+ * @subpackage  Search.content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 require_once JPATH_SITE.'/components/com_content/router.php';
@@ -12,16 +14,16 @@ require_once JPATH_SITE.'/components/com_content/router.php';
 /**
  * Content Search plugin
  *
- * @package		Joomla.Plugin
- * @subpackage	Search.content
- * @since		1.6
+ * @package     Joomla.Plugin
+ * @subpackage  Search.content
+ * @since       1.6
  */
 class plgSearchContent extends JPlugin
 {
 	/**
 	 * @return array An array of search areas
 	 */
-	function onContentSearchAreas()
+	public function onContentSearchAreas()
 	{
 		static $areas = array(
 			'content' => 'JGLOBAL_ARTICLES'
@@ -38,7 +40,7 @@ class plgSearchContent extends JPlugin
 	 * @param string ordering option, newest|oldest|popular|alpha|category
 	 * @param mixed An array if the search it to be restricted to areas, null if search all
 	 */
-	function onContentSearch($text, $phrase='', $ordering='', $areas=null)
+	public function onContentSearch($text, $phrase='', $ordering='', $areas=null)
 	{
 		$db		= JFactory::getDbo();
 		$app	= JFactory::getApplication();
@@ -56,9 +58,9 @@ class plgSearchContent extends JPlugin
 			}
 		}
 
-		$sContent		= $this->params->get('search_content',		1);
-		$sArchived		= $this->params->get('search_archived',		1);
-		$limit			= $this->params->def('search_limit',		50);
+		$sContent  = $this->params->get('search_content', 1);
+		$sArchived = $this->params->get('search_archived', 1);
+		$limit     = $this->params->def('search_limit', 50);
 
 		$nullDate		= $db->getNullDate();
 		$date = JFactory::getDate();

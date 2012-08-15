@@ -21,7 +21,7 @@ class FinderTableMap extends JTable
 	/**
 	 * Constructor
 	 *
-	 * @param   object  &$db  JDatabase connector object.
+	 * @param   JDatabaseDriver  &$db  JDatabaseDriver connector object.
 	 *
 	 * @since   2.5
 	 */
@@ -78,12 +78,14 @@ class FinderTableMap extends JTable
 		$query->set($this->_db->quoteName('state') . ' = ' . (int) $state);
 		$query->where($where);
 		$this->_db->setQuery($query);
-		$this->_db->query();
 
-		// Check for a database error.
-		if ($this->_db->getErrorNum())
+		try
 		{
-			$this->setError($this->_db->getErrorMsg());
+			$this->_db->execute();
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
 			return false;
 		}
 

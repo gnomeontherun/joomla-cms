@@ -1,19 +1,20 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_menus
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.controllerform' );
-
 /**
  * The Menu Type Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_menus
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_menus
+ * @since       1.6
  */
 class MenusControllerMenu extends JControllerForm
 {
@@ -42,11 +43,11 @@ class MenusControllerMenu extends JControllerForm
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
-		$app		= JFactory::getApplication();
-		$data		= JRequest::getVar('jform', array(), 'post', 'array');
-		$context	= 'com_menus.edit.menu';
-		$task		= $this->getTask();
-		$recordId	= JRequest::getInt('id');
+		$app      = JFactory::getApplication();
+		$data     = JRequest::getVar('jform', array(), 'post', 'array');
+		$context  = 'com_menus.edit.menu';
+		$task     = $this->getTask();
+		$recordId = $this->input->getInt('id');
 
 		if (!$this->checkEditId($context, $recordId)) {
 			// Somehow the person just went to the form and saved it - we don't allow that.

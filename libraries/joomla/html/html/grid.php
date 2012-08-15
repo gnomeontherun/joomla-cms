@@ -74,8 +74,8 @@ abstract class JHtmlGrid
 	public static function sort($title, $order, $direction = 'asc', $selected = 0, $task = null, $new_direction = 'asc')
 	{
 		$direction = strtolower($direction);
-		$images = array('sort_asc.png', 'sort_desc.png');
-		$index = intval($direction == 'desc');
+		$icon = array('arrow-down', 'arrow-up');
+		$index = (int) $direction == 'desc';
 
 		if ($order != $selected)
 		{
@@ -92,7 +92,7 @@ abstract class JHtmlGrid
 
 		if ($order == $selected)
 		{
-			$html .= JHtml::_('image', 'system/' . $images[$index], '', null, true);
+			$html .= ' <i class="icon-'.$icon[$index].'"></i>';
 		}
 
 		$html .= '</a>';
@@ -124,55 +124,6 @@ abstract class JHtmlGrid
 	}
 
 	/**
-	 * Deprecated method to change access level in a grid
-	 *
-	 * @param   integer  &$row      Row id
-	 * @param   integer  $i         Row index
-	 * @param   boolean  $archived  True if the item is archived
-	 *
-	 * @return  string
-	 *
-	 * @deprecated  12.1
-	 * @note    This method is incompatible with JAccess
-	 * @since   11.1
-	 */
-	public static function access(&$row, $i, $archived = null)
-	{
-		// Deprecation warning.
-		JLog::add('JGrid::access is deprecated.', JLog::WARNING, 'deprecated');
-
-		// TODO: This needs to be reworked to suit the new access levels
-		if ($row->access <= 1)
-		{
-			$color_access = 'class="allow"';
-			$task_access = 'accessregistered';
-		}
-		elseif ($row->access == 1)
-		{
-			$color_access = 'class="deny"';
-			$task_access = 'accessspecial';
-		}
-		else
-		{
-			$color_access = 'class="none"';
-			$task_access = 'accesspublic';
-		}
-
-		if ($archived == -1)
-		{
-			$href = JText::_($row->groupname);
-		}
-		else
-		{
-			$href = '
-			<a href="javascript:void(0);" onclick="return listItemTask(\'cb' . $i . '\',\'' . $task_access . '\')" ' . $color_access . '>
-			' . JText::_($row->groupname) . '</a>';
-		}
-
-		return $href;
-	}
-
-	/**
 	 * Displays a checked out icon.
 	 *
 	 * @param   object   &$row        A data object (must contain checkedout as a property).
@@ -195,13 +146,13 @@ abstract class JHtmlGrid
 		}
 		else
 		{
-			$result = JTable::isCheckedOut($userid, $row->checked_out);
+			$result = false;
 		}
 
 		$checked = '';
 		if ($result)
 		{
-			$checked = JHtmlGrid::_checkedOut($row);
+			$checked = self::_checkedOut($row);
 		}
 		else
 		{
@@ -302,8 +253,8 @@ abstract class JHtmlGrid
 	public static function order($rows, $image = 'filesave.png', $task = 'saveorder')
 	{
 		// $image = JHtml::_('image','admin/'.$image, JText::_('JLIB_HTML_SAVE_ORDER'), NULL, true);
-		$href = '<a href="javascript:saveorder(' . (count($rows) - 1) . ', \'' . $task . '\')" class="saveorder" title="'
-			. JText::_('JLIB_HTML_SAVE_ORDER') . '"></a>';
+		$href = '<a href="javascript:saveorder(' . (count($rows) - 1) . ', \'' . $task . '\')" rel="tooltip" class="saveorder btn btn-micro pull-right" title="'
+			. JText::_('JLIB_HTML_SAVE_ORDER') . '"><i class="icon-menu-2"></i></a>';
 
 		return $href;
 	}
@@ -318,7 +269,7 @@ abstract class JHtmlGrid
 	 *
 	 * @since   11.1
 	 */
-	protected static function _checkedOut(&$row, $overlib = 1)
+	protected static function _checkedOut(&$row, $overlib = true)
 	{
 		$hover = '';
 

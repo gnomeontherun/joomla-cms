@@ -1,20 +1,19 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_content
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * Methods supporting a list of article records.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_content
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
  */
 class ContentModelArticles extends JModelList
 {
@@ -66,7 +65,8 @@ class ContentModelArticles extends JModelList
 		$session = JFactory::getSession();
 
 		// Adjust the context to support modal layouts.
-		if ($layout = JRequest::getVar('layout')) {
+		if ($layout = $app->input->get('layout'))
+		{
 			$this->context .= '.'.$layout;
 		}
 
@@ -172,7 +172,7 @@ class ContentModelArticles extends JModelList
 		// Implement View Level Access
 		if (!$user->authorise('core.admin'))
 		{
-		    $groups	= implode(',', $user->getAuthorisedViewLevels());
+			$groups	= implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN ('.$groups.')');
 		}
 
@@ -259,7 +259,8 @@ class ContentModelArticles extends JModelList
 	 * @return	JDatabaseQuery
 	 * @since	1.6
 	 */
-	public function getAuthors() {
+	public function getAuthors()
+	{
 		// Create a new query object.
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
