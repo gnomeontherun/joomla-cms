@@ -19,12 +19,21 @@ if (!class_exists('JAdminCssMenu')) {
 	require dirname(__FILE__).'/menu.php';
 }
 
+if (!class_exists('JMenuAdministrator')) {
+	require JPATH_ADMINISTRATOR . '/includes/menu.php';
+}
+
 // Initialise variables.
 $lang    = JFactory::getLanguage();
 $user    = JFactory::getUser();
 $input   = JFactory::getApplication()->input;
-$menu    = new JAdminCSSMenu;
-$enabled = $input->getBool('hidemainmenu') ? false : true;
+
+$disabled = $input->getBool('hidemainmenu') ? false : true;
+$menu = JMenu::getInstance('administrator');
+$active = $menu->getActive();
+$active_id = isset($active) ? $active->id : $menu->getDefault()->id;
+
+$list 	 = modMenuHelper::getList($params);
 
 // Render the module layout
 require JModuleHelper::getLayoutPath('mod_menu', $params->get('layout', 'default'));

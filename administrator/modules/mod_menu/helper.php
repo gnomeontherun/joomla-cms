@@ -36,6 +36,7 @@ class modMenuHelper
 		$lang = JFactory::getLanguage();
 		$lang->load('menu', JPATH_ADMINISTRATOR);
 		$items = $cache->get($key);
+
 		if (!$items)
 		{
 			// Initialise variables.
@@ -48,12 +49,12 @@ class modMenuHelper
 			// If no active menu, use default
 			$active = ($menu->getActive()) ? $menu->getActive() : $menu->getDefault();
 
-			$path		= $active->tree;
+			$path		= $active;
 			$start		= 0;
 			$end		= ($disabled) ? false : true;
 			$showAll	= ($disabled) ? false : true;
 			$maxdepth	= false;
-			$items 		= $menu->getItems('menutype', $params->get('menutype', 'admin'));
+			$items 		= $menu->getItems('menutype', $params->get('menutype', 'administrator'));
 
 			$lastitem	= 0;
 
