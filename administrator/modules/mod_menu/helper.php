@@ -49,11 +49,12 @@ class modMenuHelper
 			// If no active menu, use default
 			$active = ($menu->getActive()) ? $menu->getActive() : $menu->getDefault();
 
+			// @todo cleanup configuration details
 			$path		= $active;
 			$start		= 0;
 			$end		= ($disabled) ? false : true;
 			$showAll	= ($disabled) ? false : true;
-			$maxdepth	= false;
+			$maxdepth	= $params->get('endLevel', 0);
 			$items 		= $menu->getItems('menutype', $params->get('menutype', 'administrator'));
 
 			$lastitem	= 0;

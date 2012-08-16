@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-// Note. It is important to remove spaces between elements.
 ?>
 
 <ul id="menu" class="nav">
@@ -20,8 +19,8 @@ foreach ($list as $i => &$item) :
 		$class[] = 'current';
 	}
 
-	if ($item->parent || $item->type == 'menus') {
-		$class[] = 'node';
+	if ($item->parent || $item->type == 'menus' || $item->type == 'componentlist') {
+		$class[] = 'dropdown';
 	}
     
     if ($disabled) {
@@ -34,32 +33,34 @@ foreach ($list as $i => &$item) :
 
 	echo '<li class="'.implode(' ', $class).'">';
 
+	$classes = array();
+	$attribs = array();
+
+	if ($item->deeper) {
+		if ($item->level == 1) {
+			$item->flink = '#';
+			$attribs[] = 'data-toggle="dropdown"';
+		}
+		$classes[] = 'dropdown-toggle';
+	}
+
 	// Render the menu item.
     if ($disabled) {
         require JModuleHelper::getLayoutPath('mod_menu', 'default_disabled');
     }
     else 
-    {
-        switch ($item->type) :
-            case 'separator':
-            case 'url':
-            case 'component':
-            case 'menus':
-			case 'logout':
-			case 'componentlist':
-            case 'placeholder' : 
-                require JModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
-                break;
-
-            default:
-                require JModuleHelper::getLayoutPath('mod_menu', 'default_url');
-                break;
-        endswitch;
+    {	
+		if ($item->type) {
+			require JModuleHelper::getLayoutPath('mod_menu', 'default_'.$item->type);
+		}
+		else {
+			require JModuleHelper::getLayoutPath('mod_menu', 'default_url');
+		}
     }
 
 	// The next item is deeper.
 	if ($item->deeper) {
-		echo '<ul>';
+		echo '<ul class="dropdown-menu">';
 	}
 	// The next item is shallower.
 	elseif ($item->shallower) {

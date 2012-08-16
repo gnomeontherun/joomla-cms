@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-// Note. It is important to remove spaces between elements.
-$class = ((strpos($item->img, 'class:') === 0) ? 'class="disabled icon-16-'. str_replace('class:', '', $item->img).'"' : 'class="disabled" style="background-image: url('.$item->img.');"');
 ?>
-<a <?php echo $class; ?>href="<?php echo $item->flink; ?>" title="<?php echo JText::_($item->title); ?>"><?php echo JText::_($item->title); ?></a>
+<a class="<?php echo implode(' ', $classes); ?>" href="<?php echo $item->flink; ?>" title="<?php echo JText::_($item->title); ?>" <?php echo implode(' ', $attribs); ?>>
+	<?php echo JText::_($item->title); ?>
+</a>

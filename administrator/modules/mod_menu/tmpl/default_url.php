@@ -1,14 +1,16 @@
 <?php
 /**
- * @package     Square One
- * @link        www.squareonecms.org
- * @copyright   Copyright 2011 Square One and Open Source Matters. All Rights Reserved.
+ * @package     Joomla.Administrator
+ * @subpackage  mod_menu
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 // No direct access.
 defined('_JEXEC') or die;
 
-// Note. It is important to remove spaces between elements.
-$class = ((strpos($item->img, 'class:') === 0) ? 'class="icon-16-'. str_replace('class:', '', $item->img).'"' : 'style="background-image: url('.$item->img.');"');
 ?>
-<a <?php echo $class; ?>href="<?php echo $item->flink; ?>" title="<?php echo JText::_($item->title); ?>"><?php echo JText::_($item->title); ?></a>
+<a class="<?php echo implode(' ', $classes); ?>" href="<?php echo $item->flink; ?>" title="<?php echo JText::_($item->title); ?>" <?php echo implode(' ', $attribs); ?>>
+	<?php echo JText::_($item->title); ?>
+</a>

@@ -1,30 +1,26 @@
 <?php
 /**
- * @package     Square One
- * @link        www.squareonecms.org
- * @copyright   Copyright 2011 Square One and Open Source Matters. All Rights Reserved.
+ * @package     Joomla.Administrator
+ * @subpackage  mod_menu
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 // No direct access.
 defined('_JEXEC') or die;
 
-// Manually load a new menu module with the component list
-$module = new stdClass();
-$module->id = 0;
-$module->title = $item->title;
-$module->module = 'mod_menu';
-$module->position = '';
-$module->content = '';
-$module->showtitle = 0;
-$module->params = '{"menutype":"components"}';
-$module->menuid = 0;
-$module->user = 0;
-$module->name = '';
-$module->style = '';
-
-$class = ((strpos($item->img, 'class:') === 0) ? 'class="icon-16-'. str_replace('class:', '', $item->img).'"' : 'style="background-image: url('.$item->img.');"');
+$component_params = new JRegistry();
+$component_params->set('menutype', 'components');
+$list = modMenuHelper::getList($component_params);
 
 ?>
-<li><a href="#" <?php echo $class; ?>"><?php echo JText::_($item->title); ?></a>
-	<?php echo JModuleHelper::renderModule($module); ?>
-</li>
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="<?php echo JText::_($item->title); ?>">
+	<?php echo JText::_($item->title); ?>
+	<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+<?php foreach ($list as $i => $item) : ?>
+	<li><a href="<?php echo $item->flink; ?>"><?php echo JText::_($item->title); ?></a></li>
+<?php endforeach; ?>	
+</ul>

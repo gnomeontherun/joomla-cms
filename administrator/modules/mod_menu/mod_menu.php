@@ -15,10 +15,6 @@ if (!class_exists('ModMenuHelper'))
 	require __DIR__ . '/helper.php';
 }
 
-if (!class_exists('JAdminCssMenu')) {
-	require dirname(__FILE__).'/menu.php';
-}
-
 if (!class_exists('JMenuAdministrator')) {
 	require JPATH_ADMINISTRATOR . '/includes/menu.php';
 }
@@ -28,7 +24,7 @@ $lang    = JFactory::getLanguage();
 $user    = JFactory::getUser();
 $input   = JFactory::getApplication()->input;
 
-$disabled = $input->getBool('hidemainmenu') ? false : true;
+$disabled = $input->getBool('hidemainmenu', false) ? true : false;
 $menu = JMenu::getInstance('administrator');
 $active = $menu->getActive();
 $active_id = isset($active) ? $active->id : $menu->getDefault()->id;
