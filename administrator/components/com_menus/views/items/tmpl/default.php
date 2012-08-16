@@ -203,6 +203,7 @@ $sortFields = $this->getSortFields();
 					}else{
 						$parentsStr = "";
 					}
+					
 					?>
 					<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>" item-id="<?php echo $item->id?>" parents="<?php echo $parentsStr?>"  level="<?php echo $item->level?>">
 						<td class="order nowrap center hidden-phone">
@@ -237,9 +238,10 @@ $sortFields = $this->getSortFields();
 							<?php endif; ?>
 							<?php if ($canEdit) : ?>
 								<a href="<?php echo JRoute::_('index.php?option=com_menus&task=item.edit&id='.(int) $item->id);?>">
-									<?php echo $this->escape($item->title); ?></a>
+									<?php echo ($item->client_id) ? JText::_($item->title) : $this->escape($item->title); ?>
+								</a>
 							<?php else : ?>
-								<?php echo $this->escape($item->title); ?>
+								<?php echo ($item->client_id) ? JText::_($item->title) : $this->escape($item->title); ?>
 							<?php endif; ?>
 							<span class="small">
 							<?php if ($item->type != 'url') : ?>

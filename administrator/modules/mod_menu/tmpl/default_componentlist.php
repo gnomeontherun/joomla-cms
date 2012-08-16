@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 $component_params = new JRegistry();
 $component_params->set('menutype', 'components');
-$list = modMenuHelper::getList($component_params);
+$componentlist = modMenuHelper::getList($component_params);
 
 ?>
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="<?php echo JText::_($item->title); ?>">
@@ -20,7 +20,7 @@ $list = modMenuHelper::getList($component_params);
 	<span class="caret"></span>
 </a>
 <ul class="dropdown-menu">
-<?php foreach ($list as $i => $item) : ?>
-	<li><a href="<?php echo $item->flink; ?>"><?php echo JText::_($item->title); ?></a></li>
+<?php foreach ($componentlist as $i => $component) : ?>
+	<li><a href="<?php echo $component>flink; ?>"><?php echo JText::_($component->title); ?></a></li>
 <?php endforeach; ?>	
 </ul>

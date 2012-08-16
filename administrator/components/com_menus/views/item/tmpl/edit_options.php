@@ -8,12 +8,28 @@
  */
 
 defined('_JEXEC') or die;
-var_dump($this->form->getFieldsets('request'));
+
 ?>
 <?php
 	echo JHtml::_('bootstrap.startAccordion', 'menuOptions', array('active' => 'collapse0'));
 	$fieldSets = $this->form->getFieldsets('params');
 	$i = 0;
+	
+	if ($this->item->client_id) :
+		echo JHtml::_('bootstrap.addSlide', 'translations', JText::_('*Translations'),' collapse' . $i++);
+		$titles = JFactory::getApplication()->getUserState('com_menus.edit.item.titles.languages'); ?>
+		<?php if (count($titles) > 1) : ?>
+			<?php foreach ($titles as $title) : ?>
+				<?php if (!$title['current']) : ?>
+					<div class="control-group">
+						<div class="control-label"><label><?php echo $title['name']; ?></label></div>
+						<div class="controls"><input type="text" name="titles[<?php echo $title['tag']; ?>]" size="40" value="<?php echo $title['title']; ?>" /></div>
+					</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php echo JHtml::_('bootstrap.endSlide');
+	endif;
 
 	foreach ($fieldSets as $name => $fieldSet) :
 		$label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_MENUS_'.$name.'_FIELDSET_LABEL';
